@@ -33,7 +33,7 @@ export default function Page() {
         specializing in building{' '}
         <span className="text-accent font-bold">AI-powered Products</span>. My
         journey from a fine-dining chef to software developer has been
-        unconventional but rewarding, and I've brought along excellent
+        unconventional but rewarding, and I&apos;ve brought along excellent
         communication skills and a drive for excellence. At Practica, which was
         acquired by BetterUp in March 2024, I built our{' '}
         <span className="text-accent font-bold">Coaching Marketplace</span> and
@@ -87,8 +87,8 @@ export default function Page() {
           <ListItem>
             <span className="text-accent font-bold">Tech Stack</span>:
             Specializing in NextJS, React, and Node. Integrated vector
-            (Pinecone) and relational databases (Postgres). I've a proven track
-            record of delivering high-quality code and features.
+            (Pinecone) and relational databases (Postgres). I&apos;ve a proven
+            track record of delivering high-quality code and features.
           </ListItem>
           <ListItem>
             <span className="text-accent font-bold">
