@@ -28,51 +28,75 @@ export default function Page() {
         className="mb-8"
       />
       <Paragraph>
-        I&apos;m a full-stack engineer specializing in building AI-powered products.
-        My journey from a fine-dining chef to a tech professional has been
-        unconventional but rewarding. At Practica, which was acquired by
-        BetterUp in March 2024, I built our coaching marketplace and developed
-        an AI career coaching app. My work spanned from prompt engineering to
-        user interface design and data model creation.
+        I&apos;m a{' '}
+        <span className="text-accent font-bold"> Full-Stack Engineer </span>{' '}
+        specializing in building{' '}
+        <span className="text-accent font-bold">AI-powered Products</span>. My
+        journey from a fine-dining chef to software developer has been
+        unconventional but rewarding, and I've brought along excellent
+        communication skills and a drive for excellence. At Practica, which was
+        acquired by BetterUp in March 2024, I built our{' '}
+        <span className="text-accent font-bold">Coaching Marketplace</span> and
+        developed an{' '}
+        <span className="text-accent font-bold">AI Career Coaching App</span>.
+        My work spanned from prompt engineering to user interface design and
+        data model creation.
       </Paragraph>
       <SectionTitle>What Drives Me</SectionTitle>
       <Paragraph>
-        Kindness, efficiency and collaboration. Delivering results under tight
-        deadlines is second nature to me, thanks to my time in professional
-        kitchens. I&apos;m passionate about using technology to make a real impact on
-        people&apos;s lives.
+        <span className="text-accent font-bold">
+          Kindness, Collaboration, Efficiency.{' '}
+        </span>
+        Delivering results under tight deadlines is second nature to me, thanks
+        to my time in professional kitchens. I&apos;m passionate about using
+        technology to make a real impact on people&apos;s lives.
       </Paragraph>
       <SectionTitle>Tech Experience</SectionTitle>
-      <div className="mt-2 text-gray-600">
+
+      <div className="mt-2 text-accent">
         <div className="font-semibold">Practica (Acquired by BetterUp)</div>
         <div>
-          <em className="text-gray-500">
+          <em className="text-secondary">
             Founding Engineer and First Hire, Jan 2021 - March 2024
           </em>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 text-accent">
           Practica was a tight-knit team of just five people, which meant I wore
           many hats and was involved in every aspect of the product.
         </div>
         <ul className="list-disc list-outside flex flex-col gap-3 mt-10 pl-5">
           <ListItem>
-            AI Career Coaching App: Led development from concept to
-            implementation. Pioneered prompt engineering and AI algorithms for
-            personalized coaching.
+            <Link
+              href="https://practicahq.com/learn"
+              className="text-primary font-bold hover:underline"
+            >
+              AI Career Coaching App
+            </Link>
+            : Led development from concept to implementation. Architected
+            RAG-powered non-linear personalized career growth experience,
+            leveraging a third-party NLP API for prompt generation for rapid
+            development.
           </ListItem>
           <ListItem>
-            Productivity and Code Quality: Streamlined team workflows, reducing
-            feature deployment time.
+            <span className="text-accent font-bold">Marketplace Platform</span>:
+            Automated key aspects of a coaching marketplace, including
+            coach-client matching, billing, note-taking, curriculum resource
+            provision, learning experience management, and email handling.
+            Features were owned from concept to implementation and beyond.
           </ListItem>
           <ListItem>
-            Full-Stack Solutions: Built scalable solutions with NextJS, React,
-            and Node. Integrated vector (Pinecone) and relational databases
-            (Postgres).
+            <span className="text-accent font-bold">Tech Stack</span>:
+            Specializing in NextJS, React, and Node. Integrated vector
+            (Pinecone) and relational databases (Postgres). I've a proven track
+            record of delivering high-quality code and features.
           </ListItem>
           <ListItem>
-            Strategic Decision-Making: Used data analytics and agile methodology
-            to shape product direction, shipping new updates and features
-            several times a week.
+            <span className="text-accent font-bold">
+              Strategic Decision-Making
+            </span>
+            : Contributed to product strategy and roadmap planning. Led
+            development of a new product features with a focus on process and
+            user experience.
           </ListItem>
         </ul>
       </div>
