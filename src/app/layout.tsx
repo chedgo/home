@@ -17,9 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-          <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+      <body className={`${inter.className} bg-background`}>
+        <div className="antialiased  mx-4 mt-8 flex justify-center w-full">
+          <main className="flex-auto min-w-0 max-w-xl mt-6 flex flex-col px-2 md:px-0">
             {children}
             <Footer />
           </main>

@@ -1,22 +1,23 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactNode } from 'react';
 
 const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="text-2xl font-semibold text-blue-800 mb-4">{children}</h2>
+  <h2 className="text-2xl font-semibold text-primary mb-4">{children}</h2>
 );
 
 const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className="mb-4 text-gray-700">{children}</p>
+  <p className="mb-4 text-secondary">{children}</p>
 );
 
 const ListItem = ({ children }: { children: ReactNode }) => (
-  <li className="text-gray-600">{children}</li>
+  <li className="text-secondary">{children}</li>
 );
 
 export default function Page() {
   return (
-    <section className="p-8 bg-white shadow-md rounded-lg">
-      <h1 className="mb-8 text-3xl font-bold tracking-tighter text-blue-800">
+    <section className="p-8 bg-foreground shadow-md rounded-lg">
+      <h1 className="mb-8 text-4xl font-bold tracking-tighter text-primary">
         Diego Glusberg
       </h1>
       <Image
