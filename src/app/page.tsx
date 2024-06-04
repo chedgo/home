@@ -16,12 +16,12 @@ const ListItem = ({ children }: { children: ReactNode }) => (
 
 export default function Page() {
   return (
-    <section className="p-8 bg-foreground shadow-md rounded-lg">
+    <section className="p-8 bg-foreground rounded-lg">
       <h1 className="mb-8 text-4xl font-bold tracking-tighter text-primary">
         Diego Glusberg
       </h1>
       <Image
-        src={'/odd.png'}
+        src={'/diego.jpg'}
         width={500}
         height={500}
         alt="Diego Glusberg"

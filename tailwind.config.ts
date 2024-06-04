@@ -12,14 +12,14 @@ const config: Config = {
         primary: '#EE4E4E',
         secondary: '#799351',
         accent: '#4f5f34',
-        background: '#A1DD70',
-        foreground: '#F6EEC9',
+        background: '#ffffff',
+        foreground: '#ffffff',
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+      // backgroundImage: {
+      //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      //   'gradient-conic':
+      //     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      // },
     },
   },
   plugins: [],
