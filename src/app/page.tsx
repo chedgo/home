@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <div className="rounded-lg flex min-w-full gap-14">
       <div className="w-1/3">
-        <h1 className="mb-8 ml-6 text-8xl font-bold tracking-tighter text-primary ">
+        <h1 className="mb-8 ml-12 text-8xl font-bold tracking-tighter text-primary font-darker-grotesque">
           Diego <br />
           Glusberg
         </h1>
