@@ -18,8 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-background`}>
-        <div className="antialiased  mt-8 flex justify-center w-full">
-          <main className="flex-auto min-w-0  mt-6 flex flex-col pr-8">
+        <div className="antialiased flex justify-center w-full">
+          <main className="flex-auto min-w-0 flex flex-col">
             {children}
             <Footer />
           </main>

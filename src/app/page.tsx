@@ -3,22 +3,30 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="text-2xl font-semibold text-primary mb-4">{children}</h2>
+  <h2 className="text-2xl font-semibold text-primary mb-4 pl-4 lg:pl-10 pr-8">
+    {children}
+  </h2>
 );
 
 const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className="mb-4 text-primary font-dm-sans">{children}</p>
+  <p className="mb-4 text-primary font-dm-sans pl-4 lg:pl-10 pr-8">
+    {children}
+  </p>
 );
 
 const ListItem = ({ children }: { children: ReactNode }) => (
-  <li className="text-primary">{children}</li>
+  <li className="text-primary pl-4 lg:pl-10 pr-8">{children}</li>
+);
+
+const HorizontalLine = () => (
+  <hr className="border-primary border-2 my-8 w-full" />
 );
 
 export default function Page() {
   return (
-    <div className="rounded-lg flex flex-col lg:flex-row max-w-screen-2xl gap-14">
-      <div className="lg:w-1/3">
-        <h1 className="mb-8 ml-12 text-8xl font-bold tracking-tighter text-primary font-darker-grotesque">
+    <div className="relative rounded-lg flex flex-col lg:flex-col max-w-screen-2xl lg:items-end">
+      <div className="lg:w-1/3 z-10 lg:fixed left-0">
+        <h1 className="pb-8 pl-12 text-8xl font-bold tracking-tighter text-primary font-darker-grotesque bg-background">
           Diego <br />
           Glusberg
         </h1>
@@ -32,8 +40,8 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="lg:w-2/3 pt-40 pl-4 lg:pl-0">
-        <div className="mb-12 text-primary font-averia-serif-libre-regular text-3xl">
+      <div className="lg:w-2/3 lg:pt-40 relative z-10">
+        <div className="mb-12 mt-10 lg:mt:10 text-primary font-averia-serif-libre-regular text-3xl pl-4 lg:pl-10 pr-8">
           I&apos;m a <span className="text-accent "> Full-Stack Engineer </span>{' '}
           specializing in building{' '}
           <span className="text-accent font-bold">AI-powered Products</span>.
@@ -50,7 +58,10 @@ export default function Page() {
           <span className="text-accent font-bold">AI Career Coaching App</span>.
           My work spanned from prompt engineering to user interface design and
           data model creation.
-        </Paragraph>{' '}
+        </Paragraph>
+      </div>
+      <HorizontalLine />
+      <div className="lg:w-2/3 relative z-10">
         <SectionTitle>What Drives Me</SectionTitle>
         <Paragraph>
           <span className="text-accent font-bold">
@@ -60,8 +71,11 @@ export default function Page() {
           thanks to my time in professional kitchens. I&apos;m passionate about
           using technology to make a real impact on people&apos;s lives.
         </Paragraph>
+      </div>
+      <HorizontalLine />
+      <div className="lg:w-2/3 relative z-10">
         <SectionTitle>Tech Experience</SectionTitle>
-        <div className="mt-2 text-accent">
+        <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
           <div className="font-semibold">Practica (Acquired by BetterUp)</div>
           <div>
             <em className="text-primary">
