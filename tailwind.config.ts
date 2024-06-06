@@ -12,8 +12,8 @@ const config: Config = {
         primary: '#2400FF',
         secondary: '#799351',
         accent: '#2400ff',
-        background: '#FFFDF9',
-        foreground: '#FFFDF9',
+        background: '#FFFEFB',
+        foreground: '#FFFEFB',
       },
       fontFamily: {
         'darker-grotesque': ['"Darker Grotesque"', 'sans-serif'],
