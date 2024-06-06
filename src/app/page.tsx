@@ -7,17 +7,17 @@ const SectionTitle = ({ children }: { children: ReactNode }) => (
 );
 
 const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className="mb-4 text-secondary">{children}</p>
+  <p className="mb-4 text-primary font-dm-sans">{children}</p>
 );
 
 const ListItem = ({ children }: { children: ReactNode }) => (
-  <li className="text-secondary">{children}</li>
+  <li className="text-primary">{children}</li>
 );
 
 export default function Page() {
   return (
-    <div className="rounded-lg flex min-w-full gap-14">
-      <div className="w-1/3">
+    <div className="rounded-lg flex flex-col lg:flex-row max-w-screen-2xl gap-14">
+      <div className="lg:w-1/3">
         <h1 className="mb-8 ml-12 text-8xl font-bold tracking-tighter text-primary font-darker-grotesque">
           Diego <br />
           Glusberg
@@ -32,24 +32,25 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="w-2/3 pt-40">
-        <div className=''>
-          I&apos;m a{' '}
-          <span className="text-accent font-bold"> Full-Stack Engineer </span>{' '}
+      <div className="lg:w-2/3 pt-40 pl-4 lg:pl-0">
+        <div className="mb-12 text-primary font-averia-serif-libre-regular text-3xl">
+          I&apos;m a <span className="text-accent "> Full-Stack Engineer </span>{' '}
           specializing in building{' '}
           <span className="text-accent font-bold">AI-powered Products</span>.
         </div>
         <Paragraph>
           My journey from a fine-dining chef to software developer has been
           unconventional but rewarding, and I&apos;ve brought along excellent
-          communication skills and a drive for excellence. At Practica, which
-          was acquired by BetterUp in March 2024, I built our{' '}
+          communication skills and a drive for excellence.
+        </Paragraph>
+        <Paragraph>
+          At Practica, which was acquired by BetterUp in March 2024, I built our{' '}
           <span className="text-accent font-bold">Coaching Marketplace</span>{' '}
           and developed an{' '}
           <span className="text-accent font-bold">AI Career Coaching App</span>.
           My work spanned from prompt engineering to user interface design and
           data model creation.
-        </Paragraph>
+        </Paragraph>{' '}
         <SectionTitle>What Drives Me</SectionTitle>
         <Paragraph>
           <span className="text-accent font-bold">
@@ -63,7 +64,7 @@ export default function Page() {
         <div className="mt-2 text-accent">
           <div className="font-semibold">Practica (Acquired by BetterUp)</div>
           <div>
-            <em className="text-secondary">
+            <em className="text-primary">
               Founding Engineer and First Hire, Jan 2021 - March 2024
             </em>
           </div>
@@ -75,7 +76,7 @@ export default function Page() {
             <ListItem>
               <Link
                 href="https://practicahq.com/learn"
-                className="text-primary font-bold hover:underline"
+                className="text-primary font-bold underline hover:text-accent"
               >
                 AI Career Coaching App
               </Link>
