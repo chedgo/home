@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <div className="relative rounded-lg flex flex-col lg:flex-col max-w-screen-2xl lg:items-end">
       <div className="lg:w-1/3 z-10 lg:fixed left-0">
-        <h1 className="pb-8 pl-12 text-8xl font-bold tracking-tighter text-primary font-tenon-extrabold bg-background">
+        <h1 className="pb-8 pl-12 text-7xl pt-4 sm:pt-0 sm:text-8xl font-bold tracking-tighter text-primary font-tenon-extrabold bg-background">
           Diego <br />
           Glusberg
         </h1>
