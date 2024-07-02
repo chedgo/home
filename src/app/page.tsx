@@ -3,19 +3,19 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="text-2xl font-semibold text-primary mb-4 pl-4 lg:pl-10 pr-8">
+  <h2 className="text-2xl font-semibold font-tenon-bold text-primary mb-4 pl-4 lg:pl-10 pr-8">
     {children}
   </h2>
 );
 
 const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className="mb-4 text-primary font-dm-sans pl-4 lg:pl-10 pr-8">
+  <p className="mb-4 text-primary font-tenon pl-4 lg:pl-10 pr-8">
     {children}
   </p>
 );
 
 const ListItem = ({ children }: { children: ReactNode }) => (
-  <li className="text-primary pl-4 lg:pl-10 pr-8">{children}</li>
+  <li className="text-primary font-tenon pl-4 lg:pl-10 pr-8">{children}</li>
 );
 
 const HorizontalLine = () => (
@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <div className="relative rounded-lg flex flex-col lg:flex-col max-w-screen-2xl lg:items-end">
       <div className="lg:w-1/3 z-10 lg:fixed left-0">
-        <h1 className="pb-8 pl-12 text-8xl font-bold tracking-tighter text-primary font-darker-grotesque bg-background">
+        <h1 className="pb-8 pl-12 text-8xl font-bold tracking-tighter text-primary font-tenon-extrabold bg-background">
           Diego <br />
           Glusberg
         </h1>
@@ -41,10 +41,9 @@ export default function Page() {
         </div>
       </div>
       <div className="lg:w-2/3 lg:pt-40 relative z-10">
-        <div className="mb-12 mt-10 lg:mt:10 text-primary font-averia-serif-libre-regular text-3xl pl-4 lg:pl-10 pr-8">
-          I&apos;m a <span className="text-accent "> Full-Stack Engineer </span>{' '}
-          specializing in building{' '}
-          <span className="text-accent font-bold">AI-powered Products</span>.
+        <div className="mb-12 mt-10 lg:mt:10 text-primary font-dashiell-bright font-bold text-3xl pl-4 lg:pl-10 pr-8">
+          I’m a Full-Stack Engineer specializing in building AI-powered
+          Products.
         </div>
         <Paragraph>
           My journey from a fine-dining chef to software developer has been
@@ -53,10 +52,14 @@ export default function Page() {
         </Paragraph>
         <Paragraph>
           At Practica, which was acquired by BetterUp in March 2024, I built our{' '}
-          <span className="text-accent font-bold">Coaching Marketplace</span>{' '}
+          <span className="text-accent font-bold font-tenon-bold">
+            Coaching Marketplace
+          </span>{' '}
           and developed an{' '}
-          <span className="text-accent font-bold">AI Career Coaching App</span>.
-          My work spanned from prompt engineering to user interface design and
+          <span className="text-accent font-bold font-tenon-bold">
+            AI Career Coaching App
+          </span>
+          . My work spanned from prompt engineering to user interface design and
           data model creation.
         </Paragraph>
       </div>
@@ -64,7 +67,7 @@ export default function Page() {
       <div className="lg:w-2/3 relative z-10">
         <SectionTitle>What Drives Me</SectionTitle>
         <Paragraph>
-          <span className="text-accent font-bold">
+          <span className="text-accent font-bold font-tenon-bold">
             Kindness, Collaboration, Efficiency.{' '}
           </span>
           Delivering results under tight deadlines is second nature to me,
@@ -78,7 +81,7 @@ export default function Page() {
         <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
           <div className="font-semibold">Practica (Acquired by BetterUp)</div>
           <div>
-            <em className="text-primary">
+            <em className="text-primary font-dashiell-bright italic">
               Founding Engineer and First Hire, Jan 2021 - March 2024
             </em>
           </div>
@@ -100,7 +103,7 @@ export default function Page() {
               development.
             </ListItem>
             <ListItem>
-              <span className="text-accent font-bold">
+              <span className="text-accent font-bold font-tenon-bold ">
                 Marketplace Platform
               </span>
               : Automated key aspects of a coaching marketplace, including
@@ -109,13 +112,15 @@ export default function Page() {
               Features were owned from concept to implementation and beyond.
             </ListItem>
             <ListItem>
-              <span className="text-accent font-bold">Tech Stack</span>:
-              Specializing in NextJS, React, and Node. Integrated vector
+              <span className="text-accent font-bold font-tenon-bold ">
+                Tech Stack
+              </span>
+              : Specializing in NextJS, React, and Node. Integrated vector
               (Pinecone) and relational databases (Postgres). I&apos;ve a proven
               track record of delivering high-quality code and features.
             </ListItem>
             <ListItem>
-              <span className="text-accent font-bold">
+              <span className="text-accent font-bold font-tenon-bold">
                 Strategic Decision-Making
               </span>
               : Contributed to product strategy and roadmap planning. Led
