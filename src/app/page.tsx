@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="text-2xl font-semibold font-tenon-bold text-primary mb-4 pl-4 lg:pl-10 pr-8">
+  <h2 className="font-dashiell-bright font-bold text-3xl text-primary mb-4 pl-4 lg:pl-10 pr-8">
     {children}
   </h2>
 );
@@ -40,7 +40,7 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="lg:w-2/3 lg:pt-40 relative z-10">
+      <div className="lg:w-2/3 lg:pt-44 relative z-10">
         <div className="mb-12 mt-10 lg:mt:10 text-primary font-dashiell-bright font-bold text-3xl pl-4 lg:pl-10 pr-8">
           I’m a Full-Stack Engineer specializing in building AI-powered
           Products.
@@ -79,17 +79,19 @@ export default function Page() {
       <div className="lg:w-2/3 relative z-10">
         <SectionTitle>Tech Experience</SectionTitle>
         <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
-          <div className="font-semibold">Practica (Acquired by BetterUp)</div>
+          <div className="text-accent font-bold font-tenon-bold">
+            Practica (Acquired by BetterUp)
+          </div>
           <div>
-            <em className="text-primary font-dashiell-bright italic">
+            <em className="text-primary font-dashiell-bright italic font-semibold">
               Founding Engineer and First Hire, Jan 2021 - March 2024
             </em>
           </div>
-          <div className="mt-4 text-accent">
+          <div className="mt-4 text-accent font-tenon">
             Practica was a tight-knit team of just five people, which meant I
             wore many hats and was involved in every aspect of the product.
           </div>
-          <ul className="list-disc list-outside flex flex-col gap-3 mt-10 pl-5">
+          <ul className="list-disc list-outside flex flex-col gap-3 mt-14 pl-5">
             <ListItem>
               <Link
                 href="https://practicahq.com/learn"
