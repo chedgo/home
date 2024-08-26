@@ -41,7 +41,7 @@ export default function Page() {
         </div>
       </div>
       <div className="lg:w-2/3 lg:pt-44 relative z-10">
-        <div className="mb-12 mt-10 lg:mt:10 text-primary font-dashiell-bright font-bold text-3xl pl-4 lg:pl-10 pr-8">
+        <div className="mb-12 mt-10 lg:mt-10 text-primary font-dashiell-bright font-bold text-3xl pl-4 lg:pl-10 pr-8">
           I’m a Full-Stack Engineer specializing in building AI-powered
           Products.
         </div>
