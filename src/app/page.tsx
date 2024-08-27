@@ -2,16 +2,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
-const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="font-dashiell-bright font-bold text-3xl text-primary mb-4 pl-4 lg:pl-10 pr-8">
+const SectionTitle = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => (
+  <h2
+    className={`font-dashiell-bright font-bold text-3xl text-primary mb-4 pl-4 lg:pl-10 pr-8 ${className}`}
+  >
     {children}
   </h2>
 );
 
 const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className="mb-4 text-primary font-tenon pl-4 lg:pl-10 pr-8">
-    {children}
-  </p>
+  <p className="mb-4 text-primary font-tenon pl-4 lg:pl-10 pr-8">{children}</p>
 );
 
 const ListItem = ({ children }: { children: ReactNode }) => (
@@ -128,6 +134,21 @@ export default function Page() {
               : Contributed to product strategy and roadmap planning. Led
               development of a new product features with a focus on process and
               user experience.
+            </ListItem>
+          </ul>
+        </div>
+        <SectionTitle className="mt-8">Tools, Toys, Ideas</SectionTitle>
+        <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
+          <ul className="list-disc list-outside flex flex-col gap-3 mt-14 pl-5">
+            <ListItem>
+              <Link
+                className="text-primary font-bold underline hover:text-accent"
+                href={'/lets-go'}
+              >
+                Let's Go
+              </Link>
+              : An LLM powered tool to make quick decisions and get out of the
+              house
             </ListItem>
           </ul>
         </div>
