@@ -1,11 +1,22 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import locations from '../chicago_neighborhoods.json';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
-function LocationCard({ location }: { location: any }) {
+function LocationCard({ location, onHide }: { location: any; onHide: (name: string) => void }) {
   return (
     <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
-      <h2 className="text-xl font-bold mb-2">{location.name}</h2>
+      <div className="flex justify-between items-start mb-2">
+        <h2 className="text-xl font-bold">{location.name}</h2>
+        <label className="flex items-center cursor-help" title="Never show again">
+          <input
+            type="checkbox"
+            className="form-checkbox h-5 w-5 text-primary"
+            onChange={() => onHide(location.name)}
+          />
+          <span className="ml-2 text-sm">I hate it</span>
+        </label>
+      </div>
       <p className="mb-2">{location.description}</p>
       {location.wikipedia_link && (
         <a
@@ -23,10 +34,12 @@ function LocationCard({ location }: { location: any }) {
         target="_blank"
         rel="noopener noreferrer"
         className="text-primary underline"
-        >
+      >
         Google Maps
       </a>
-      <p className="mt-2">Distance from Evanston: {location.distance_from_evanston || 0} miles</p>
+      <p className="mt-2">
+        Distance from Evanston: {location.distance_from_evanston || 0} miles
+      </p>
     </div>
   );
 }
@@ -44,20 +57,36 @@ export default function Playground() {
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMaxDistance(Number(event.target.value));
   };
-
+  const [locationPreferences, setLocationPreferences] = useLocalStorage('locationPreferences', {hidden:[]});
   const filteredLocations = locations.filter((location) => {
-    const distance = parseInt(location.distance_from_evanston || "0");
-    return distance <= maxDistance;
+    const distance = parseInt(location.distance_from_evanston || '0');
+    const distanceIsInRange = distance <= maxDistance;
+    const isHidden = locationPreferences.hidden.includes(location.name);
+    return distanceIsInRange && !isHidden;
   });
+
+  const handleHideLocation = useCallback((name: string) => {
+    setLocationPreferences((prev: { hidden: string[]; }) => ({
+      ...prev,
+      hidden: prev.hidden.includes(name)
+        ? prev.hidden.filter((loc: string) => loc !== name)
+        : [...prev.hidden, name]
+    }));
+  }, [setLocationPreferences]);
 
   return (
     <div className="p-6 w-full">
       <div className="mb-6 w-full">
-        <h1 className="text-2xl font-bold mb-2 w-full flex justify-center text-primary">Let's Go</h1>
+        <h1 className="text-2xl font-bold mb-2 w-full flex justify-center text-primary">
+          Let's Go
+        </h1>
         <p className="text-primary">
-          This tool was made to help me and my wife decide where to go take photos when we can't decide. 
-          The vision is that the list of locations is generated taking into account user preferences and provides some customization options. 
-          It allows the user to react to cards as they go, and stores changes. This tool is not complete, but is already useful for me so I thought I'd share.
+          This tool was made to help me and my wife decide where to go take
+          photos when we can't decide. The vision is that the list of locations
+          is generated taking into account user preferences and provides some
+          customization options. It allows the user to react to cards as they
+          go, and stores changes. This tool is not complete, but is already
+          useful for me so I thought I'd share.
         </p>
       </div>
       <div className="flex justify-between mb-4 w-full">
@@ -96,13 +125,13 @@ export default function Playground() {
       {showCards && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {filteredLocations.map((location, index) => (
-            <LocationCard key={index} location={location} />
+            <LocationCard key={index} location={location} onHide={handleHideLocation} />
           ))}
         </div>
       )}
-      {randomLocation && (
+      {randomLocation && Object.keys(randomLocation).length > 0 && (
         <div className="mt-4">
-          <LocationCard location={randomLocation} />
+          <LocationCard location={randomLocation} onHide={handleHideLocation} />
         </div>
       )}
     </div>
