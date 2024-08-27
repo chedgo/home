@@ -145,7 +145,7 @@ export default function Page() {
                 className="text-primary font-bold underline hover:text-accent"
                 href={'/lets-go'}
               >
-                Let's Go
+                Let&apos;s Go
               </Link>
               : An LLM powered tool to make quick decisions and get out of the
               house

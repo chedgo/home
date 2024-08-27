@@ -98,15 +98,15 @@ export default function Playground() {
     <div className="p-6 w-full">
       <div className="mb-6 w-full">
         <h1 className="text-2xl font-bold mb-2 w-full flex justify-center text-primary">
-          Let's Go
+          Let&apos;s Go
         </h1>
         <p className="text-primary">
           This tool was made to help me and my wife decide where to go take
-          photos when we can't decide. The vision is that the list of locations
+          photos when we can&apos;t decide. The vision is that the list of locations
           is generated taking into account user preferences and provides some
           customization options. It allows the user to react to cards as they
           go, and stores changes. This tool is not complete, but is already
-          useful for me so I thought I'd share.
+          useful for me so I thought I&apos;d share.
         </p>
       </div>
       <div className="flex justify-between mb-4 w-full">
