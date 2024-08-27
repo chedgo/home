@@ -4,2187 +4,2187 @@
     "description": "A vibrant commercial and residential district in northern Evanston, known for its boutiques, cafes, and proximity to Northwestern University's Ryan Field.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Evanston,_Illinois#Central_Street",
     "google_maps_link": "https://goo.gl/maps/C7mTnFd5RzS2",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Downtown Evanston",
     "description": "The central business district of Evanston, featuring shops, restaurants, and cultural institutions such as the Evanston History Center.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Evanston,_Illinois#Downtown",
     "google_maps_link": "https://goo.gl/maps/F8bZ9kR5jmn",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Lake Shore Historic District",
     "description": "A prestigious area in Evanston known for its historic mansions and close proximity to Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lake_Shore_Historic_District_(Evanston,_Illinois)",
     "google_maps_link": "https://goo.gl/maps/7W5cQJhgrJH2",
-    "distance_from_evanston": "0.5"
+    "distance_from_evanston": 0.5
   },
   {
     "name": "Northeast Evanston",
     "description": "A residential neighborhood characterized by historic homes, tree-lined streets, and proximity to the lakefront.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/4t5TzUyHzRG2",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Main-Dempster Mile",
     "description": "A shopping and dining district in south Evanston, known for its small businesses, cafes, and community vibe.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/sZBfdY7rG6s",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Northwestern University Campus",
     "description": "Home to Northwestern University, this area includes academic buildings, student housing, and scenic spots along Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Northwestern_University",
     "google_maps_link": "https://goo.gl/maps/3z2EExGfL9u",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "West End",
     "description": "A residential neighborhood in western Evanston, characterized by a mix of housing styles and proximity to public parks.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/k52WX3YQ9HM2",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "South Evanston",
     "description": "A diverse and vibrant neighborhood near the Chicago border, known for its historic architecture and proximity to the lakefront.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/GxCkZrm6wLq",
-    "distance_from_evanston": "1.5"
+    "distance_from_evanston": 1.5
   },
   {
     "name": "Wilmette",
     "description": "A charming village located north of Evanston, known for its historic architecture, lakefront access, and the Bahá'í House of Worship.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Wilmette,_Illinois",
     "google_maps_link": "https://goo.gl/maps/jGJgXTw4YJk",
-    "distance_from_evanston": "3"
+    "distance_from_evanston": 3
   },
   {
     "name": "Kenilworth Gardens",
     "description": "A residential neighborhood in Wilmette known for its large homes, tree-lined streets, and proximity to the lake.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/M5QR8Dqgaxp",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Skokie",
     "description": "A diverse suburb just west of Evanston, Skokie is known for its cultural institutions, shopping centers, and parks.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Skokie,_Illinois",
     "google_maps_link": "https://goo.gl/maps/Gyk6e1xHLsN2",
-    "distance_from_evanston": "2.5"
+    "distance_from_evanston": 2.5
   },
   {
     "name": "Skokie Highlands",
     "description": "A residential neighborhood in Skokie known for its mid-century homes and proximity to the Skokie Lagoons.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/xxsY5j3DCMy",
-    "distance_from_evanston": "3"
+    "distance_from_evanston": 3
   },
   {
     "name": "Rogers Park",
     "description": "A diverse and artsy neighborhood in Chicago, located just south of Evanston, known for its lakefront beaches and cultural diversity.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Rogers_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/dtGhGNo7b5k",
-    "distance_from_evanston": "2"
+    "distance_from_evanston": 2
   },
   {
     "name": "Edgewater",
     "description": "A lakefront neighborhood in Chicago, just south of Rogers Park, known for its beaches, historic buildings, and diverse population.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Edgewater,_Chicago",
     "google_maps_link": "https://goo.gl/maps/gz5iZgM4WTE2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Andersonville",
     "description": "A neighborhood on Chicago's North Side known for its Swedish heritage, eclectic shopping, and vibrant LGBTQ+ community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Andersonville,_Chicago",
     "google_maps_link": "https://goo.gl/maps/XJme5gNVQPu",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "North Center",
-    "description": "A family-friendly neighborhood on Chicago’s North Side, known for its excellent schools, parks, and the popular Lincoln Avenue shopping district.",
+    "description": "A family-friendly neighborhood on Chicago's North Side, known for its excellent schools, parks, and the popular Lincoln Avenue shopping district.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/North_Center,_Chicago",
     "google_maps_link": "https://goo.gl/maps/EasHjXT9mhq",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Lincoln Square",
     "description": "A quaint, culturally rich neighborhood on the North Side of Chicago, known for its German heritage, boutiques, and music venues.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lincoln_Square,_Chicago",
     "google_maps_link": "https://goo.gl/maps/NnGAYF6nFQQ2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Winnetka",
     "description": "A wealthy North Shore suburb of Chicago, known for its scenic lakefront, historic homes, and high-quality schools.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Winnetka,_Illinois",
     "google_maps_link": "https://goo.gl/maps/sEPx5KcwVcQ2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Highland Park",
     "description": "A North Shore suburb of Chicago known for its vibrant arts scene, including the Ravinia Festival, and beautiful lakefront parks.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Highland_Park,_Illinois",
     "google_maps_link": "https://goo.gl/maps/YeTcGyLs9r42",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Lake Forest",
     "description": "An affluent suburb located on the North Shore, known for its historic estates, prestigious schools, and picturesque landscapes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lake_Forest,_Illinois",
     "google_maps_link": "https://goo.gl/maps/MpTmxdgghMs",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Gold Coast",
     "description": "A historic and affluent neighborhood in Chicago, known for its luxurious homes, shopping along the Magnificent Mile, and proximity to Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Gold_Coast_Historic_District_(Chicago)",
     "google_maps_link": "https://goo.gl/maps/AcKDLHwDi4m",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Streeterville",
     "description": "A downtown Chicago neighborhood near the Magnificent Mile, home to Navy Pier, high-rise apartments, and luxury shopping.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Streeterville",
     "google_maps_link": "https://goo.gl/maps/4aKj2JfU6oH2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Loop",
     "description": "The central business district of Chicago, known for its iconic architecture, Grant Park, and the Art Institute of Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Chicago_Loop",
     "google_maps_link": "https://goo.gl/maps/F7r4J5GmHtB2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Brummel Park",
     "description": "A residential area in south Evanston, known for its community park and proximity to the Chicago border.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/y48FHugDkcM2",
-    "distance_from_evanston": "1.5"
+    "distance_from_evanston": 1.5
   },
   {
     "name": "West Village",
     "description": "An up-and-coming neighborhood in Evanston, known for its diverse community and revitalization efforts.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/Nc4m2tk1Tqz",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Howard Street Corridor",
     "description": "A commercial and residential corridor that forms the southern boundary of Evanston, known for its eclectic mix of businesses and cultural diversity.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/dzRzK1BQFR22",
-    "distance_from_evanston": "1.2"
+    "distance_from_evanston": 1.2
   },
   {
     "name": "Central Park",
     "description": "A small, family-friendly residential area in Evanston, known for its park and proximity to local schools.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/fJjFtKbsvQs",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Mason Park",
     "description": "A neighborhood in Evanston centered around Mason Park, offering recreational facilities and a close-knit community feel.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/6M5YG7rVfNn",
-    "distance_from_evanston": "0.8"
+    "distance_from_evanston": 0.8
   },
   {
     "name": "Nichols Neighbors",
     "description": "A community-focused area in Evanston, known for its strong neighborhood association and proximity to Nichols Middle School.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/3MUE2UkL6LH2",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Oakton Historic District",
     "description": "A historic residential district in Evanston, known for its vintage homes and tree-lined streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/PVVHDcd1Zpn",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Oakton-Skokie",
     "description": "A neighborhood that spans the border between Evanston and Skokie, known for its mix of residential and commercial properties.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/s3ABbf8StsQ2",
-    "distance_from_evanston": "2"
+    "distance_from_evanston": 2
   },
   {
     "name": "South Boulevard Beach",
     "description": "A small, scenic beach area in south Evanston, popular with local residents for its views and recreational opportunities.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/j3rH5y3T6g92",
-    "distance_from_evanston": "1.2"
+    "distance_from_evanston": 1.2
   },
   {
     "name": "Chandler-Newberger",
     "description": "An area in northern Evanston known for the Chandler-Newberger Community Center, offering sports and recreational activities.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/cZfZ5Jk4uGt",
-    "distance_from_evanston": "1.5"
+    "distance_from_evanston": 1.5
   },
   {
     "name": "Wilmette Harbor",
     "description": "A picturesque area in Wilmette, known for its harbor, marinas, and proximity to the Bahá'í House of Worship.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/4hr1trBCSKr",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Sheridan Shores",
     "description": "A lakefront neighborhood in Wilmette, known for its luxurious homes and proximity to Gillson Park.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/Ctjx6uZKkF92",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Lake Avenue Corridor",
     "description": "A major thoroughfare in Wilmette, lined with shops, restaurants, and residential areas.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/5MRhwHd9Drn",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "McKenzie School District",
     "description": "A family-friendly neighborhood in Wilmette, centered around McKenzie Elementary School and known for its strong community ties.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/2v4dPdNtJJK2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "The Wilmette Golf Club District",
     "description": "A residential area in Wilmette surrounding the Wilmette Golf Club, popular with golf enthusiasts and families.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/F5rhD4By9AL2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Hibbard Park",
     "description": "A neighborhood in Wilmette known for its large park, which offers recreational facilities and hosts community events.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/bAztN1SKZBC2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Northfield-Wilmette",
     "description": "A suburban area located between Northfield and Wilmette, characterized by spacious homes and green spaces.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/yRfBx6bT2J52",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Lake Shore Estates",
     "description": "A luxurious residential area in Wilmette, located along the lakefront and known for its grand homes and scenic views.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/YMK9SbR2A6K2",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Downtown Skokie",
     "description": "The commercial and cultural hub of Skokie, featuring shops, restaurants, and the Skokie Public Library.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/xRMQ5k1S23u",
-    "distance_from_evanston": "3"
+    "distance_from_evanston": 3
   },
   {
     "name": "East Prairie",
     "description": "A residential neighborhood in Skokie, known for its quiet streets, schools, and proximity to the East Prairie School.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/AX7gJoNGTnm",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Fairview",
     "description": "A residential neighborhood in Skokie, known for its proximity to Fairview South School and family-friendly environment.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/8szwWQTPUqT2",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Laramie Park",
     "description": "A community-focused area in Skokie, centered around Laramie Park, offering recreational facilities and open spaces.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/v2ExyGScWZz",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Lorel Park",
     "description": "A historic neighborhood in Skokie, known for its large park and vintage homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/nwV1Uq4sj9m",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Old Orchard",
     "description": "A commercial district in Skokie, famous for the Westfield Old Orchard shopping center and surrounding residential areas.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/TrGVHvbgfcp",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Skokie Towers",
     "description": "A neighborhood in Skokie known for its high-rise residential buildings and proximity to major transportation routes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/PF8mzzRMj8N2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Timber Ridge",
     "description": "A residential area in Skokie characterized by its quiet streets and proximity to Timber Ridge Park.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/jNAvq8soApm",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Westfield Old Orchard",
     "description": "A prominent shopping and commercial area in Skokie, home to the Westfield Old Orchard mall and various dining options.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/LVmMTuhtXqQ2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "The Highlands",
     "description": "A residential neighborhood in Skokie, known for its suburban feel, well-maintained homes, and parks.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/4crNMBLb3U82",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Devonshire",
     "description": "A suburban neighborhood in Skokie, known for the Devonshire Cultural Center and its recreational facilities.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/C7mTnFd5RzS2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Oakton Park",
     "description": "A neighborhood in Skokie centered around Oakton Park, which offers a pool, playgrounds, and community events.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/GZ8uKhgzm3F2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Gross Point",
     "description": "A historic area in Skokie, originally a farming community, now known for its suburban homes and quiet streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/k5m1oGn7KAL2",
-    "distance_from_evanston": "3.5"
+    "distance_from_evanston": 3.5
   },
   {
     "name": "Lockwood Park",
     "description": "A small, residential neighborhood in Skokie, known for Lockwood Park and its surrounding family homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/dLkP6jK5ELN2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Park View",
     "description": "A quiet, suburban neighborhood in Skokie, characterized by tree-lined streets and close proximity to schools.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/6GYNjy8T5xG2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Skokie Lagoons",
     "description": "A natural area near Skokie, popular for outdoor activities like kayaking, fishing, and bird watching.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Skokie_Lagoons",
     "google_maps_link": "https://goo.gl/maps/NJfuEtUtszN2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Indian Hill",
     "description": "A prestigious neighborhood in Winnetka, known for its large estates and proximity to the Indian Hill Club.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/D3HG2r3LVZt",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Crow Island",
     "description": "A family-friendly neighborhood in Winnetka, centered around the Crow Island School and its famous modernist architecture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Crow_Island_School",
     "google_maps_link": "https://goo.gl/maps/WjFXyG5Vx842",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "Hubbard Woods",
     "description": "A neighborhood in Winnetka, known for its shopping district, schools, and access to Hubbard Woods Park.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/3D4tJZQ5mP22",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "East Winnetka",
     "description": "A lakefront neighborhood in Winnetka, featuring beautiful homes and easy access to Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/fXNkJGT5SbF2",
-    "distance_from_evanston": "5.5"
+    "distance_from_evanston": 5.5
   },
   {
     "name": "West Winnetka",
     "description": "A residential neighborhood in Winnetka, characterized by its larger lots, newer homes, and suburban feel.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/c1Tr6g7NvqR2",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "The Skokie School District",
     "description": "A district in Winnetka, known for its excellent schools, particularly The Skokie School, and family-oriented community.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/EGqHf8SzECF2",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "New Trier Township",
     "description": "An area that encompasses several North Shore suburbs, known for its top-ranked New Trier High School.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/New_Trier_High_School",
     "google_maps_link": "https://goo.gl/maps/7KfHfNyVCmL2",
-    "distance_from Evanston": "6"
+    "distance_from Evanston": 6
   },
   {
     "name": "Skokie Meadows",
     "description": "A natural area near Winnetka, popular for walking and bird watching, offering a serene environment close to the suburbs.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/sQ5TNYwzXJk",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "North Shore Country Club",
     "description": "An exclusive neighborhood in Glenview, centered around the North Shore Country Club and its golf course.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/7xH3Jp8t8TK2",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "Winnetka Heights",
     "description": "A historic residential area in Winnetka, known for its well-preserved homes and scenic streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/gY6KNm2SCVz",
-    "distance_from_evanston": "5.5"
+    "distance_from_evanston": 5.5
   },
   {
     "name": "East Glencoe",
     "description": "A lakefront neighborhood in Glencoe, known for its luxurious homes and access to the Glencoe Beach.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/Wzr6JYztQxk",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Skokie Heights",
     "description": "A residential area in Glencoe, offering a mix of historic and modern homes in a serene, wooded environment.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/sMtkR6JH1aP2",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "Glencoe Gardens",
     "description": "A quiet neighborhood in Glencoe, known for its spacious lots, family homes, and proximity to parks.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/gL3Y4rztnUs",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "Glencoe Park",
     "description": "A neighborhood centered around Glencoe's main park, offering recreational facilities and a community-centered lifestyle.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/8snkWTb1wDq",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Skokie Ridge",
     "description": "A wooded residential area in Glencoe, offering privacy and a close connection to nature.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/G1LHM5Qf2GH2",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "West Glencoe",
     "description": "A suburban area in Glencoe, characterized by newer homes, large lots, and a quiet environment.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/C8FnkLMoQ1F2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "South Glencoe",
     "description": "A residential neighborhood in Glencoe, offering a mix of historic homes and new developments in a family-friendly setting.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/PXkmXh6U6tC2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Glencoe Beach",
     "description": "A popular beach area in Glencoe, offering beautiful views of Lake Michigan and recreational activities.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/qk6STK8L4fP2",
-    "distance_from_evanston": "7.5"
+    "distance_from_evanston": 7.5
   },
   {
     "name": "Greenleaf Historic District",
     "description": "A historic district in Kenilworth, known for its well-preserved homes and scenic, tree-lined streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/7FStLpBQvTt",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "North Kenilworth",
     "description": "A residential area in Kenilworth, characterized by its large homes, quiet streets, and proximity to Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/R8mSvFK8QsD2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Kenilworth Beach",
     "description": "A small, private beach in Kenilworth, offering exclusive access to residents and beautiful views of Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/jbFp9KPpSuP2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Kenilworth Station District",
     "description": "A historic area surrounding the Kenilworth train station, known for its quaint atmosphere and vintage homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/UD5H1d8VYEK2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "The Kenilworth Clubhouse District",
     "description": "An area in Kenilworth centered around the Kenilworth Clubhouse, a historic venue for community events.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/kq98RmqyYYL2",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Kenilworth Union Club",
     "description": "A community-focused area in Kenilworth, known for its active social club and family-friendly atmosphere.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/PxJDhYJksEn",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Warwick Road District",
     "description": "A residential district in Kenilworth, known for its grand homes and tree-lined streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/2W6q3NHVP1v",
-    "distance_from_evanston": "4.5"
+    "distance_from_evanston": 4.5
   },
   {
     "name": "Edgewood Ravine",
     "description": "A scenic neighborhood in Highland Park, known for its natural ravines and beautiful homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/CJ6f1QsWpmt",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Deerpath Woods",
     "description": "A residential neighborhood in Highland Park, offering a tranquil setting surrounded by nature.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/Y9s1Gg5F6BQ2",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "The Highlands Historic District",
     "description": "A historic neighborhood in Highland Park, known for its well-preserved homes and charming streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/3F6cnhFJYvn",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Sheridan Road Corridor",
     "description": "A major thoroughfare in Highland Park, lined with historic homes and offering scenic views of Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/T6rsmrJdPqt",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Northmoor Country Club District",
     "description": "A prestigious area in Highland Park, centered around the Northmoor Country Club and its golf course.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/d5QyJFXk1tA2",
-    "distance_from_evanston": "9.5"
+    "distance_from_evanston": 9.5
   },
   {
     "name": "Ravinia Festival District",
     "description": "A cultural hub in Highland Park, home to the Ravinia Festival, the oldest outdoor music festival in the United States.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Ravinia_Festival",
     "google_maps_link": "https://goo.gl/maps/ZyxFJxFVPoF2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Fort Sheridan Preserve",
     "description": "A natural area near Highland Park, offering hiking trails, historic landmarks, and stunning views of Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Fort_Sheridan,_Illinois",
     "google_maps_link": "https://goo.gl/maps/YV1fXBG5cp62",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Hybernia",
     "description": "A residential community in Highland Park, known for its large homes, ponds, and natural surroundings.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/XQ8UMw9yZbE2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Lake Forest Shores",
     "description": "A luxurious lakefront area in Lake Forest, known for its expansive estates and access to Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/fXmPqKPpQfL2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Deerpath Park",
     "description": "A community-centered neighborhood in Lake Forest, known for Deerpath Park and its recreational facilities.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/BpJ5GgCsGx52",
-    "distance_from_evanston": "14.5"
+    "distance_from_evanston": 14.5
   },
   {
     "name": "Market Square Historic District",
     "description": "The commercial heart of Lake Forest, featuring historic architecture, shops, and restaurants.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Market_Square_(Lake_Forest,_Illinois)",
     "google_maps_link": "https://goo.gl/maps/6rB7sHDcGNs",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Middlefork Farm",
     "description": "A residential area in Lake Forest, known for its large lots, natural surroundings, and proximity to Middlefork Savanna.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/Q7H7mHc9m742",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "Everett",
     "description": "A neighborhood in Lake Forest, characterized by its historic homes, large estates, and suburban atmosphere.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/GPxrBzKXmAA2",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "Elawa Farm",
     "description": "A historic farm and garden complex in Lake Forest, offering a glimpse into the area's agricultural past.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Elawa_Farm",
     "google_maps_link": "https://goo.gl/maps/9H2XzjK5Xw32",
-    "distance_from_evanston": "16.5"
+    "distance_from_evanston": 16.5
   },
   {
     "name": "Lake Forest College District",
     "description": "A neighborhood centered around Lake Forest College, known for its academic environment and historic architecture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lake_Forest_College",
     "google_maps_link": "https://goo.gl/maps/CK7LsA1fvTM2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Conway Park",
     "description": "A business park area in Lake Forest, home to corporate offices and surrounded by well-maintained green spaces.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/6hJ5JmTzTfF2",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "Knollwood Club",
     "description": "A residential neighborhood in Lake Forest, centered around the Knollwood Club and its golf course.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/YKzA6RJgREy",
-    "distance_from_evanston": "17"
+    "distance_from_evanston": 17
   },
   {
     "name": "East Ridgewood",
     "description": "A quiet, residential area in Lake Forest, known for its historic homes and proximity to Ridgewood Ravine.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/UkjxJ4kFtBt",
-    "distance_from_evanston": "15.5"
+    "distance_from_evanston": 15.5
   },
   {
     "name": "Stonebridge",
     "description": "A residential community in Lake Forest, characterized by large homes and scenic surroundings.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/D3pL7Q4zsmr",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "The Villa",
     "description": "A historic residential neighborhood in Chicago, known for its distinctive bungalows and well-preserved architecture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/The_Villa,_Chicago",
     "google_maps_link": "https://goo.gl/maps/5vD3kEzm3EA2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Ravenswood",
     "description": "A vibrant neighborhood on Chicago's North Side, known for its tree-lined streets, breweries, and arts scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Ravenswood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/yZ8J1kZ9P2A2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Ravenswood Gardens",
     "description": "A smaller enclave within Ravenswood, known for its tight-knit community and charming homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/1Gxr5ftrzq72",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Buena Park",
     "description": "A historic neighborhood within Uptown, known for its well-preserved architecture and proximity to Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Buena_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/E8kqgKx7zFN2",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "Graceland West",
     "description": "A small, residential area near Graceland Cemetery, known for its historic homes and peaceful atmosphere.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/TYw84V2SmX52",
-    "distance_from_evanston": "6.5"
+    "distance_from_evanston": 6.5
   },
   {
     "name": "Uptown",
     "description": "A culturally diverse neighborhood on Chicago's North Side, known for its historic theaters and vibrant nightlife.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Uptown,_Chicago",
     "google_maps_link": "https://goo.gl/maps/LpAeTvW2VrK2",
-    "distance_from_evanston": "5.5"
+    "distance_from_evanston": 5.5
   },
   {
     "name": "Sheridan Park",
     "description": "A historic district within Uptown, featuring vintage architecture and a mix of residential and commercial spaces.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/wESmQpmkjJp",
-    "distance_from_evanston": "5.5"
+    "distance_from_evanston": 5.5
   },
   {
     "name": "Wicker Park",
     "description": "A trendy neighborhood known for its hipster culture, historic architecture, and vibrant arts scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Wicker_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/VR8LjSk8oSN2",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Logan Square",
     "description": "A popular neighborhood in Chicago known for its historic boulevards, lively nightlife, and strong sense of community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Logan_Square,_Chicago",
     "google_maps_link": "https://goo.gl/maps/N1bbxNGHYZB2",
-    "distance_from_evanston": "8.5"
+    "distance_from_evanston": 8.5
   },
   {
     "name": "Bucktown",
     "description": "A vibrant neighborhood within Logan Square, known for its artsy vibe, independent boutiques, and eateries.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Bucktown,_Chicago",
     "google_maps_link": "https://goo.gl/maps/PXwHkTFxfVF2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Humboldt Park",
     "description": "A neighborhood known for its large park of the same name, Puerto Rican heritage, and vibrant community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Humboldt_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Sz7ZMHsR7CR2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Albany Park",
     "description": "A culturally diverse neighborhood on Chicago's Northwest Side, known for its international restaurants and rich immigrant history.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Albany_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/T7fTDVWmFNz",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Sauganash",
     "description": "A historic neighborhood in Chicago's Northwest Side, known for its well-preserved homes and suburban feel.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Sauganash,_Chicago",
     "google_maps_link": "https://goo.gl/maps/SaA8qjhxV4v",
-    "distance_from_evanston": "8.5"
+    "distance_from_evanston": 8.5
   },
   {
     "name": "Forest Glen",
     "description": "A residential neighborhood in Chicago's Far Northwest Side, known for its quiet, tree-lined streets and historic homes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Forest_Glen,_Chicago",
     "google_maps_link": "https://goo.gl/maps/W9TYnE5tSuT2",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Jefferson Park",
     "description": "A neighborhood in Chicago's Northwest Side, known for its strong Polish community, parks, and historic homes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Jefferson_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/qFdjAsLRxf32",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Norwood Park",
     "description": "A residential neighborhood in Chicago's Far Northwest Side, characterized by its historic bungalows and suburban atmosphere.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Norwood_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/q7J1G7NzNfA2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Edison Park",
     "description": "A quiet neighborhood in Chicago's Far Northwest Side, known for its family-friendly atmosphere and local dining scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Edison_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/VkD4m7NPrA62",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Old Irving Park",
     "description": "A historic neighborhood in Chicago's Northwest Side, known for its large homes, diverse architecture, and community events.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Old_Irving_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Ni6CBGeNZoT2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "North Mayfair",
     "description": "A neighborhood in Chicago's Northwest Side, known for its historic bungalows and strong community feel.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/North_Mayfair,_Chicago",
     "google_maps_link": "https://goo.gl/maps/XoDT5FhJwZq",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Portage Park",
     "description": "A neighborhood in Chicago's Northwest Side, known for its large park of the same name, cultural diversity, and historic homes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Portage_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/KftXUMWwJwp",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Kilbourn Park",
     "description": "A neighborhood in Chicago's Northwest Side, centered around Kilbourn Park and known for its quiet streets and family-friendly atmosphere.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/wz4DrMHcn2J2",
-    "distance_from_evanston": "8.5"
+    "distance_from_evanston": 8.5
   },
   {
     "name": "Belmont Central",
     "description": "A bustling commercial area in Chicago's Northwest Side, known for its mix of retail stores, restaurants, and residential streets.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/ovtTWmFNNh62",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Hermosa",
     "description": "A neighborhood on Chicago's Northwest Side, known for its historic ties to the Schwinn Bicycle Company and its diverse community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Hermosa,_Chicago",
     "google_maps_link": "https://goo.gl/maps/cbN6cqSLNus",
-    "distance_from_evanston": "8.5"
+    "distance_from_evanston": 8.5
   },
   {
     "name": "Avondale",
     "description": "A diverse neighborhood on Chicago's Northwest Side, known for its mix of historic homes, industrial areas, and growing arts scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Avondale,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Hp7F7cfzDDt",
-    "distance_from_evanston": "7.5"
+    "distance_from_evanston": 7.5
   },
   {
     "name": "Little Italy",
     "description": "A historic neighborhood on Chicago's Near West Side, known for its Italian heritage, restaurants, and proximity to the University of Illinois at Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Little_Italy,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Qx8jXAfthMJ2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Pilsen",
     "description": "A vibrant neighborhood on Chicago's Lower West Side, known for its Mexican-American community, colorful murals, and thriving arts scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Pilsen,_Chicago",
     "google_maps_link": "https://goo.gl/maps/fFV9DzDEcQG2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "West Loop",
     "description": "A rapidly developing area in Chicago, known for its industrial past, trendy restaurants, and proximity to downtown.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Loop,_Chicago",
     "google_maps_link": "https://goo.gl/maps/qVce8TgFr5E2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Near West Side",
     "description": "An area west of downtown Chicago, encompassing neighborhoods like Little Italy, University Village, and the Illinois Medical District.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Near_West_Side,_Chicago",
     "google_maps_link": "https://goo.gl/maps/3A75TvcLbS72",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Tri-Taylor",
     "description": "A historic neighborhood on Chicago's Near West Side, known for its proximity to the Illinois Medical District and its Italian-American roots.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Tri-Taylor,_Chicago",
     "google_maps_link": "https://goo.gl/maps/9dq3vS93o4S2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Greektown",
     "description": "A small neighborhood on Chicago's Near West Side, known for its Greek restaurants, cultural institutions, and annual Greek Fest.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Greektown,_Chicago",
     "google_maps_link": "https://goo.gl/maps/FvH3k5g5ZP42",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "West Town",
     "description": "A large community area on Chicago's West Side, known for its cultural diversity, historic neighborhoods, and arts scene.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Town,_Chicago",
     "google_maps_link": "https://goo.gl/maps/2vNR55Ekhdp",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Humboldt Park",
     "description": "A neighborhood known for its large park of the same name, Puerto Rican heritage, and vibrant community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Humboldt_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Sz7ZMHsR7CR2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Garfield Park",
     "description": "A neighborhood on Chicago's West Side, home to the historic Garfield Park and its renowned conservatory.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Garfield_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/ZRsG1cVHz5J2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Austin",
     "description": "The largest neighborhood in Chicago's West Side, known for its historic architecture and significant role in the city's African American history.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Austin,_Chicago",
     "google_maps_link": "https://goo.gl/maps/mg9kskr5aLK2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "North Lawndale",
     "description": "A historic neighborhood on Chicago's West Side, known for its rich African American culture and history.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/North_Lawndale,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Qnq44Q2m2u32",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "South Lawndale",
     "description": "Also known as Little Village, this neighborhood on Chicago's West Side is known for its vibrant Mexican-American community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Little_Village,_Chicago",
     "google_maps_link": "https://goo.gl/maps/pN8r9P8fYg82",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "West Garfield Park",
     "description": "A neighborhood on Chicago's West Side, known for its historic homes and community activism.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Garfield_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/f6Qnx6G5KKF2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "East Garfield Park",
     "description": "A neighborhood adjacent to West Garfield Park, known for its green spaces and historic architecture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/East_Garfield_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/qmbmf92ebGL2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "United Center Park",
     "description": "An area surrounding the United Center, home to the Chicago Bulls and Chicago Blackhawks, known for its sports culture.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/xwGT7twVR2M2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Medical District",
     "description": "An area in Chicago's Near West Side, home to major hospitals and medical schools, including the University of Illinois at Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Illinois_Medical_District",
     "google_maps_link": "https://goo.gl/maps/DNzFzRVHQ2N2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "University Village",
     "description": "A neighborhood near the University of Illinois at Chicago, known for its mix of student housing, condos, and historic buildings.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/University_Village,_Chicago",
     "google_maps_link": "https://goo.gl/maps/JT1FMQyXrZP2",
-    "distance_from_evanston": "11.5"
+    "distance_from_evanston": 11.5
   },
   {
     "name": "West Loop Gate",
     "description": "An area within the West Loop, known for its converted lofts, trendy restaurants, and proximity to downtown.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/cN8K3dU7Z1r",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Bridgeport",
     "description": "A historic neighborhood on Chicago's South Side, known for its Irish-American heritage and strong community ties.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Bridgeport,_Chicago",
     "google_maps_link": "https://goo.gl/maps/CfRqRU4zKkP2",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Beverly",
     "description": "A residential neighborhood on Chicago's Far South Side, known for its historic homes, Irish heritage, and strong sense of community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Beverly,_Chicago",
     "google_maps_link": "https://goo.gl/maps/qZR3B6oHbhn",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Chatham",
     "description": "A neighborhood on Chicago's South Side, known for its strong African American middle class and historic bungalows.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Chatham,_Chicago",
     "google_maps_link": "https://goo.gl/maps/KkJX2f7XL7q",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Englewood",
     "description": "A neighborhood on Chicago's South Side, known for its rich African American history and ongoing community revitalization efforts.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Englewood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/ZZ2M3ZD6sCw",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "Auburn Gresham",
     "description": "A neighborhood on Chicago's South Side, known for its historic bungalows and strong sense of community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Auburn_Gresham,_Chicago",
     "google_maps_link": "https://goo.gl/maps/LmcCtK5K1Sp",
-    "distance_from_evanston": "17"
+    "distance_from_evanston": 17
   },
   {
     "name": "South Shore",
     "description": "A neighborhood on Chicago's South Side, known for its lakefront access, cultural institutions, and historic South Shore Cultural Center.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/South_Shore,_Chicago",
     "google_maps_link": "https://goo.gl/maps/R6QzgEdwxu32",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Avalon Park",
     "description": "A residential neighborhood on Chicago's South Side, known for its close-knit community and historic homes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Avalon_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/n1yJvYQR5aJ2",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "Calumet Heights",
     "description": "A neighborhood on Chicago's Southeast Side, known for its strong African American community and well-maintained homes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Calumet_Heights,_Chicago",
     "google_maps_link": "https://goo.gl/maps/v7u9YrAnxWr",
-    "distance_from_evanston": "18"
+    "distance_from_evanston": 18
   },
   {
     "name": "Pullman",
     "description": "A historic neighborhood on Chicago's Far South Side, known for its planned industrial community and Pullman National Monument.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Pullman,_Chicago",
     "google_maps_link": "https://goo.gl/maps/V8txP6dzhLz",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Bronzeville",
     "description": "A historic African American neighborhood on Chicago's South Side, known for its cultural significance and contributions to the Great Migration.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Bronzeville,_Chicago",
     "google_maps_link": "https://goo.gl/maps/5eDo6cFNNt92",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Hyde Park",
     "description": "A vibrant neighborhood on Chicago's South Side, home to the University of Chicago and the historic Museum of Science and Industry.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Hyde_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/UERZMX6pRAy",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Washington Park",
     "description": "A neighborhood on Chicago's South Side, known for its large namesake park and proximity to the University of Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Washington_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/zVQRxFq4Fbq",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Woodlawn",
     "description": "A neighborhood on Chicago's South Side, known for its rich history and proximity to the University of Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Woodlawn,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Nm5nyL34LEk",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Jackson Park",
     "description": "A historic park on Chicago's South Side, known for its gardens, lagoons, and role as the site of the 1893 World's Columbian Exposition.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Jackson_Park_(Chicago)",
     "google_maps_link": "https://goo.gl/maps/Hi5eGgfqSCx",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Kenwood",
     "description": "A historic neighborhood on Chicago's South Side, known for its mansions, cultural history, and prominent residents like Barack Obama.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Kenwood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/y8Gy5yUrv1R2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "South Chicago",
     "description": "A neighborhood on Chicago's Far Southeast Side, known for its industrial history and proximity to Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/South_Chicago,_Chicago",
     "google_maps_link": "https://goo.gl/maps/TZ7ZxbgKyrE2",
-    "distance_from_evanston": "17"
+    "distance_from_evanston": 17
   },
   {
     "name": "Roseland",
     "description": "A neighborhood on Chicago's Far South Side, known for its historic ties to the Pullman Company and African American culture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Roseland,_Chicago",
     "google_maps_link": "https://goo.gl/maps/4YwV1tWRAkq",
-    "distance_from_evanston": "19"
+    "distance_from_evanston": 19
   },
   {
     "name": "Morgan Park",
     "description": "A residential neighborhood on Chicago's Far South Side, known for its suburban feel, historic homes, and strong community ties.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Morgan_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/SGX4eLf5yE32",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Mount Greenwood",
     "description": "A neighborhood on Chicago's Far Southwest Side, known for its strong Irish-American community and suburban atmosphere.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Mount_Greenwood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/WG7TKfJdKoy",
-    "distance_from_evanston": "22"
+    "distance_from_evanston": 22
   },
   {
     "name": "West Pullman",
     "description": "A neighborhood on Chicago's Far South Side, known for its industrial history and community revitalization efforts.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Pullman,_Chicago",
     "google_maps_link": "https://goo.gl/maps/ZK6z5XT5tnE2",
-    "distance_from_evanston": "22"
+    "distance_from_evanston": 22
   },
   {
     "name": "East Side",
     "description": "A neighborhood on Chicago's Far Southeast Side, known for its industrial history and close-knit community.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/East_Side,_Chicago",
     "google_maps_link": "https://goo.gl/maps/U3Gg1MZnuk52",
-    "distance_from_evanston": "18"
+    "distance_from_evanston": 18
   },
   {
     "name": "Hegewisch",
     "description": "A neighborhood on Chicago's Far Southeast Side, known for its industrial past and suburban feel.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Hegewisch,_Chicago",
     "google_maps_link": "https://goo.gl/maps/vFcWTNqJhB72",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Lincoln Park",
     "description": "A historic and affluent neighborhood on Chicago's North Side, known for its namesake park, cultural institutions, and upscale living.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lincoln_Park,_Chicago",
     "google_maps_link": "https://goo.gl/maps/14n4bb4hjWB2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Wrigleyville",
     "description": "A lively neighborhood within Lakeview, known for Wrigley Field, the home of the Chicago Cubs, and its vibrant nightlife.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Wrigleyville",
     "google_maps_link": "https://goo.gl/maps/7evQyksXKm82",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Lakeview",
     "description": "A large neighborhood on Chicago's North Side, known for its diverse population, lively entertainment, and proximity to Lake Michigan.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Lakeview,_Chicago",
     "google_maps_link": "https://goo.gl/maps/5BvWZKpX4Tr",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Streeterville",
     "description": "A downtown Chicago neighborhood near the Magnificent Mile, home to Navy Pier, high-rise apartments, and luxury shopping.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Streeterville",
     "google_maps_link": "https://goo.gl/maps/4aKj2JfU6oH2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "River North",
     "description": "A vibrant neighborhood near downtown Chicago, known for its art galleries, nightlife, and upscale living.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/River_North",
     "google_maps_link": "https://goo.gl/maps/65BtAWcUQWB2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Old Town",
     "description": "A historic neighborhood on Chicago's Near North Side, known for its Victorian-era buildings, entertainment, and cultural attractions.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Old_Town,_Chicago",
     "google_maps_link": "https://goo.gl/maps/6oEhffUFPqM2",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Near North Side",
     "description": "An affluent area near downtown Chicago, known for its shopping, dining, and historic Gold Coast district.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Near_North_Side,_Chicago",
     "google_maps_link": "https://goo.gl/maps/BsFCJ7bg8uA2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Loop",
     "description": "The central business district of Chicago, known for its iconic architecture, Grant Park, and the Art Institute of Chicago.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Chicago_Loop",
     "google_maps_link": "https://goo.gl/maps/F7r4J5GmHtB2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "New Eastside",
     "description": "A newly developed neighborhood in downtown Chicago, known for its luxury high-rises and proximity to Millennium Park.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/jjP1y2WqWgH2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Magnificent Mile",
     "description": "A prestigious shopping district in downtown Chicago, known for its high-end retailers, historic buildings, and cultural landmarks.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Magnificent_Mile",
     "google_maps_link": "https://goo.gl/maps/U4StupA9ZGF2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "South Loop",
     "description": "A rapidly developing area south of downtown Chicago, known for its historic Printer's Row, luxury condos, and proximity to Museum Campus.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/South_Loop",
     "google_maps_link": "https://goo.gl/maps/fBPff3FVQ5v",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Near South Side",
     "description": "An area just south of downtown Chicago, known for its historic neighborhoods, cultural institutions, and new developments.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Near_South_Side,_Chicago",
     "google_maps_link": "https://goo.gl/maps/Dz6nGRG9iU42",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Chinatown",
     "description": "A vibrant neighborhood on Chicago's Near South Side, known for its Chinese culture, restaurants, and community events.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Chinatown,_Chicago",
     "google_maps_link": "https://goo.gl/maps/SezKPrBkGH52",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Prairie District",
     "description": "A historic district in Chicago's South Loop, known for its preserved mansions and proximity to Museum Campus.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/7uYf3QvTmXy",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Central Station",
     "description": "A mixed-use development in Chicago's South Loop, known for its modern condos, parks, and proximity to Lake Michigan.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/JctJ25L1S8N2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Museum Campus",
     "description": "A lakefront park in Chicago's South Loop, home to the Field Museum, Shedd Aquarium, and Adler Planetarium.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Museum_Campus_Chicago",
     "google_maps_link": "https://goo.gl/maps/BhvNioRoQ4S2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Dearborn Park",
     "description": "A residential community in Chicago's South Loop, known for its townhomes, green spaces, and family-friendly atmosphere.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/6S7kHQQMtdv",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Printer's Row",
     "description": "A historic district in Chicago's South Loop, known for its loft conversions, bookshops, and literary history.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Printer's_Row,_Chicago",
     "google_maps_link": "https://goo.gl/maps/H7C1Zzgf8s72",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "South Loop Crossing",
     "description": "An area within the South Loop, known for its mix of historic buildings and new developments.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/kfA3SjcHYNp",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Motor Row",
     "description": "A historic district in Chicago's South Loop, known for its early 20th-century auto dealerships and industrial architecture.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Motor_Row_District",
     "google_maps_link": "https://goo.gl/maps/2HMEmS8cNgy",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Burnham Park",
     "description": "A large lakefront park in Chicago's South Loop, known for its scenic trails, beaches, and outdoor events.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Burnham_Park_(Chicago)",
     "google_maps_link": "https://goo.gl/maps/JQx2Z7nCUYz",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "West Englewood",
     "description": "A neighborhood on Chicago's South Side, known for its tight-knit community and ongoing revitalization efforts.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Englewood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/W4fHPZC6u6s",
-    "distance_from_evanston": "16"
+    "distance_from_evanston": 16
   },
   {
     "name": "West Chatham",
     "description": "A residential neighborhood on Chicago's South Side, known for its strong African American community and well-kept homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/8fn4ReWqGVq",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "West Pullman",
     "description": "A neighborhood on Chicago's Far South Side, known for its industrial history and community revitalization efforts.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/West_Pullman,_Chicago",
     "google_maps_link": "https://goo.gl/maps/ZK6z5XT5tnE2",
-    "distance_from_evanston": "22"
+    "distance_from_evanston": 22
   },
   {
     "name": "Mount Greenwood",
     "description": "A neighborhood on Chicago's Far Southwest Side, known for its strong Irish-American community and suburban atmosphere.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Mount_Greenwood,_Chicago",
     "google_maps_link": "https://goo.gl/maps/WG7TKfJdKoy",
-    "distance_from_evanston": "22"
+    "distance_from_evanston": 22
   },
   {
     "name": "Beverly View",
     "description": "A small, residential neighborhood in Chicago's Beverly area, known for its strong community ties and suburban feel.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/JS8WbFiW3Ht",
-    "distance_from_evanston": "21"
+    "distance_from_evanston": 21
   },
   {
     "name": "Altgeld Gardens",
     "description": "A historic public housing development on Chicago's Far South Side, known for its unique design and community activism.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Altgeld_Gardens_Homes",
     "google_maps_link": "https://goo.gl/maps/yUw7CWTfzYq",
-    "distance_from_evanston": "24"
+    "distance_from_evanston": 24
   },
   {
     "name": "Riverdale",
     "description": "A neighborhood on Chicago's Far South Side, known for its industrial areas and large public housing complexes.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Riverdale,_Chicago",
     "google_maps_link": "https://goo.gl/maps/8pBr2nyEoc72",
-    "distance_from_evanston": "23"
+    "distance_from_evanston": 23
   },
   {
     "name": "Pullman Historic District",
     "description": "A historic district on Chicago's Far South Side, known for its well-preserved architecture and significance in labor history.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/Pullman_National_Monument",
     "google_maps_link": "https://goo.gl/maps/WGdG1tQoEMw",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "The Island",
     "description": "A small, residential neighborhood on Chicago's West Side, known for its strong community ties and historic homes.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/uxK8RxFtW2G2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Kensington",
     "description": "A neighborhood on Chicago's Far South Side, known for its industrial history and proximity to the Pullman Historic District.",
     "wikipedia_link": null,
     "google_maps_link": "https://goo.gl/maps/so2aWc5k9k92",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Grosse Point Lighthouse",
     "description": "Historic lighthouse on Lake Michigan, great for sunset photos.",
     "google_maps_link": "https://goo.gl/maps/gSh2FrJpBRr",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Clark Street Beach",
     "description": "A quieter beach in Evanston, perfect for serene lakefront shots.",
     "google_maps_link": "https://goo.gl/maps/NZBC46PH8u32",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Merrick Rose Garden",
     "description": "A small but beautiful rose garden in Evanston, great for flower photography.",
     "google_maps_link": "https://goo.gl/maps/7hPCY5dmvXz",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Baha’i House of Worship",
     "description": "Stunning architecture in Wilmette, especially beautiful at sunrise or sunset.",
     "google_maps_link": "https://goo.gl/maps/oqEBuMQF1tM2",
-    "distance_from_evanston": "3"
+    "distance_from_evanston": 3
   },
   {
     "name": "Gillson Park",
     "description": "Scenic park in Wilmette with lakefront views, ideal for landscape and nature photography.",
     "google_maps_link": "https://goo.gl/maps/L8jCPSw7M4s",
-    "distance_from_evanston": "3"
+    "distance_from_evanston": 3
   },
   {
     "name": "Skokie Lagoons",
     "description": "Nature area perfect for wildlife and landscape photography, especially during fall.",
     "google_maps_link": "https://goo.gl/maps/NJfuEtUtszN2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4
   },
   {
     "name": "Evanston Ecology Center and Ladd Arboretum",
     "description": "A nature center with trails and native plants, great for environmental photography.",
     "google_maps_link": "https://goo.gl/maps/9M13QXQEBnL2",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Evanston Public Library Rooftop",
     "description": "Offers unique views of downtown Evanston and Lake Michigan.",
     "google_maps_link": "https://goo.gl/maps/LkFJzQbPQVn",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Lincoln Park Conservatory",
     "description": "A historic glass house with tropical plants, perfect for macro and nature photography.",
     "google_maps_link": "https://goo.gl/maps/VPPJ4rbDuxr",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Chicago History Museum",
     "description": "Offers beautiful architecture and is adjacent to Lincoln Park.",
     "google_maps_link": "https://goo.gl/maps/kSL5w5epFxr",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Montrose Harbor",
     "description": "A scenic spot on the lakefront, great for sunrise photos and capturing the Chicago skyline.",
     "google_maps_link": "https://goo.gl/maps/BgZrKZ4ogEQ2",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "North Pond Nature Sanctuary",
     "description": "A hidden gem in Lincoln Park, ideal for bird photography and capturing reflections on the pond.",
     "google_maps_link": "https://goo.gl/maps/NEzctv74bGs",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Belmont Harbor",
     "description": "A popular marina in Lincoln Park, offering great views of the city and boats.",
     "google_maps_link": "https://goo.gl/maps/HxsgSfnJ6j82",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "The Bloomingdale Trail (The 606)",
     "description": "An elevated linear park offering unique urban views and public art installations.",
     "google_maps_link": "https://goo.gl/maps/UcP7RStivhJ2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Graceland Cemetery",
     "description": "A historic cemetery with ornate tombstones and beautiful landscaping, excellent for moody or historical photography.",
     "google_maps_link": "https://goo.gl/maps/Uks6VrPehqM2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Berger Park",
     "description": "A small lakeside park in Edgewater with historic mansions and access to the lakefront.",
     "google_maps_link": "https://goo.gl/maps/ovrPp7VhZRM2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Chicago Riverwalk",
     "description": "Scenic walk along the Chicago River, great for cityscape and reflection photography.",
     "google_maps_link": "https://goo.gl/maps/6Dx7Je7FP292",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Milton Lee Olive Park",
     "description": "Offers unique angles of the Chicago skyline with the lake in the foreground.",
     "google_maps_link": "https://goo.gl/maps/YGxoHauXmY42",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Tribune Tower",
     "description": "Iconic Gothic Revival building with beautiful architecture, great for architectural photography.",
     "google_maps_link": "https://goo.gl/maps/d6fJpr4Ndtv",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Marina City",
     "description": "The 'Corncob' buildings are a Chicago architectural icon, best captured from the State Street Bridge.",
     "google_maps_link": "https://goo.gl/maps/6FHvGVP6h5k",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Chicago Cultural Center",
     "description": "Stunning interior with ornate mosaics and the world's largest Tiffany glass dome.",
     "google_maps_link": "https://goo.gl/maps/ypBLAXfMwZ12",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Lurie Garden",
     "description": "A peaceful garden in Millennium Park, offering colorful flowers and city skyline views.",
     "google_maps_link": "https://goo.gl/maps/dGEuvbDJjZk",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Wabash Arts Corridor",
     "description": "An outdoor urban gallery featuring large-scale murals, great for street and urban photography.",
     "google_maps_link": "https://goo.gl/maps/M63BdVdeAoG2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Buckingham Fountain",
     "description": "One of Chicago’s most famous landmarks, particularly beautiful when lit up at night.",
     "google_maps_link": "https://goo.gl/maps/J5TbEhpKbbR2",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Garfield Park Conservatory",
     "description": "One of the largest conservatories in the country, with exotic plants and beautiful glass architecture.",
     "google_maps_link": "https://goo.gl/maps/sx8BSJ2SpEP2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Ping Tom Memorial Park",
     "description": "A serene park along the Chicago River in Chinatown, offering great views of the river and city.",
     "google_maps_link": "https://goo.gl/maps/p13FMzEbXxt",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Palmer House Hilton Lobby",
     "description": "A stunning historic hotel lobby with elaborate ceilings, perfect for architectural and interior photography.",
     "google_maps_link": "https://goo.gl/maps/pZ6HJbgwJqu",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Union Station",
     "description": "Historic train station with a grand interior, great for capturing architectural details and light.",
     "google_maps_link": "https://goo.gl/maps/pZ6HJbgwJqu",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Lagoon in Jackson Park",
     "description": "Picturesque lagoons and woodlands in Jackson Park, ideal for nature photography.",
     "google_maps_link": "https://goo.gl/maps/ChZmQveRtqM2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Promontory Point",
     "description": "A man-made peninsula in Burnham Park, offering stunning views of the Chicago skyline across Lake Michigan.",
     "google_maps_link": "https://goo.gl/maps/xVZxuefhkQC2",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Robie House",
     "description": "A masterpiece of Frank Lloyd Wright's Prairie School architecture, located in Hyde Park.",
     "google_maps_link": "https://goo.gl/maps/wm95RyrBZfN2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "12th Street Beach",
     "description": "A lesser-known beach near the Adler Planetarium, offering unique views of the Chicago skyline.",
     "google_maps_link": "https://goo.gl/maps/WeH1KiDNEX12",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Harley Clarke Mansion",
     "description": "Abandoned mansion in Evanston, offering an atmospheric backdrop for photography.",
     "google_maps_link": "https://goo.gl/maps/MhHgUjiA8uG2",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "James Park",
     "description": "A large community park in Evanston with sports fields and open spaces.",
     "google_maps_link": "https://goo.gl/maps/2vRw9FcD8kL2",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Dawes Park",
     "description": "Lakefront park in Evanston, perfect for capturing the sunrise over Lake Michigan.",
     "google_maps_link": "https://goo.gl/maps/UsMPuK8Xahm",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Indian Boundary Park",
     "description": "A peaceful park in Rogers Park with a small lagoon and historic fieldhouse.",
     "google_maps_link": "https://goo.gl/maps/H1m8bmJ8z8P2",
-    "distance_from_evanston": "2"
+    "distance_from_evanston": 2
   },
   {
     "name": "Tower Road Beach",
     "description": "A quieter beach in Winnetka, offering serene lakefront views.",
     "google_maps_link": "https://goo.gl/maps/LrLvWShWrbF2",
-    "distance_from_evanston": "4"
+    "distance_from_evanston": 4 
   },
   {
     "name": "Winnemac Park",
     "description": "A large park in Lincoln Square, known for its prairie garden and open fields.",
     "google_maps_link": "https://goo.gl/maps/2RRXYeUuwbr",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "Gompers Park",
     "description": "A park on the Northwest Side of Chicago, featuring lagoons and wooded areas.",
     "google_maps_link": "https://goo.gl/maps/F5NY8hD3w6N2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Bohemian National Cemetery",
     "description": "A historic cemetery in Chicago with ornate mausoleums and a tranquil atmosphere.",
     "google_maps_link": "https://goo.gl/maps/PfZPZ8rjE1F2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Edgewater Beach Apartments",
     "description": "Historic pink building on Sheridan Road, offering unique architectural photo opportunities.",
     "google_maps_link": "https://goo.gl/maps/ztM1JNkbgPx",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Loyola University Campus",
     "description": "Scenic campus in Rogers Park with beautiful architecture and lakefront access.",
     "google_maps_link": "https://goo.gl/maps/qSMxQjsUZ3y",
-    "distance_from_evanston": "2"
+    "distance_from_evanston": 2
   },
   {
     "name": "Oz Park",
     "description": "A themed park in Lincoln Park with statues of Wizard of Oz characters and beautiful gardens.",
     "google_maps_link": "https://goo.gl/maps/wdqQLT5iPBJ2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "North Avenue Beach",
     "description": "A popular beach in Lincoln Park with great views of the skyline.",
     "google_maps_link": "https://goo.gl/maps/1sFfr2VfXzM2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Chicago Water Tower",
     "description": "One of the few buildings to survive the Great Chicago Fire, located on Michigan Avenue.",
     "google_maps_link": "https://goo.gl/maps/qHz8B5fQNE92",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "The Rookery Building",
     "description": "Historic Chicago building with a stunning lobby designed by Frank Lloyd Wright.",
     "google_maps_link": "https://goo.gl/maps/r3kNHhYxANL2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Adler Planetarium",
     "description": "Offers stunning panoramic views of the Chicago skyline, especially at night.",
     "google_maps_link": "https://goo.gl/maps/8k3cWk5Kujs",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Navy Pier",
     "description": "Chicago's iconic waterfront destination, great for capturing urban and waterfront scenes.",
     "google_maps_link": "https://goo.gl/maps/vfPBcBWovVt",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "South Pond",
     "description": "A peaceful pond in Lincoln Park, offering great reflections and views of the city skyline.",
     "google_maps_link": "https://goo.gl/maps/2AXpCvZqS4n",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Crown Fountain",
     "description": "A modern public art installation in Millennium Park, perfect for dynamic and interactive photography.",
     "google_maps_link": "https://goo.gl/maps/9ZLNSBzM6k52",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Grant Park",
     "description": "Chicago's 'front yard,' offering expansive green spaces, gardens, and public art.",
     "google_maps_link": "https://goo.gl/maps/vDz4BxZ1z5Q2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "The University of Chicago Campus",
     "description": "Gothic architecture and beautiful quads make this campus a photographer’s dream.",
     "google_maps_link": "https://goo.gl/maps/2P59YavXB3N2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Jackson Park Japanese Garden",
     "description": "A serene Japanese garden within Jackson Park, ideal for tranquil nature shots.",
     "google_maps_link": "https://goo.gl/maps/ThPmDMS5cX82",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Calumet Park",
     "description": "A large park on the Southeast Side with a beach, marina, and views of industrial areas.",
     "google_maps_link": "https://goo.gl/maps/gkx7hQs4uJ72",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Rainbow Beach",
     "description": "A popular beach on the South Side, offering great views of the lake and skyline.",
     "google_maps_link": "https://goo.gl/maps/4cZXkwnYbMu",
-    "distance_from_evanston": "18"
+    "distance_from_evanston": 18
   },
   {
     "name": "South Shore Nature Sanctuary",
     "description": "A hidden gem on the South Side, offering wetlands, meadows, and lakefront views.",
     "google_maps_link": "https://goo.gl/maps/buXyGtrYxzK2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Beverly Arts Center",
     "description": "A cultural hub on the South Side, offering unique architecture and artistic displays.",
     "google_maps_link": "https://goo.gl/maps/GScvokLfASt",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Illinois Institute of Technology Campus",
     "description": "Known for its modernist architecture, particularly the work of Mies van der Rohe.",
     "google_maps_link": "https://goo.gl/maps/6JjH2TrPdtn",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Ping Tom Memorial Park",
     "description": "A serene park along the Chicago River in Chinatown, offering great views of the river and city.",
     "google_maps_link": "https://goo.gl/maps/78qzN4oTnCS2",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Midway Plaisance",
     "description": "A historic parkland in Hyde Park, originally part of the World's Columbian Exposition.",
     "google_maps_link": "https://goo.gl/maps/Kik7Jdce7QG2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "Rockefeller Chapel",
     "description": "A stunning Gothic chapel on the University of Chicago campus, great for architectural photography.",
     "google_maps_link": "https://goo.gl/maps/gh6y1eHprc72",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Palmisano Park (Stearns Quarry)",
     "description": "A unique park built on a former quarry, offering interesting landscapes and city views.",
     "google_maps_link": "https://goo.gl/maps/Bq7LpDdC48z",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "American Toby Jug Museum",
     "description": "Houses the world's largest collection of Toby and character jugs.",
     "google_maps_link": "https://goo.gl/maps/ef8Fj2EC4AF2",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "Mitchell Museum of the American Indian",
     "description": "Dedicated to the history, culture, and arts of Native American peoples.",
     "google_maps_link": "https://goo.gl/maps/UP9FBb4oiyt",
-    "distance_from_evanston": "0"
+    "distance_from_evanston": 0
   },
   {
     "name": "The Leather Archives & Museum",
     "description": "Preserves and exhibits the history and culture of leather, kink, and fetish communities.",
     "google_maps_link": "https://goo.gl/maps/Ud4RgDjHXM92",
-    "distance_from_evanston": "2"
+    "distance_from_evanston": 2
   },
   {
     "name": "Swedish American Museum",
     "description": "Dedicated to preserving Swedish-American heritage.",
     "google_maps_link": "https://goo.gl/maps/sE4vXWR9DJD2",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "International Museum of Surgical Science",
     "description": "Features exhibits on the history of surgery and medical equipment.",
     "google_maps_link": "https://goo.gl/maps/EwHG4Fd7Ki92",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Chicago Glessner House",
     "description": "A National Historic Landmark showcasing 19th-century architecture and a glimpse into Chicago's past.",
     "google_maps_link": "https://goo.gl/maps/y5BzTP8SjAn",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Hull-House Museum",
     "description": "Preserves the legacy of Jane Addams and the social reform movement.",
     "google_maps_link": "https://goo.gl/maps/FMBnzWZtvak",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "The Chicago Sports Museum",
     "description": "Dedicated to the history of Chicago's sports teams, featuring memorabilia and interactive exhibits.",
     "google_maps_link": "https://goo.gl/maps/nTH3NPMx9SC2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Museum of Broadcast Communications",
     "description": "Dedicated to the history of television and radio broadcasting in the United States.",
     "google_maps_link": "https://goo.gl/maps/LuHU7GmK42L2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Museum of Science and Industry's Coal Mine",
     "description": "A historic exhibit offering a simulated tour of a coal mine, giving a glimpse into early 20th-century mining life.",
     "google_maps_link": "https://goo.gl/maps/SbgZ6Ktmwvx",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Oriental Institute Museum",
     "description": "Houses a collection of ancient Middle Eastern artifacts, offering a unique look into early civilizations.",
     "google_maps_link": "https://goo.gl/maps/k5P79TwjZSo",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Richard H. Driehaus Museum",
     "description": "A museum in a restored Gilded Age mansion, showcasing decorative arts and architecture from the late 19th century.",
     "google_maps_link": "https://goo.gl/maps/d6wPy1QMzVM2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "National Hellenic Museum",
     "description": "Dedicated to the preservation and celebration of Greek culture and history.",
     "google_maps_link": "https://goo.gl/maps/8P7xHBqaawC2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Chicago Cultural Center",
     "description": "A landmark building in the Loop, known for its stunning Tiffany dome and rotating art exhibits.",
     "google_maps_link": "https://goo.gl/maps/LuEHcDfDJJp",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "The Poison Cup",
     "description": "A quirky wine shop and art gallery offering unique wine-related art and décor.",
     "google_maps_link": "https://goo.gl/maps/NvttkJoAmUT2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Wicker Park Secret Agent Supply Co.",
     "description": "A unique shop associated with the nonprofit 826CHI, offering quirky spy-themed gadgets and books.",
     "google_maps_link": "https://goo.gl/maps/CAYLVjbHnm52",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Puppet Bike",
     "description": "A whimsical street performance art where puppets perform from a custom-made tricycle.",
     "google_maps_link": "https://goo.gl/maps/YFCPB2yZ2dB2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Emporium Arcade Bar",
     "description": "A bar with a large collection of vintage arcade games, offering a retro gaming experience in a fun atmosphere.",
     "google_maps_link": "https://goo.gl/maps/J6vCg2A1jhp",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Pleasant Home",
     "description": "A historic mansion in Oak Park showcasing Prairie School architecture and period furnishings.",
     "google_maps_link": "https://goo.gl/maps/cKH9ShDhRzS2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "International Museum of Surgical Science",
     "description": "Features exhibits on the history of surgery and medical instruments.",
     "google_maps_link": "https://goo.gl/maps/4MwJ19Nw9VF2",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "Museum of Contemporary Photography",
     "description": "Focusing on contemporary photography and photo-based art.",
     "google_maps_link": "https://goo.gl/maps/86bLvC4bFRy",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Charnel House Chicago",
     "description": "A performance venue and gallery that hosts quirky and experimental theater productions and art exhibits.",
     "google_maps_link": "https://goo.gl/maps/h3C2aNfWqvA2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Volo Bog State Natural Area",
     "description": "A nature preserve offering a rare example of a quaking bog and is perfect for nature enthusiasts.",
     "google_maps_link": "https://goo.gl/maps/nhW5x1ddnwt",
-    "distance_from_evanston": "35"
+    "distance_from_evanston": 35
   },
   {
     "name": "Elks National Memorial and Headquarters",
     "description": "A grand and ornate building dedicated to the history of the Benevolent and Protective Order of Elks.",
     "google_maps_link": "https://goo.gl/maps/HLGrdPLWy7u",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Pullman National Monument Visitor Center",
     "description": "Offers exhibits on the history of the Pullman Company and the labor movement.",
     "google_maps_link": "https://goo.gl/maps/DVq88Dz1UVE2",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Bronzeville Children's Museum",
     "description": "The first African American children's museum in the U.S., located in Chicago's Bronzeville neighborhood.",
     "google_maps_link": "https://goo.gl/maps/jVv2sDLZGMH2",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "The Chicago Temple Building",
     "description": "The tallest church building in the world, with a stunning sanctuary and rooftop garden.",
     "google_maps_link": "https://goo.gl/maps/UL3djCKef2C2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "KOVAL Distillery",
     "description": "A local distillery offering tours and tastings, showcasing Chicago's craft spirits scene.",
     "google_maps_link": "https://goo.gl/maps/Q1EZfV9HLwA2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "Jane Addams Hull-House Museum",
     "description": "Commemorates social reformer Jane Addams and the Hull-House Settlement.",
     "google_maps_link": "https://goo.gl/maps/VUJKZiw5iq72",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "International Museum of Surgical Science",
     "description": "A strange collection of medical oddities, including antique surgical instruments and weird medical devices.",
     "google_maps_link": "https://goo.gl/maps/EwHG4Fd7Ki92",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "The Alley",
     "description": "A legendary counterculture shop known for its eclectic mix of punk, goth, and biker gear.",
     "google_maps_link": "https://goo.gl/maps/5gNT3QdLTqM2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Woolly Mammoth Antiques and Oddities",
     "description": "Packed with strange curios, taxidermy, medical oddities, and unusual antiques.",
     "google_maps_link": "https://goo.gl/maps/K5UuFbmh43q",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "The Magic Parlour",
     "description": "An intimate magic show held in the historic Palmer House Hilton, offering a mysterious atmosphere.",
     "google_maps_link": "https://goo.gl/maps/HeBQ7J4dFP62",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "The Wieners Circle",
     "description": "A hot dog stand known for its raucous late-night atmosphere and staff that heckle customers.",
     "google_maps_link": "https://goo.gl/maps/Gux8ozu41Hr",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "Chicago’s Eternal Flame",
     "description": "A little-known war memorial at Daley Plaza, where a small flame is kept burning 24/7.",
     "google_maps_link": "https://goo.gl/maps/3Nz3gZK1BrM2",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Superdawg Drive-In",
     "description": "An iconic drive-in featuring giant hot dog statues named Maurie and Flaurie.",
     "google_maps_link": "https://goo.gl/maps/YBtVMk9pkF82",
-    "distance_from_evanston": "10"
+    "distance_from_evanston": 10
   },
   {
     "name": "Graceland Cemetery",
     "description": "A historic cemetery with unusual graves and eerie sculptures like 'Eternal Silence.'",
     "google_maps_link": "https://goo.gl/maps/NRvA5tYvR7R2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "Henry Spencer’s Closet",
     "description": "A hidden shrine of the fictional character from the film 'Henry: Portrait of a Serial Killer.'",
     "google_maps_link": "https://goo.gl/maps/W5ZQZ8oVWyS2",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "The Clark Street Bridge",
     "description": "Known for its historical significance and the eerie story of the Eastland Disaster.",
     "google_maps_link": "https://goo.gl/maps/ktZ5jC98wDF2",
-    "distance_from_evanston": "11"
+    "distance_from_evanston": 11
   },
   {
     "name": "Oz Park’s Tin Man Statue",
     "description": "A life-sized statue of the Tin Man from 'The Wizard of Oz,' making for a quirky photo opportunity.",
     "google_maps_link": "https://goo.gl/maps/wdqQLT5iPBJ2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "The House of Monsters",
     "description": "A small and eccentric museum dedicated to horror movies and monsters.",
     "google_maps_link": "https://goo.gl/maps/BKZrRz3A5LJ2",
-    "distance_from_evanston": "18"
+    "distance_from_evanston": 18
   },
   {
     "name": "Charnel House Chicago",
     "description": "A performance venue that hosts odd and experimental theater productions and art exhibits.",
     "google_maps_link": "https://goo.gl/maps/h3C2aNfWqvA2",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "The Tree That Owns Itself",
     "description": "A tree in Evanston supposedly has a legal deed granting it ownership of the land it stands on.",
     "google_maps_link": "https://goo.gl/maps/xo3mJLNk5W82",
-    "distance_from_evanston": "1"
+    "distance_from_evanston": 1
   },
   {
     "name": "Dunning Read Mental Hospital Grounds",
     "description": "The site of a former mental hospital, known for its eerie history and supposed hauntings.",
     "google_maps_link": "https://goo.gl/maps/NY6C7JgVwqA2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "The Victorian Room at The Berghoff",
     "description": "An old-school bar and restaurant with a preserved Victorian-era room, offering a step back in time.",
     "google_maps_link": "https://goo.gl/maps/MKDc7Q28Bcq",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "The National Museum of Mexican Art’s Day of the Dead Exhibit",
     "description": "A vibrant and sometimes eerie exhibit showcasing traditional Day of the Dead art and altars.",
     "google_maps_link": "https://goo.gl/maps/gHTKvCJLMKm",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "Eli’s Cheesecake World",
     "description": "A factory and bakery offering tours and samples of unique flavors of Chicago’s famous cheesecake.",
     "google_maps_link": "https://goo.gl/maps/C42F7fKVRzD2",
-    "distance_from_evanston": "13"
+    "distance_from_evanston": 13
   },
   {
     "name": "Weird Chicago Bus Tours",
     "description": "Bus tours focusing on Chicago's stranger side, including ghost tours and trips to unusual sites.",
     "google_maps_link": "https://goo.gl/maps/2f8jfrBF9E62",
-    "distance_from Evanston": "12"
+    "distance_from Evanston": 12
   },
   {
     "name": "The Giant Trowel in Grant Park",
     "description": "A massive sculpture of a garden trowel, making for a peculiar sight in the middle of the city.",
     "google_maps_link": "https://goo.gl/maps/F7K9GvB5UeQ2",
-    "distance_from Evanston": "13"
+    "distance_from Evanston": 13
   },
   {
     "name": "The Boring Store",
     "description": "A quirky storefront in Wicker Park that is anything but boring, secretly an undercover mission supply outlet.",
     "google_maps_link": "https://goo.gl/maps/nzXZ6nBdUqk",
-    "distance_from_evanston": "9"
+    "distance_from_evanston": 9
   },
   {
     "name": "The Leaning Tower of Niles",
     "description": "A half-sized replica of the Leaning Tower of Pisa, one of Chicago's quirkiest landmarks.",
     "google_maps_link": "https://goo.gl/maps/Eqik1xU9MNt",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "The Museum of Holography",
     "description": "A tiny museum dedicated to the art and science of holography, offering a strange and intriguing experience.",
     "google_maps_link": "https://goo.gl/maps/3ApzMK1swMt",
-    "distance_from_evanston": "14"
+    "distance_from_evanston": 14
   },
   {
     "name": "The Long Grove Covered Bridge",
     "description": "One of the few remaining covered bridges in Illinois, located in the charming town of Long Grove.",
     "google_maps_link": "https://goo.gl/maps/FTRt1E7jeoJ2",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Galloping Ghost Arcade",
     "description": "A massive arcade with hundreds of retro games, offering a nostalgic trip down memory lane.",
     "google_maps_link": "https://goo.gl/maps/FzX4r5MCMHD2",
-    "distance_from_evanston": "18"
+    "distance_from_evanston": 18
   },
   {
     "name": "The Nuclear Energy Sculpture",
     "description": "A bizarre sculpture marking the site of the first controlled nuclear chain reaction.",
     "google_maps_link": "https://goo.gl/maps/RRUxnz4Rk3t",
-    "distance_from_evanston": "15"
+    "distance_from_evanston": 15
   },
   {
     "name": "The Money Museum at the Federal Reserve Bank of Chicago",
     "description": "A museum dedicated to the history of money, including a chance to see $1 million in cash.",
     "google_maps_link": "https://goo.gl/maps/rUp9b3rJ1G42",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Fry the Coop",
     "description": "A restaurant famous for its 'chicken cracklings' and quirky fried chicken dishes.",
     "google_maps_link": "https://goo.gl/maps/L4iFzSzCPUE2",
-    "distance_from_evanston": "23"
+    "distance_from_evanston": 23
   },
   {
     "name": "The Lincoln Park Zoo’s Kovler Lion House",
     "description": "A historic building in the zoo that has housed lions for over a century.",
     "google_maps_link": "https://goo.gl/maps/Pd4qk6SjzQt",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "The South Side’s 'Guitar Gate'",
     "description": "A quirky gate made entirely out of guitar parts, located at a private residence in the Beverly neighborhood.",
     "google_maps_link": "https://goo.gl/maps/G5gPv9ZN6BM2",
-    "distance_from_evanston": "20"
+    "distance_from_evanston": 20
   },
   {
     "name": "Chicago Pedway",
     "description": "An underground network of tunnels and sky bridges connecting buildings in downtown Chicago.",
     "google_maps_link": "https://goo.gl/maps/JZ9mQ24G78v",
-    "distance_from_evanston": "12"
+    "distance_from_evanston": 12
   },
   {
     "name": "Colvin House",
     "description": "A historic mansion in Edgewater that’s been beautifully restored and is now used as a co-working space and event venue.",
     "google_maps_link": "https://goo.gl/maps/nrK5MpdDRdG2",
-    "distance_from_evanston": "5"
+    "distance_from_evanston": 5
   },
   {
     "name": "The Magic Hedge at Montrose Point Bird Sanctuary",
     "description": "A birdwatcher's paradise on the lakefront, often overlooked by visitors.",
     "google_maps_link": "https://goo.gl/maps/3FQ99uWw4eQ2",
-    "distance_from_evanston": "6"
+    "distance_from_evanston": 6
   },
   {
     "name": "Alfred Caldwell Lily Pool",
     "description": "A hidden gem within Lincoln Park, offering a serene escape from the city’s hustle and bustle.",
     "google_maps_link": "https://goo.gl/maps/Ap27pSgjdA52",
-    "distance_from_evanston": "8"
+    "distance_from_evanston": 8
   },
   {
     "name": "The Newberry Library",
     "description": "A hidden gem for book lovers, offering a treasure trove of rare books and manuscripts.",
     "google_maps_link": "https://goo.gl/maps/wGEfXf8pgUn",
-    "distance_from evanston": "11"
+    "distance_from evanston": 11
   },
   {
     "name": "Chicago Printmakers Collaborative",
     "description": "A hidden gem in Lincoln Square where you can see local artists at work and even take printmaking classes.",
     "google_maps_link": "https://goo.gl/maps/kHQe5BFHkvL2",
-    "distance_from_evanston": "7"
+    "distance_from_evanston": 7
   },
   {
     "name": "National Museum of Puerto Rican Arts & Culture",
     "description": "The only museum in the U.S. dedicated to Puerto Rican arts and culture, housed in a historic landmark building.",
     "google_maps_link": "https://goo.gl/maps/h2y2E1vQLpA2",
-    "distance_from evanston": "10"
+    "distance_from evanston": 10
   },
   {
     "name": "Garfield Park Conservatory’s Fern Room",
     "description": "A hidden oasis within the larger conservatory, the Fern Room is a lush, tranquil spot.",
     "google_maps_link": "https://goo.gl/maps/jkRnAkU9jWz",
-    "distance_from evanston": "11"
+    "distance_from evanston": 11
   },
   {
     "name": "Promontory Point",
     "description": "A man-made peninsula offering stunning views of the Chicago skyline and a great spot for picnics and sunset photography.",
     "google_maps_link": "https://goo.gl/maps/xVZxuefhkQC2",
-    "distance_from evanston": "14"
+    "distance_from evanston": 14
   },
   {
     "name": "First Church of Deliverance",
     "description": "A stunning Art Deco church in Bronzeville with a rich history and a unique design.",
     "google_maps_link": "https://goo.gl/maps/fj4G6Z77ht52",
-    "distance_from evanston": "14"
+    "distance_from evanston": 14
   },
   {
     "name": "The Rookery Building",
     "description": "A Loop landmark known for its stunning lobby and historical significance.",
     "google_maps_link": "https://goo.gl/maps/JKktXGv7d2N2",
-    "distance_from evanston": "12"
+    "distance_from evanston": 12
   },
   {
     "name": "Union Stock Yard Gate",
     "description": "The last remaining structure of the Union Stock Yards, once the meatpacking capital of the world.",
     "google_maps_link": "https://goo.gl/maps/9gxz5Pa8TAq",
-    "distance_from evanston": "14"
+    "distance_from evanston": 14
   },
   {
     "name": "Glessner House Museum",
     "description": "A beautifully preserved mansion offering a glimpse into Chicago’s Gilded Age.",
     "google_maps_link": "https://goo.gl/maps/wmu5i1G5qZq",
-    "distance_from evanston": "13"
+    "distance_from evanston": 13
   },
   {
     "name": "Pullman National Monument",
     "description": "A historic district originally built as a planned industrial community by the Pullman Company.",
     "google_maps_link": "https://goo.gl/maps/Z3xTYBm2LJD2",
-    "distance_from evanston": "20"
+    "distance_from evanston": 20
   },
   {
     "name": "Old Chicago Water Tower",
     "description": "One of the few buildings to survive the Great Chicago Fire, an iconic symbol of the city's resilience.",
     "google_maps_link": "https://goo.gl/maps/wGEfXf8pgUn",
-    "distance_from evanston": "11"
+    "distance_from evanston": 11
   }
 ]
