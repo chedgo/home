@@ -24,7 +24,7 @@ function LocationCard({
       <div className="flex justify-between items-start mb-2">
         <h2 className="text-xl font-bold">{location.name}</h2>
         <label
-          className="flex items-center cursor-help"
+          className="flex items-center"
           title="Never show again"
         >
           <input
@@ -100,9 +100,9 @@ export default function Playground() {
     [setLocationPreferences]
   );
 
-  const hiddenLocations: Location[] = locations.filter((location: Location) => {
-    locationPreferences.hidden.includes(location.name);
-  });
+  const hiddenLocations: Location[] = locations.filter((location: Location) =>
+    locationPreferences.hidden.includes(location.name)
+  );
 
   return (
     <div className="p-6 w-full">
@@ -186,18 +186,11 @@ export default function Playground() {
             <h2 className="text-xl font-bold mb-4">Hidden Locations</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {hiddenLocations.map((location, index) => (
-                <div
+                <LocationCard
                   key={index}
-                  className="border-2 border-gray-300 p-4 rounded-lg"
-                >
-                  <h3 className="text-lg font-semibold">{location.name}</h3>
-                  <button
-                    className="mt-2 px-3 py-1 bg-primary text-white rounded"
-                    onClick={() => handleHideLocation(location.name)}
-                  >
-                    Unhide
-                  </button>
-                </div>
+                  location={location}
+                  onHide={handleHideLocation}
+                />
               ))}
             </div>
           </div>
