@@ -26,7 +26,7 @@ function LocationCard({ location }: { location: any }) {
       >
         Google Maps
       </a>{' '}
-      <p>Distance from Evanston: {location.distance_from_evanston}</p>
+      <p>Distance from Evanston: {location.distance_from_evanston||0} miles</p>
     </div>
   );
 }
@@ -37,17 +37,20 @@ export default function Playground() {
   const [maxDistance, setMaxDistance] = useState(10); // Default max distance
 
   const generateRandomLocation = () => {
-    const randomIndex = Math.floor(Math.random() * locations.length);
-    setRandomLocation(locations[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * filteredLocations.length);
+    setRandomLocation(filteredLocations[randomIndex]);
   };
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMaxDistance(Number(event.target.value));
   };
 
-  const filteredLocations = locations.filter(
-    (location) => parseInt(location.distance_from_evanston || "0") <= maxDistance
-  );
+  const filteredLocations = locations.filter((location) => {
+    const distance = parseInt(location.distance_from_evanston || "0");
+    return distance <= maxDistance;
+  });
+
+
 
   return (
     <div>
