@@ -37,7 +37,11 @@ function LocationCard({
   };
 
   const isSnoozed = useMemo(() => {
-    return mounted && location.snoozedUntil !== undefined && location.snoozedUntil > Date.now();
+    return (
+      mounted &&
+      location.snoozedUntil !== undefined &&
+      location.snoozedUntil > Date.now()
+    );
   }, [mounted, location.snoozedUntil]);
 
   const snoozedUntilDate = useMemo(() => {
@@ -130,36 +134,53 @@ export default function Playground() {
     setIsClient(true);
   }, []);
 
-  const getLocationWithSnoozedUntil = useCallback((location: Location) => {
-    const snoozedUntil = locationPreferences.snoozed[location.name];
-    return {
-      ...location,
-      snoozedUntil: snoozedUntil ? Number(snoozedUntil) : undefined,
-    };
-  }, [locationPreferences.snoozed]);
+  const getLocationWithSnoozedUntil = useCallback(
+    (location: Location) => {
+      const snoozedUntil = locationPreferences.snoozed[location.name];
+      return {
+        ...location,
+        snoozedUntil: snoozedUntil ? Number(snoozedUntil) : undefined,
+      };
+    },
+    [locationPreferences.snoozed]
+  );
 
   const filteredLocations = useMemo(() => {
     if (!isClient) return [];
-    return locations.filter((location: Location) => {
-      const distanceIsInRange = location.distance_from_evanston <= maxDistance;
-      const isHidden = locationPreferences.hidden.includes(location.name);
-      return distanceIsInRange && !isHidden;
-    }).map(getLocationWithSnoozedUntil);
+    return locations
+      .filter((location: Location) => {
+        const distanceIsInRange =
+          location.distance_from_evanston <= maxDistance;
+        const isHidden = locationPreferences.hidden.includes(location.name);
+        return distanceIsInRange && !isHidden;
+      })
+      .map(getLocationWithSnoozedUntil);
   }, [maxDistance, locationPreferences, isClient, getLocationWithSnoozedUntil]);
 
-  const isLocationSnoozed = useCallback((location: Location) => {
-    const snoozedUntil = locationPreferences.snoozed[location.name];
-    return snoozedUntil && Number(snoozedUntil) > Date.now();
-  }, [locationPreferences.snoozed]);
+  const isLocationSnoozed = useCallback(
+    (location: Location) => {
+      const snoozedUntil = locationPreferences.snoozed[location.name];
+      return snoozedUntil && Number(snoozedUntil) > Date.now();
+    },
+    [locationPreferences.snoozed]
+  );
 
   const hiddenLocations = useMemo(() => {
     if (!isClient) return [];
     return locations
-      .filter((location: Location) => 
-        locationPreferences.hidden.includes(location.name) || isLocationSnoozed(location)
+      .filter(
+        (location: Location) =>
+          locationPreferences.hidden.includes(location.name) ||
+          isLocationSnoozed(location)
       )
       .map(getLocationWithSnoozedUntil);
-  }, [locationPreferences.hidden, locationPreferences.snoozed, isClient, getLocationWithSnoozedUntil, isLocationSnoozed]);
+  }, [
+    locationPreferences.hidden,
+    locationPreferences.snoozed,
+    isClient,
+    getLocationWithSnoozedUntil,
+    isLocationSnoozed,
+  ]);
 
   const handleHideLocation = useCallback(
     (name: string) => {
@@ -234,12 +255,12 @@ export default function Playground() {
           Let&apos;s Go
         </h1>
         <p className="text-primary">
-          This tool was made to help me and my wife decide where to go take
-          photos when we can&apos;t decide. The vision is that the list of
-          locations is generated taking into account user preferences and
-          provides some customization options. It allows the user to react to
-          cards as they go, and stores changes. This tool is not complete, but
-          is already useful for me so I thought I&apos;d share.
+          This tool was made to help decide where to go take photos when we
+          can&apos;t decide. The vision is that the list of locations is
+          generated taking into account user preferences and provides some
+          customization options. It allows the user to react to cards as they
+          go, and stores changes. This tool is not complete, but is already
+          useful for me so I thought I&apos;d share.
         </p>
       </div>
       <div className="flex justify-between mb-4 w-full">
@@ -310,7 +331,9 @@ export default function Playground() {
 
         {showHiddenCards && hiddenLocations.length > 0 && (
           <div className="mt-4">
-            <h2 className="text-xl font-bold mb-4">Hidden and Snoozed Locations</h2>
+            <h2 className="text-xl font-bold mb-4">
+              Hidden and Snoozed Locations
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {hiddenLocations.map((location, index) => (
                 <LocationCard
