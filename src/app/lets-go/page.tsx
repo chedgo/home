@@ -4,13 +4,13 @@ import locations from '../chicago_neighborhoods.json';
 
 function LocationCard({ location }: { location: any }) {
   return (
-    <div className="border p-4 m-2 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
       <h2 className="text-xl font-bold mb-2">{location.name}</h2>
       <p className="mb-2">{location.description}</p>
       {location.wikipedia_link && (
         <a
           href={location.wikipedia_link}
-          className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
+          className="text-primary underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -22,8 +22,8 @@ function LocationCard({ location }: { location: any }) {
         href={`https://www.google.com/maps/search/?api=1&query=${location.name}+near+Chicago`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
-      >
+        className="text-primary underline"
+        >
         Google Maps
       </a>
       <p className="mt-2">Distance from Evanston: {location.distance_from_evanston || 0} miles</p>
@@ -51,20 +51,30 @@ export default function Playground() {
   });
 
   return (
-    <div className="p-6">
-      <div className="flex justify-center mb-4">
+    <div className="p-6 w-full">
+      <div className="mb-6 w-full">
+        <h1 className="text-2xl font-bold mb-2 w-full flex justify-center text-primary">Let's Go</h1>
+        <p className="text-primary">
+          This tool was made to help me and my wife decide where to go take photos when we can't decide. 
+          The vision is that the list of locations is generated taking into account user preferences and provides some customization options. 
+          It allows the user to react to cards as they go, and stores changes. This tool is not complete, but is already useful for me so I thought I'd share.
+        </p>
+      </div>
+      <div className="flex justify-between mb-4 w-full">
         <button
-          className="rounded-lg p-4 bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300"
+          className="rounded-lg p-4 text-primary font-semibold"
           onClick={() => setShowCards(!showCards)}
         >
           {showCards ? 'Hide All' : 'Show All'}
         </button>
-        <button
-          className="rounded-lg p-4 bg-green-600 text-white hover:bg-green-700 transition-colors duration-300 ml-4"
-          onClick={generateRandomLocation}
-        >
-          Generate Random
-        </button>
+        <div className="flex justify-center w-full">
+          <button
+            className="rounded-lg p-4 bg-primary text-white"
+            onClick={generateRandomLocation}
+          >
+            Where should I go?
+          </button>
+        </div>
       </div>
       <div className="mt-4">
         <label
