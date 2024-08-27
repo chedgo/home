@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import locations from '../chicago_neighborhoods.json';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -9,31 +9,70 @@ type Location = {
   wikipedia_link?: string | null;
   google_maps_link?: string;
   distance_from_evanston: number;
+  snoozedUntil?: number;
 };
-
 
 function LocationCard({
   location,
   onHide,
+  onSnooze,
+  isHidden,
 }: {
   location: Location;
   onHide: (name: string) => void;
+  onSnooze: (name: string) => void;
+  isHidden: boolean;
 }) {
+  const [mounted, setMounted] = useState(false);
+  const [localIsHidden, setLocalIsHidden] = useState(isHidden);
+
+  useEffect(() => {
+    setMounted(true);
+    setLocalIsHidden(isHidden);
+  }, [isHidden]);
+
+  const handleHideChange = () => {
+    setLocalIsHidden(!localIsHidden);
+    onHide(location.name);
+  };
+
+  const isSnoozed = useMemo(() => {
+    return mounted && location.snoozedUntil !== undefined && location.snoozedUntil > Date.now();
+  }, [mounted, location.snoozedUntil]);
+
+  const snoozedUntilDate = useMemo(() => {
+    if (isSnoozed && location.snoozedUntil) {
+      return new Date(location.snoozedUntil).toLocaleDateString();
+    }
+    return null;
+  }, [isSnoozed, location.snoozedUntil]);
+
   return (
     <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
       <div className="flex justify-between items-start mb-2">
         <h2 className="text-xl font-bold">{location.name}</h2>
-        <label
-          className="flex items-center"
-          title="Never show again"
-        >
-          <input
-            type="checkbox"
-            className="form-checkbox h-5 w-5 text-primary"
-            onChange={() => onHide(location.name)}
-          />
-          <span className="ml-2 text-sm">I hate it</span>
-        </label>
+        {mounted && (
+          <>
+            <label className="flex items-center" title="Never show again">
+              <input
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-primary"
+                onChange={handleHideChange}
+                checked={localIsHidden}
+              />
+              <span className="ml-2 text-sm">I hate it</span>
+            </label>
+            <label className="flex items-center" title="Snooze for 3 months">
+              <input
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-secondary"
+                onChange={() => onSnooze(location.name)}
+                checked={isSnoozed}
+              />
+              <span className="ml-2 text-sm">Maybe one day</span>
+            </label>
+          </>
+        )}
       </div>
       <p className="mb-2">{location.description}</p>
       {location.wikipedia_link && (
@@ -58,6 +97,11 @@ function LocationCard({
       <p className="mt-2">
         Distance from Evanston: {location.distance_from_evanston || 0} miles
       </p>
+      {isSnoozed && snoozedUntilDate && (
+        <p className="mt-2 text-sm text-gray-500">
+          Snoozed until: {snoozedUntilDate}
+        </p>
+      )}
     </div>
   );
 }
@@ -78,31 +122,110 @@ export default function Playground() {
   };
   const [locationPreferences, setLocationPreferences] = useLocalStorage(
     'locationPreferences',
-    { hidden: [] }
+    { hidden: [], snoozed: {} }
   );
-  const filteredLocations: Location[] = locations.filter(
-    (location: Location) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const getLocationWithSnoozedUntil = useCallback((location: Location) => {
+    const snoozedUntil = locationPreferences.snoozed[location.name];
+    return {
+      ...location,
+      snoozedUntil: snoozedUntil ? Number(snoozedUntil) : undefined,
+    };
+  }, [locationPreferences.snoozed]);
+
+  const filteredLocations = useMemo(() => {
+    if (!isClient) return [];
+    return locations.filter((location: Location) => {
       const distanceIsInRange = location.distance_from_evanston <= maxDistance;
       const isHidden = locationPreferences.hidden.includes(location.name);
       return distanceIsInRange && !isHidden;
-    }
-  );
+    }).map(getLocationWithSnoozedUntil);
+  }, [maxDistance, locationPreferences, isClient, getLocationWithSnoozedUntil]);
+
+  const isLocationSnoozed = useCallback((location: Location) => {
+    const snoozedUntil = locationPreferences.snoozed[location.name];
+    return snoozedUntil && Number(snoozedUntil) > Date.now();
+  }, [locationPreferences.snoozed]);
+
+  const hiddenLocations = useMemo(() => {
+    if (!isClient) return [];
+    return locations
+      .filter((location: Location) => 
+        locationPreferences.hidden.includes(location.name) || isLocationSnoozed(location)
+      )
+      .map(getLocationWithSnoozedUntil);
+  }, [locationPreferences.hidden, locationPreferences.snoozed, isClient, getLocationWithSnoozedUntil, isLocationSnoozed]);
 
   const handleHideLocation = useCallback(
     (name: string) => {
-      setLocationPreferences((prev: { hidden: string[] }) => ({
-        ...prev,
-        hidden: prev.hidden.includes(name)
-          ? prev.hidden.filter((loc: string) => loc !== name)
-          : [...prev.hidden, name],
-      }));
+      setLocationPreferences(
+        (prev: { hidden: string[]; snoozed: Record<string, number> }) => {
+          const isCurrentlyHidden = prev.hidden.includes(name);
+          const updatedHidden = isCurrentlyHidden
+            ? prev.hidden.filter((loc) => loc !== name)
+            : [...prev.hidden, name];
+          return {
+            ...prev,
+            hidden: updatedHidden,
+          };
+        }
+      );
     },
     [setLocationPreferences]
   );
 
-  const hiddenLocations: Location[] = locations.filter((location: Location) =>
-    locationPreferences.hidden.includes(location.name)
+  const handleSnoozeLocation = useCallback(
+    (name: string) => {
+      setLocationPreferences(
+        (prev: { hidden: string[]; snoozed: Record<string, number> }) => {
+          const now = Date.now();
+          const threeMonthsFromNow = now + 90 * 24 * 60 * 60 * 1000;
+          return {
+            ...prev,
+            snoozed: {
+              ...prev.snoozed,
+              [name]:
+                prev.snoozed[name] && prev.snoozed[name] > now
+                  ? undefined
+                  : threeMonthsFromNow,
+            },
+          };
+        }
+      );
+    },
+    [setLocationPreferences]
   );
+
+  useEffect(() => {
+    // Remove expired snoozes
+    const now = Date.now();
+    const updatedSnoozed = Object.fromEntries(
+      Object.entries(locationPreferences.snoozed).filter(
+        ([_, value]) => typeof value === 'number' && value > now
+      )
+    );
+    if (
+      JSON.stringify(updatedSnoozed) !==
+      JSON.stringify(locationPreferences.snoozed)
+    ) {
+      setLocationPreferences(
+        (prev: { hidden: string[]; snoozed: Record<string, number> }) => ({
+          ...prev,
+          snoozed: updatedSnoozed,
+        })
+      );
+    }
+  }, [locationPreferences.snoozed, setLocationPreferences]);
+
+  const hiddenLocationsRef = useRef(hiddenLocations);
+  useEffect(() => {
+    hiddenLocationsRef.current = hiddenLocations;
+  }, [hiddenLocations]);
 
   return (
     <div className="p-6 w-full">
@@ -159,6 +282,8 @@ export default function Playground() {
               key={index}
               location={location}
               onHide={handleHideLocation}
+              onSnooze={handleSnoozeLocation}
+              isHidden={locationPreferences.hidden.includes(location.name)}
             />
           ))}
         </div>
@@ -167,8 +292,10 @@ export default function Playground() {
         <div className="mt-4">
           <LocationCard
             key={randomLocation.name}
-            location={randomLocation}
+            location={getLocationWithSnoozedUntil(randomLocation)}
             onHide={handleHideLocation}
+            onSnooze={handleSnoozeLocation}
+            isHidden={false}
           />
         </div>
       )}
@@ -177,19 +304,21 @@ export default function Playground() {
           className="rounded-lg p-4 text-primary font-semibold"
           onClick={() => setShowHiddenCards(!showHiddenCards)}
         >
-          {showHiddenCards ? 'Hide' : 'Show'} Hidden Locations (
-          {hiddenLocations.length})
+          {showHiddenCards ? 'Hide' : 'Show'} Hidden and Snoozed Locations
+          {isClient && ` (${hiddenLocations.length})`}
         </button>
 
         {showHiddenCards && hiddenLocations.length > 0 && (
           <div className="mt-4">
-            <h2 className="text-xl font-bold mb-4">Hidden Locations</h2>
+            <h2 className="text-xl font-bold mb-4">Hidden and Snoozed Locations</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {hiddenLocations.map((location, index) => (
                 <LocationCard
                   key={index}
                   location={location}
                   onHide={handleHideLocation}
+                  onSnooze={handleSnoozeLocation}
+                  isHidden={locationPreferences.hidden.includes(location.name)}
                 />
               ))}
             </div>
