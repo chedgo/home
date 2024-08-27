@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Diego Glusberg's Personal Homepage
+
+Welcome to my personal homepage project! This site showcases my journey, skills, and projects as a Full-Stack Engineer specializing in AI-powered products.
 
 ## Getting Started
 
