@@ -3,12 +3,21 @@ import { useState, useCallback } from 'react';
 import locations from '../chicago_neighborhoods.json';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-function LocationCard({ location, onHide }: { location: any; onHide: (name: string) => void }) {
+function LocationCard({
+  location,
+  onHide,
+}: {
+  location: any;
+  onHide: (name: string) => void;
+}) {
   return (
     <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
       <div className="flex justify-between items-start mb-2">
         <h2 className="text-xl font-bold">{location.name}</h2>
-        <label className="flex items-center cursor-help" title="Never show again">
+        <label
+          className="flex items-center cursor-help"
+          title="Never show again"
+        >
           <input
             type="checkbox"
             className="form-checkbox h-5 w-5 text-primary"
@@ -46,8 +55,9 @@ function LocationCard({ location, onHide }: { location: any; onHide: (name: stri
 
 export default function Playground() {
   const [showCards, setShowCards] = useState(false);
-  const [randomLocation, setRandomLocation] = useState({});
+  const [randomLocation, setRandomLocation] = useState({ name: '' });
   const [maxDistance, setMaxDistance] = useState(10); // Default max distance
+  const [showHiddenCards, setShowHiddenCards] = useState(false);
 
   const generateRandomLocation = () => {
     const randomIndex = Math.floor(Math.random() * filteredLocations.length);
@@ -57,7 +67,10 @@ export default function Playground() {
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMaxDistance(Number(event.target.value));
   };
-  const [locationPreferences, setLocationPreferences] = useLocalStorage('locationPreferences', {hidden:[]});
+  const [locationPreferences, setLocationPreferences] = useLocalStorage(
+    'locationPreferences',
+    { hidden: [] }
+  );
   const filteredLocations = locations.filter((location) => {
     const distance = parseInt(location.distance_from_evanston || '0');
     const distanceIsInRange = distance <= maxDistance;
@@ -65,14 +78,21 @@ export default function Playground() {
     return distanceIsInRange && !isHidden;
   });
 
-  const handleHideLocation = useCallback((name: string) => {
-    setLocationPreferences((prev: { hidden: string[]; }) => ({
-      ...prev,
-      hidden: prev.hidden.includes(name)
-        ? prev.hidden.filter((loc: string) => loc !== name)
-        : [...prev.hidden, name]
-    }));
-  }, [setLocationPreferences]);
+  const handleHideLocation = useCallback(
+    (name: string) => {
+      setLocationPreferences((prev: { hidden: string[] }) => ({
+        ...prev,
+        hidden: prev.hidden.includes(name)
+          ? prev.hidden.filter((loc: string) => loc !== name)
+          : [...prev.hidden, name],
+      }));
+    },
+    [setLocationPreferences]
+  );
+
+  const hiddenLocations = locations.filter((location) =>
+    locationPreferences.hidden.includes(location.name)
+  );
 
   return (
     <div className="p-6 w-full">
@@ -125,15 +145,54 @@ export default function Playground() {
       {showCards && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {filteredLocations.map((location, index) => (
-            <LocationCard key={index} location={location} onHide={handleHideLocation} />
+            <LocationCard
+              key={index}
+              location={location}
+              onHide={handleHideLocation}
+            />
           ))}
         </div>
       )}
       {randomLocation && Object.keys(randomLocation).length > 0 && (
         <div className="mt-4">
-          <LocationCard location={randomLocation} onHide={handleHideLocation} />
+          <LocationCard
+            key={randomLocation.name}
+            location={randomLocation}
+            onHide={handleHideLocation}
+          />
         </div>
       )}
+      <div className="mt-8">
+        <button
+          className="rounded-lg p-4 text-primary font-semibold"
+          onClick={() => setShowHiddenCards(!showHiddenCards)}
+        >
+          {showHiddenCards ? 'Hide' : 'Show'} Hidden Locations (
+          {hiddenLocations.length})
+        </button>
+
+        {showHiddenCards && hiddenLocations.length > 0 && (
+          <div className="mt-4">
+            <h2 className="text-xl font-bold mb-4">Hidden Locations</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {hiddenLocations.map((location, index) => (
+                <div
+                  key={index}
+                  className="border-2 border-gray-300 p-4 rounded-lg"
+                >
+                  <h3 className="text-lg font-semibold">{location.name}</h3>
+                  <button
+                    className="mt-2 px-3 py-1 bg-primary text-white rounded"
+                    onClick={() => handleHideLocation(location.name)}
+                  >
+                    Unhide
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
