@@ -445,7 +445,7 @@
     "description": "An area that encompasses several North Shore suburbs, known for its top-ranked New Trier High School.",
     "wikipedia_link": "https://en.wikipedia.org/wiki/New_Trier_High_School",
     "google_maps_link": "https://goo.gl/maps/7KfHfNyVCmL2",
-    "distance_from Evanston": 6
+    "distance_from_evanston": 6
   },
   {
     "name": "Skokie Meadows",
@@ -2029,13 +2029,13 @@
     "name": "Weird Chicago Bus Tours",
     "description": "Bus tours focusing on Chicago's stranger side, including ghost tours and trips to unusual sites.",
     "google_maps_link": "https://goo.gl/maps/2f8jfrBF9E62",
-    "distance_from Evanston": 12
+    "distance_from_evanston": 12
   },
   {
     "name": "The Giant Trowel in Grant Park",
     "description": "A massive sculpture of a garden trowel, making for a peculiar sight in the middle of the city.",
     "google_maps_link": "https://goo.gl/maps/F7K9GvB5UeQ2",
-    "distance_from Evanston": 13
+    "distance_from_evanston": 13
   },
   {
     "name": "The Boring Store",
@@ -2125,7 +2125,7 @@
     "name": "The Newberry Library",
     "description": "A hidden gem for book lovers, offering a treasure trove of rare books and manuscripts.",
     "google_maps_link": "https://goo.gl/maps/wGEfXf8pgUn",
-    "distance_from evanston": 11
+    "distance_from_evanston": 11
   },
   {
     "name": "Chicago Printmakers Collaborative",
@@ -2137,54 +2137,54 @@
     "name": "National Museum of Puerto Rican Arts & Culture",
     "description": "The only museum in the U.S. dedicated to Puerto Rican arts and culture, housed in a historic landmark building.",
     "google_maps_link": "https://goo.gl/maps/h2y2E1vQLpA2",
-    "distance_from evanston": 10
+    "distance_from_evanston": 10
   },
   {
     "name": "Garfield Park Conservatory’s Fern Room",
     "description": "A hidden oasis within the larger conservatory, the Fern Room is a lush, tranquil spot.",
     "google_maps_link": "https://goo.gl/maps/jkRnAkU9jWz",
-    "distance_from evanston": 11
+    "distance_from_evanston": 11
   },
   {
     "name": "Promontory Point",
     "description": "A man-made peninsula offering stunning views of the Chicago skyline and a great spot for picnics and sunset photography.",
     "google_maps_link": "https://goo.gl/maps/xVZxuefhkQC2",
-    "distance_from evanston": 14
+    "distance_from_evanston": 14
   },
   {
     "name": "First Church of Deliverance",
     "description": "A stunning Art Deco church in Bronzeville with a rich history and a unique design.",
     "google_maps_link": "https://goo.gl/maps/fj4G6Z77ht52",
-    "distance_from evanston": 14
+    "distance_from_evanston": 14
   },
   {
     "name": "The Rookery Building",
     "description": "A Loop landmark known for its stunning lobby and historical significance.",
     "google_maps_link": "https://goo.gl/maps/JKktXGv7d2N2",
-    "distance_from evanston": 12
+    "distance_from_evanston": 12
   },
   {
     "name": "Union Stock Yard Gate",
     "description": "The last remaining structure of the Union Stock Yards, once the meatpacking capital of the world.",
     "google_maps_link": "https://goo.gl/maps/9gxz5Pa8TAq",
-    "distance_from evanston": 14
+    "distance_from_evanston": 14
   },
   {
     "name": "Glessner House Museum",
     "description": "A beautifully preserved mansion offering a glimpse into Chicago’s Gilded Age.",
     "google_maps_link": "https://goo.gl/maps/wmu5i1G5qZq",
-    "distance_from evanston": 13
+    "distance_from_evanston": 13
   },
   {
     "name": "Pullman National Monument",
     "description": "A historic district originally built as a planned industrial community by the Pullman Company.",
     "google_maps_link": "https://goo.gl/maps/Z3xTYBm2LJD2",
-    "distance_from evanston": 20
+    "distance_from_evanston": 20
   },
   {
     "name": "Old Chicago Water Tower",
     "description": "One of the few buildings to survive the Great Chicago Fire, an iconic symbol of the city's resilience.",
     "google_maps_link": "https://goo.gl/maps/wGEfXf8pgUn",
-    "distance_from evanston": 11
+    "distance_from_evanston": 11
   }
 ]

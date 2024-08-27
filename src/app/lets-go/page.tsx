@@ -3,11 +3,20 @@ import { useState, useCallback } from 'react';
 import locations from '../chicago_neighborhoods.json';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
+type Location = {
+  name: string;
+  description: string;
+  wikipedia_link?: string | null;
+  google_maps_link?: string;
+  distance_from_evanston: number;
+};
+
+
 function LocationCard({
   location,
   onHide,
 }: {
-  location: any;
+  location: Location;
   onHide: (name: string) => void;
 }) {
   return (
@@ -55,7 +64,7 @@ function LocationCard({
 
 export default function Playground() {
   const [showCards, setShowCards] = useState(false);
-  const [randomLocation, setRandomLocation] = useState({ name: '' });
+  const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10); // Default max distance
   const [showHiddenCards, setShowHiddenCards] = useState(false);
 
@@ -71,12 +80,13 @@ export default function Playground() {
     'locationPreferences',
     { hidden: [] }
   );
-  const filteredLocations = locations.filter((location) => {
-    const distance = parseInt(location.distance_from_evanston || '0');
-    const distanceIsInRange = distance <= maxDistance;
-    const isHidden = locationPreferences.hidden.includes(location.name);
-    return distanceIsInRange && !isHidden;
-  });
+  const filteredLocations: Location[] = locations.filter(
+    (location: Location) => {
+      const distanceIsInRange = location.distance_from_evanston <= maxDistance;
+      const isHidden = locationPreferences.hidden.includes(location.name);
+      return distanceIsInRange && !isHidden;
+    }
+  );
 
   const handleHideLocation = useCallback(
     (name: string) => {
@@ -90,9 +100,9 @@ export default function Playground() {
     [setLocationPreferences]
   );
 
-  const hiddenLocations = locations.filter((location) =>
-    locationPreferences.hidden.includes(location.name)
-  );
+  const hiddenLocations: Location[] = locations.filter((location: Location) => {
+    locationPreferences.hidden.includes(location.name);
+  });
 
   return (
     <div className="p-6 w-full">
@@ -102,11 +112,11 @@ export default function Playground() {
         </h1>
         <p className="text-primary">
           This tool was made to help me and my wife decide where to go take
-          photos when we can&apos;t decide. The vision is that the list of locations
-          is generated taking into account user preferences and provides some
-          customization options. It allows the user to react to cards as they
-          go, and stores changes. This tool is not complete, but is already
-          useful for me so I thought I&apos;d share.
+          photos when we can&apos;t decide. The vision is that the list of
+          locations is generated taking into account user preferences and
+          provides some customization options. It allows the user to react to
+          cards as they go, and stores changes. This tool is not complete, but
+          is already useful for me so I thought I&apos;d share.
         </p>
       </div>
       <div className="flex justify-between mb-4 w-full">
