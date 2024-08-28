@@ -12,19 +12,47 @@ type Location = {
   snoozedUntil?: number;
 };
 
+type GoogleMapsProps = {
+  origin: string;
+  destination: string;
+  apiKey: string;
+};
+
+function GoogleMapsDirections({ origin, destination, apiKey }: GoogleMapsProps) {
+  const encodedOrigin = encodeURIComponent(origin);
+  const encodedDestination = encodeURIComponent(destination);
+  const src = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodedOrigin}&destination=${encodedDestination}`;
+
+  return (
+    <iframe
+      width="100%"
+      height="300"
+      style={{ border: 0 }}
+      loading="lazy"
+      allowFullScreen
+      src={src}
+    ></iframe>
+  );
+}
+
 function LocationCard({
   location,
   onHide,
   onSnooze,
   isHidden,
+  showMapByDefault = false,
+  originAddress,
 }: {
   location: Location;
   onHide: (name: string) => void;
   onSnooze: (name: string) => void;
   isHidden: boolean;
+  showMapByDefault?: boolean;
+  originAddress: string;
 }) {
   const [mounted, setMounted] = useState(false);
   const [localIsHidden, setLocalIsHidden] = useState(isHidden);
+  const [showMap, setShowMap] = useState(showMapByDefault);
 
   useEffect(() => {
     setMounted(true);
@@ -73,7 +101,7 @@ function LocationCard({
                 onChange={() => onSnooze(location.name)}
                 checked={isSnoozed}
               />
-              <span className="ml-2 text-sm">Maybe one day</span>
+              <span className="ml-2 text-sm">snooze</span>
             </label>
           </>
         )}
@@ -98,13 +126,27 @@ function LocationCard({
       >
         Google Maps
       </a>
-      <p className="mt-2">
-        Distance from Evanston: {location.distance_from_evanston || 0} miles
-      </p>
       {isSnoozed && snoozedUntilDate && (
         <p className="mt-2 text-sm text-gray-500">
           Snoozed until: {snoozedUntilDate}
         </p>
+      )}
+      
+      <button
+        onClick={() => setShowMap(!showMap)}
+        className="mt-2 text-primary underline"
+      >
+        {showMap ? 'Hide Map' : 'Show Map'}
+      </button>
+      
+      {showMap && (
+        <div className="mt-4">
+          <GoogleMapsDirections
+            origin={originAddress || ''}
+            destination={`${location.name}, Chicago`}
+            apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
+          />
+        </div>
       )}
     </div>
   );
@@ -115,6 +157,7 @@ export default function Playground() {
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10); // Default max distance
   const [showHiddenCards, setShowHiddenCards] = useState(false);
+  const [originAddress, setOriginAddress] = useState('Evanston, IL');
 
   const generateRandomLocation = () => {
     const randomIndex = Math.floor(Math.random() * filteredLocations.length);
@@ -260,7 +303,7 @@ export default function Playground() {
           generated taking into account user preferences and provides some
           customization options. It allows the user to react to cards as they
           go, and stores changes. This tool is not complete, but is already
-          useful for me so I thought I&apos;d share.
+          useful for me so I thought I&apos;d share as I build it out.
         </p>
       </div>
       <div className="flex justify-between mb-4 w-full">
@@ -296,6 +339,20 @@ export default function Playground() {
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
       </div>
+      
+      <div className="mt-4">
+        <label htmlFor="origin-address" className="block text-sm font-medium text-gray-700 mb-2">
+          Starting Address:
+        </label>
+        <input
+          id="origin-address"
+          type="text"
+          value={originAddress}
+          onChange={(e) => setOriginAddress(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
       {showCards && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {filteredLocations.map((location, index) => (
@@ -305,10 +362,12 @@ export default function Playground() {
               onHide={handleHideLocation}
               onSnooze={handleSnoozeLocation}
               isHidden={locationPreferences.hidden.includes(location.name)}
+              originAddress={originAddress}
             />
           ))}
         </div>
       )}
+
       {randomLocation && Object.keys(randomLocation).length > 0 && (
         <div className="mt-4">
           <LocationCard
@@ -317,9 +376,12 @@ export default function Playground() {
             onHide={handleHideLocation}
             onSnooze={handleSnoozeLocation}
             isHidden={false}
+            showMapByDefault={true}
+            originAddress={originAddress}
           />
         </div>
       )}
+
       <div className="mt-8">
         <button
           className="rounded-lg p-4 text-primary font-semibold"
@@ -342,6 +404,7 @@ export default function Playground() {
                   onHide={handleHideLocation}
                   onSnooze={handleSnoozeLocation}
                   isHidden={locationPreferences.hidden.includes(location.name)}
+                  originAddress={originAddress}
                 />
               ))}
             </div>
