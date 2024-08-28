@@ -1,6 +1,6 @@
 'use client';
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
-import locations from '../chicago_neighborhoods.json';
+import locationsData from '../chicago_neighborhoods.json';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 type Location = {
@@ -9,8 +9,13 @@ type Location = {
   wikipedia_link?: string | null;
   google_maps_link?: string;
   distance_from_evanston: number;
+  latitude: number;
+  longitude: number;
   snoozedUntil?: number;
 };
+
+// Assert the imported data as Location[]
+const locations: Location[] = locationsData as Location[];
 
 type GoogleMapsProps = {
   origin: string;
@@ -42,6 +47,7 @@ function LocationCard({
   isHidden,
   showMapByDefault = false,
   originAddress,
+  snoozedUntil,
 }: {
   location: Location;
   onHide: (name: string) => void;
@@ -49,6 +55,7 @@ function LocationCard({
   isHidden: boolean;
   showMapByDefault?: boolean;
   originAddress: string;
+  snoozedUntil: number | undefined;
 }) {
   const [mounted, setMounted] = useState(false);
   const [localIsHidden, setLocalIsHidden] = useState(isHidden);
@@ -65,19 +72,15 @@ function LocationCard({
   };
 
   const isSnoozed = useMemo(() => {
-    return (
-      mounted &&
-      location.snoozedUntil !== undefined &&
-      location.snoozedUntil > Date.now()
-    );
-  }, [mounted, location.snoozedUntil]);
+    return mounted && snoozedUntil !== undefined && snoozedUntil > Date.now();
+  }, [mounted, snoozedUntil]);
 
   const snoozedUntilDate = useMemo(() => {
-    if (isSnoozed && location.snoozedUntil) {
-      return new Date(location.snoozedUntil).toLocaleDateString();
+    if (isSnoozed && snoozedUntil) {
+      return new Date(snoozedUntil).toLocaleDateString();
     }
     return null;
-  }, [isSnoozed, location.snoozedUntil]);
+  }, [isSnoozed, snoozedUntil]);
 
   return (
     <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
@@ -152,11 +155,29 @@ function LocationCard({
   );
 }
 
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // Radius of the earth in km
+  const dLat = deg2rad(lat2 - lat1);
+  const dLon = deg2rad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const d = R * c; // Distance in km
+  return d * 0.621371; // Convert to miles
+}
+
+function deg2rad(deg: number): number {
+  return deg * (Math.PI / 180);
+}
+
 export default function Playground() {
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10); // Default max distance
   const [showHiddenCards, setShowHiddenCards] = useState(false);
+  const [originCoords, setOriginCoords] = useState({ lat: 42.0451, lon: -87.6877 }); // Default Evanston coordinates
   const [originAddress, setOriginAddress] = useState('Evanston, IL');
 
   const generateRandomLocation = () => {
@@ -177,29 +198,6 @@ export default function Playground() {
     setIsClient(true);
   }, []);
 
-  const getLocationWithSnoozedUntil = useCallback(
-    (location: Location) => {
-      const snoozedUntil = locationPreferences.snoozed[location.name];
-      return {
-        ...location,
-        snoozedUntil: snoozedUntil ? Number(snoozedUntil) : undefined,
-      };
-    },
-    [locationPreferences.snoozed]
-  );
-
-  const filteredLocations = useMemo(() => {
-    if (!isClient) return [];
-    return locations
-      .filter((location: Location) => {
-        const distanceIsInRange =
-          location.distance_from_evanston <= maxDistance;
-        const isHidden = locationPreferences.hidden.includes(location.name);
-        return distanceIsInRange && !isHidden;
-      })
-      .map(getLocationWithSnoozedUntil);
-  }, [maxDistance, locationPreferences, isClient, getLocationWithSnoozedUntil]);
-
   const isLocationSnoozed = useCallback(
     (location: Location) => {
       const snoozedUntil = locationPreferences.snoozed[location.name];
@@ -208,20 +206,32 @@ export default function Playground() {
     [locationPreferences.snoozed]
   );
 
+  const filteredLocations = useMemo(() => {
+    if (!isClient) return [];
+    return locations.filter((location: Location) => {
+      const distance = calculateDistance(
+        originCoords.lat,
+        originCoords.lon,
+        location.latitude,
+        location.longitude
+      );
+      const distanceIsInRange = distance <= maxDistance;
+      const isHidden = locationPreferences.hidden.includes(location.name);
+      return distanceIsInRange && !isHidden;
+    });
+  }, [maxDistance, locationPreferences.hidden, isClient, originCoords]);
+
   const hiddenLocations = useMemo(() => {
     if (!isClient) return [];
-    return locations
-      .filter(
-        (location: Location) =>
-          locationPreferences.hidden.includes(location.name) ||
-          isLocationSnoozed(location)
-      )
-      .map(getLocationWithSnoozedUntil);
+    return locations.filter(
+      (location: Location) =>
+        locationPreferences.hidden.includes(location.name) ||
+        isLocationSnoozed(location)
+    );
   }, [
     locationPreferences.hidden,
     locationPreferences.snoozed,
     isClient,
-    getLocationWithSnoozedUntil,
     isLocationSnoozed,
   ]);
 
@@ -291,6 +301,27 @@ export default function Playground() {
     hiddenLocationsRef.current = hiddenLocations;
   }, [hiddenLocations]);
 
+  const handleLocateMe = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newCoords = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          };
+          setOriginCoords(newCoords);
+          setOriginAddress(`${newCoords.lat}, ${newCoords.lon}`);
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+          alert("Unable to retrieve your location. Please enter it manually.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser. Please enter your location manually.");
+    }
+  };
+
   return (
     <div className="p-6 w-full">
       <div className="mb-6 w-full">
@@ -344,13 +375,25 @@ export default function Playground() {
         <label htmlFor="origin-address" className="block text-sm font-medium text-gray-700 mb-2">
           Starting Address:
         </label>
-        <input
-          id="origin-address"
-          type="text"
-          value={originAddress}
-          onChange={(e) => setOriginAddress(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
+        <div className="flex items-center">
+          <input
+            id="origin-address"
+            type="text"
+            value={originAddress}
+            onChange={(e) => {
+              setOriginAddress(e.target.value);
+              // You may want to add logic here to convert address to coordinates
+              // This could involve using a geocoding service
+            }}
+            className="flex-grow p-2 border rounded-l"
+          />
+          <button
+            onClick={handleLocateMe}
+            className="p-2 bg-primary text-white rounded-r"
+          >
+            Locate Me
+          </button>
+        </div>
       </div>
 
       {showCards && (
@@ -362,7 +405,8 @@ export default function Playground() {
               onHide={handleHideLocation}
               onSnooze={handleSnoozeLocation}
               isHidden={locationPreferences.hidden.includes(location.name)}
-              originAddress={originAddress}
+              originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+              snoozedUntil={locationPreferences.snoozed[location.name]}
             />
           ))}
         </div>
@@ -372,12 +416,13 @@ export default function Playground() {
         <div className="mt-4">
           <LocationCard
             key={randomLocation.name}
-            location={getLocationWithSnoozedUntil(randomLocation)}
+            location={randomLocation}
             onHide={handleHideLocation}
             onSnooze={handleSnoozeLocation}
             isHidden={false}
             showMapByDefault={true}
-            originAddress={originAddress}
+            originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+            snoozedUntil={locationPreferences.snoozed[randomLocation.name]}
           />
         </div>
       )}
@@ -404,7 +449,8 @@ export default function Playground() {
                   onHide={handleHideLocation}
                   onSnooze={handleSnoozeLocation}
                   isHidden={locationPreferences.hidden.includes(location.name)}
-                  originAddress={originAddress}
+                  originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+                  snoozedUntil={locationPreferences.snoozed[location.name]}
                 />
               ))}
             </div>
