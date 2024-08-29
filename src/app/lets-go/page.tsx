@@ -1,7 +1,8 @@
 'use client';
-import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type Location = {
   name: string;
@@ -55,7 +56,7 @@ function GoogleMapsDirections({ origin, destination, apiKey }: GoogleMapsProps) 
   );
 }
 
-function LocationCard({
+export function LocationCard({
   location,
   onHide,
   onSnooze,
@@ -453,6 +454,12 @@ export default function Playground() {
     setMaxDistance(Number(event.target.value));
   };
 
+  const router = useRouter();
+
+  const handleBuildDeck = () => {
+    router.push('/build-deck');
+  };
+
   return (
     <div className="p-6 w-full">
       <div className="mb-6 w-full">
@@ -527,6 +534,12 @@ export default function Playground() {
             </span>
           )}
         </div>
+        <button
+          className="rounded-lg p-4 bg-secondary text-white"
+          onClick={handleBuildDeck}
+        >
+          Build Deck
+        </button>
       </div>
       <div className="mt-4">
         <label
