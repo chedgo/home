@@ -1,4 +1,4 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai'
+// import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
 
 type Location = {
@@ -14,19 +14,29 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url)
-  const latitude = searchParams.get('latitude')
-  const longitude = searchParams.get('longitude')
+function isLocationUnique(newLocation: Location, existingLocations: Location[]): boolean {
+  return !existingLocations.some(existing => 
+    existing.name === newLocation.name ||
+    (Math.abs(existing.latitude - newLocation.latitude) < 0.001 &&
+     Math.abs(existing.longitude - newLocation.longitude) < 0.001)
+  );
+}
 
-  if (!latitude || !longitude) {
-    return new Response(JSON.stringify({ error: 'Missing latitude or longitude' }), { status: 400 })
-  }
+async function generateLocation(latitude: string, longitude: string, excludeLocations: Location[], index: number): Promise<Location | null> {
+  const prompts = [
+    `Find 1 unique and interesting photo location near ${latitude}, ${longitude}. Focus on natural landmarks or scenic viewpoints.`,
+    `Identify 1 unique photo spot near ${latitude}, ${longitude}. Prioritize historical or cultural sites.`,
+    `Discover 1 distinctive photography location around ${latitude}, ${longitude}. Consider urban or architectural points of interest.`
+  ];
 
   const response = await openai.chat.completions.create({
     model: "gpt-4o-mini",
-    // stream: true, // Commented out for now
-    messages: [{ role: "user", content: `Find 3 interesting photo locations near ${latitude}, ${longitude}.` }],
+    messages: [
+      { 
+        role: "user", 
+        content: `${prompts[index]} Ensure it has distinct coordinates. Exclude these previously generated locations: ${JSON.stringify(excludeLocations)}.` 
+      }
+    ],
     functions: [
       {
         name: "get_photo_locations",
@@ -56,18 +66,50 @@ export async function GET(req: Request) {
     function_call: { name: "get_photo_locations" },
   })
 
-  // Commented out streaming code
-  // const stream = OpenAIStream(response)
-  // return new StreamingTextResponse(stream)
-
-  // Non-streaming response
   const functionCall = response.choices[0].message.function_call;
   if (functionCall && functionCall.name === "get_photo_locations") {
     const locations: Location[] = JSON.parse(functionCall.arguments || '{}').locations;
-    return new Response(JSON.stringify({ locations }), {
+    return locations[0] || null;
+  }
+  return null;
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url)
+  const latitude = searchParams.get('latitude')
+  const longitude = searchParams.get('longitude')
+  const previousLocations = searchParams.get('previousLocations')
+
+  if (!latitude || !longitude) {
+    return new Response(JSON.stringify({ error: 'Missing latitude or longitude' }), { status: 400 })
+  }
+
+  const parsedPreviousLocations: Location[] = previousLocations ? JSON.parse(previousLocations) : []
+
+  const generateUniqueLocations = async (): Promise<Location[]> => {
+    const maxAttempts = 2;
+    const attempts = Array(3).fill(0).map((_, i) => i);
+
+    const generateWithRetry = async (index: number): Promise<Location | null> => {
+      for (let attempt = 0; attempt <= maxAttempts; attempt++) {
+        const location = await generateLocation(latitude!, longitude!, parsedPreviousLocations, index);
+        if (location && isLocationUnique(location, parsedPreviousLocations)) {
+          return location;
+        }
+      }
+      return null;
+    };
+
+    const uniqueLocations = await Promise.all(attempts.map(generateWithRetry));
+    return uniqueLocations.filter((location): location is Location => location !== null);
+  };
+
+  try {
+    const uniqueLocations = await generateUniqueLocations();
+    return new Response(JSON.stringify({ locations: uniqueLocations }), {
       headers: { 'Content-Type': 'application/json' }
     });
-  } else {
+  } catch (error) {
     return new Response(JSON.stringify({ error: 'Failed to get locations' }), { 
       status: 500,
       headers: { 'Content-Type': 'application/json' }
