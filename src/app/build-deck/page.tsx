@@ -265,7 +265,7 @@ export default function BuildDeck() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-visible rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -280,37 +280,39 @@ export default function BuildDeck() {
                       placeholder="Deck Name"
                       className="w-full p-2 border rounded mb-2"
                     />
-                    <input
-                      type="text"
-                      value={newDeckAddress}
-                      onChange={(e) => {
-                        setNewDeckAddress(e.target.value);
-                        // Fetch suggestions for the new deck address
-                        if (e.target.value.length > 2) {
-                          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
-                            .then(response => response.json())
-                            .then(data => setSuggestions(data))
-                            .catch(error => console.error('Error fetching suggestions:', error));
-                        } else {
-                          setSuggestions([]);
-                        }
-                      }}
-                      placeholder="Deck Location"
-                      className="w-full p-2 border rounded"
-                    />
-                    {suggestions.length > 0 && (
-                      <ul className="mt-1 bg-white border rounded">
-                        {suggestions.map((suggestion, index) => (
-                          <li
-                            key={index}
-                            onClick={() => handleNewDeckSuggestionSelect(suggestion)}
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                          >
-                            {suggestion.display_name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={newDeckAddress}
+                        onChange={(e) => {
+                          setNewDeckAddress(e.target.value);
+                          // Fetch suggestions for the new deck address
+                          if (e.target.value.length > 2) {
+                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
+                              .then(response => response.json())
+                              .then(data => setSuggestions(data))
+                              .catch(error => console.error('Error fetching suggestions:', error));
+                          } else {
+                            setSuggestions([]);
+                          }
+                        }}
+                        placeholder="Deck Location"
+                        className="w-full p-2 border rounded"
+                      />
+                      {suggestions.length > 0 && (
+                        <ul className="absolute z-50 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
+                          {suggestions.map((suggestion, index) => (
+                            <li
+                              key={index}
+                              onClick={() => handleNewDeckSuggestionSelect(suggestion)}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                              {suggestion.display_name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </div>
 
                   <div className="mt-4">
