@@ -1,21 +1,36 @@
 'use client';
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
-import locationsData from '../chicago_neighborhoods.json';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import Image from 'next/image';
 
 type Location = {
   name: string;
   description: string;
-  wikipedia_link?: string | null;
-  google_maps_link?: string;
-  distance_from_evanston: number;
+  wikipedia_link: string | null;
   latitude: number;
   longitude: number;
-  snoozedUntil?: number;
 };
 
-// Assert the imported data as Location[]
-const locations: Location[] = locationsData as Location[];
+const mockFetchLocations = async (latitude: number, longitude: number): Promise<Location[]> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  return [
+    {
+      name: "Mock Location 1",
+      description: "This is a mock location for testing purposes.",
+      wikipedia_link: "https://en.wikipedia.org/wiki/Mock",
+      latitude: latitude + 0.1,
+      longitude: longitude + 0.1,
+    },
+    {
+      name: "Mock Location 2",
+      description: "Another mock location for testing.",
+      wikipedia_link: null,
+      latitude: latitude - 0.1,
+      longitude: longitude - 0.1,
+    },
+  ];
+};
 
 type GoogleMapsProps = {
   origin: string;
@@ -110,37 +125,47 @@ function LocationCard({
         )}
       </div>
       <p className="mb-2">{location.description}</p>
-      {location.wikipedia_link && (
-        <a
-          href={location.wikipedia_link}
-          className="text-primary underline"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="flex items-center mt-2 space-x-2">
+        {location.wikipedia_link && (
+          <a
+            href={location.wikipedia_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <div className="w-5 h-5 relative">
+              <Image
+                src="/wikipedia.svg"
+                alt="Wikipedia"
+                width={20}
+                height={20}
+                priority
+                className="object-contain hover:opacity-80 transition-opacity"
+              />
+            </div>
+          </a>
+        )}
+        <button
+          onClick={() => setShowMap(!showMap)}
+          className="inline-block"
+          title={showMap ? 'Hide Map' : 'Show Map'}
         >
-          Wikipedia
-        </a>
-      )}
-      <br />
-      <a
-        href={`https://www.google.com/maps/search/?api=1&query=${location.name}+near+Chicago`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-primary underline"
-      >
-        Google Maps
-      </a>
+          <div className="w-5 h-4 relative">
+            <Image
+              src="/gmaps.svg"
+              alt="Google Maps"
+              fill
+              className={`object-contain hover:opacity-80 transition-opacity ${showMap ? 'opacity-50' : ''}`}
+            />
+          </div>
+        </button>
+      </div>
+      
       {isSnoozed && snoozedUntilDate && (
         <p className="mt-2 text-sm text-gray-500">
           Snoozed until: {snoozedUntilDate}
         </p>
       )}
-      
-      <button
-        onClick={() => setShowMap(!showMap)}
-        className="mt-2 text-primary underline"
-      >
-        {showMap ? 'Hide Map' : 'Show Map'}
-      </button>
       
       {showMap && (
         <div className="mt-4">
@@ -156,7 +181,7 @@ function LocationCard({
 }
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371; // Radius of the earth in km
+  const R = 6371;
   const dLat = deg2rad(lat2 - lat1);
   const dLon = deg2rad(lon2 - lon1);
   const a =
@@ -164,25 +189,59 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
     Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const d = R * c; // Distance in km
-  return d * 0.621371; // Convert to miles
+  const d = R * c;
+  return d * 0.621371;
 }
 
 function deg2rad(deg: number): number {
   return deg * (Math.PI / 180);
 }
 
+// Add a new function to fetch real locations from the backend
+const fetchRealLocations = async (latitude: number, longitude: number): Promise<Location[]> => {
+  const response = await fetch(`/api/locations?latitude=${latitude}&longitude=${longitude}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch locations');
+  }
+  const data = await response.json();
+  return data.locations;
+};
+
+
+const USE_MOCK_DATA = false; // Set this to false when you want to use real data
+
 export default function Playground() {
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
-  const [maxDistance, setMaxDistance] = useState(10); // Default max distance
+  const [maxDistance, setMaxDistance] = useState(10);
   const [showHiddenCards, setShowHiddenCards] = useState(false);
-  const [originCoords, setOriginCoords] = useState({ lat: 42.0451, lon: -87.6877 }); // Default Evanston coordinates
+  const [originCoords, setOriginCoords] = useState({ lat: 42.0451, lon: -87.6877 });
   const [originAddress, setOriginAddress] = useState('Evanston, IL');
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLocationSet, setIsLocationSet] = useState(false);
+
+  const fetchLocations = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const fetchedLocations = USE_MOCK_DATA
+        ? await mockFetchLocations(originCoords.lat, originCoords.lon)
+        : await fetchRealLocations(originCoords.lat, originCoords.lon);
+      setLocations(fetchedLocations);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      // Optionally, set an error state here to display to the user
+    } finally {
+      setIsLoading(false);
+    }
+  }, [originCoords]);
+
+  const handleGenerateIdeas = useCallback(() => {
+    fetchLocations();
+  }, [fetchLocations]);
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -217,6 +276,7 @@ export default function Playground() {
     });
     setSuggestions([]);
     setShowSuggestions(false);
+    setIsLocationSet(true);
   };
 
   const [locationPreferences, setLocationPreferences] = useLocalStorage(
@@ -250,7 +310,7 @@ export default function Playground() {
       const isHidden = locationPreferences.hidden.includes(location.name);
       return distanceIsInRange && !isHidden;
     });
-  }, [maxDistance, locationPreferences.hidden, isClient, originCoords]);
+  }, [locations, maxDistance, locationPreferences.hidden, isClient, originCoords]);
 
   const generateRandomLocation = useCallback(() => {
     if (filteredLocations.length > 0) {
@@ -269,6 +329,7 @@ export default function Playground() {
         isLocationSnoozed(location)
     );
   }, [
+    locations,
     locationPreferences.hidden,
     locationPreferences.snoozed,
     isClient,
@@ -341,16 +402,42 @@ export default function Playground() {
     hiddenLocationsRef.current = hiddenLocations;
   }, [hiddenLocations]);
 
+  const reverseGeocode = async (lat: number, lon: number) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      return data.display_name;
+    } catch (error) {
+      console.error('Error reverse geocoding:', error);
+      return null;
+    }
+  };
+
   const handleLocateMe = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const newCoords = {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           };
           setOriginCoords(newCoords);
-          setOriginAddress(`${newCoords.lat}, ${newCoords.lon}`);
+          const coordsString = `${newCoords.lat}, ${newCoords.lon}`;
+          setOriginAddress(coordsString);
+          setAddress(coordsString);
+          setIsLocationSet(true);
+
+          // Attempt to get a readable address
+          const readableAddress = await reverseGeocode(newCoords.lat, newCoords.lon);
+          if (readableAddress) {
+            setAddress(readableAddress);
+            setOriginAddress(readableAddress);
+          }
         },
         (error) => {
           console.error("Error getting user location:", error);
@@ -381,41 +468,7 @@ export default function Playground() {
           useful for me so I thought I&apos;d share as I build it out.
         </p>
       </div>
-      <div className="flex justify-between mb-4 w-full">
-        <button
-          className="rounded-lg p-4 text-primary font-semibold"
-          onClick={() => setShowCards(!showCards)}
-        >
-          {showCards ? 'Hide All' : 'Show All'}
-        </button>
-        <div className="flex justify-center w-full">
-          <button
-            className="rounded-lg p-4 bg-primary text-white"
-            onClick={generateRandomLocation}
-          >
-            Where should I go?
-          </button>
-        </div>
-      </div>
       <div className="mt-4">
-        <label
-          htmlFor="distance-slider"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Max Distance from Evanston: {maxDistance} miles
-        </label>
-        <input
-          id="distance-slider"
-          type="range"
-          min="0"
-          max="35"
-          value={maxDistance}
-          onChange={handleSliderChange}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-      
-      {/* <div className="mt-4">
         <label htmlFor="origin-address" className="block text-sm font-medium text-gray-700 mb-2">
           Starting Address:
         </label>
@@ -450,55 +503,58 @@ export default function Playground() {
         >
           Locate Me
         </button>
-      </div> */}
-
-      {showCards && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-          {filteredLocations.map((location, index) => (
-            <LocationCard
-              key={index}
-              location={location}
-              onHide={handleHideLocation}
-              onSnooze={handleSnoozeLocation}
-              isHidden={locationPreferences.hidden.includes(location.name)}
-              originAddress={originAddress}
-              snoozedUntil={locationPreferences.snoozed[location.name]}
-            />
-          ))}
-        </div>
-      )}
-
-      {randomLocation && Object.keys(randomLocation).length > 0 && (
-        <div className="mt-4">
-          <LocationCard
-            key={randomLocation.name}
-            location={randomLocation}
-            onHide={handleHideLocation}
-            onSnooze={handleSnoozeLocation}
-            isHidden={false}
-            showMapByDefault={true}
-            originAddress={originAddress}
-            snoozedUntil={locationPreferences.snoozed[randomLocation.name]}
-          />
-        </div>
-      )}
-
-      <div className="mt-8">
+      </div>
+      <div className="flex justify-between mb-4 w-full">
         <button
           className="rounded-lg p-4 text-primary font-semibold"
-          onClick={() => setShowHiddenCards(!showHiddenCards)}
+          onClick={() => setShowCards(!showCards)}
         >
-          {showHiddenCards ? 'Hide' : 'Show'} Hidden and Snoozed Locations
-          {isClient && ` (${hiddenLocations.length})`}
+          {showCards ? 'Hide All' : 'Show All'}
         </button>
+        <div className="flex flex-col items-center w-full">
+          {isLocationSet && (
+            <button
+              className="rounded-lg p-4 bg-primary text-white"
+              onClick={handleGenerateIdeas}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Generating Ideas...' : 'Generate Ideas'}
+            </button>
+          )}
+          {USE_MOCK_DATA && (
+            <span className="mt-2 text-sm text-yellow-600 font-semibold">
+              Using Mocked Data
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="mt-4">
+        <label
+          htmlFor="distance-slider"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
+          Max Distance: {maxDistance} miles
+        </label>
+        <input
+          id="distance-slider"
+          type="range"
+          min="0"
+          max="35"
+          value={maxDistance}
+          onChange={handleSliderChange}
+          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+      
+     
 
-        {showHiddenCards && hiddenLocations.length > 0 && (
-          <div className="mt-4">
-            <h2 className="text-xl font-bold mb-4">
-              Hidden and Snoozed Locations
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {hiddenLocations.map((location, index) => (
+      {isLoading ? (
+        <div className="mt-4 text-center">Loading locations...</div>
+      ) : (
+        <>
+          {showCards && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              {filteredLocations.map((location, index) => (
                 <LocationCard
                   key={index}
                   location={location}
@@ -510,9 +566,55 @@ export default function Playground() {
                 />
               ))}
             </div>
+          )}
+
+          {randomLocation && Object.keys(randomLocation).length > 0 && (
+            <div className="mt-4">
+              <LocationCard
+                key={randomLocation.name}
+                location={randomLocation}
+                onHide={handleHideLocation}
+                onSnooze={handleSnoozeLocation}
+                isHidden={false}
+                showMapByDefault={true}
+                originAddress={originAddress}
+                snoozedUntil={locationPreferences.snoozed[randomLocation.name]}
+              />
+            </div>
+          )}
+
+          <div className="mt-8">
+            <button
+              className="rounded-lg p-4 text-primary font-semibold"
+              onClick={() => setShowHiddenCards(!showHiddenCards)}
+            >
+              {showHiddenCards ? 'Hide' : 'Show'} Hidden and Snoozed Locations
+              {isClient && ` (${hiddenLocations.length})`}
+            </button>
+
+            {showHiddenCards && hiddenLocations.length > 0 && (
+              <div className="mt-4">
+                <h2 className="text-xl font-bold mb-4">
+                  Hidden and Snoozed Locations
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {hiddenLocations.map((location, index) => (
+                    <LocationCard
+                      key={index}
+                      location={location}
+                      onHide={handleHideLocation}
+                      onSnooze={handleSnoozeLocation}
+                      isHidden={locationPreferences.hidden.includes(location.name)}
+                      originAddress={originAddress}
+                      snoozedUntil={locationPreferences.snoozed[location.name]}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 }
