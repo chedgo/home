@@ -8,10 +8,7 @@ type Location = {
   latitude: number
   longitude: number
 }
-
-type ResponseData = {
-  locations: Location[]
-}
+export const dynamic = 'force-dynamic'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
