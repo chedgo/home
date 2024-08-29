@@ -137,7 +137,7 @@ export default function Page() {
             </ListItem>
           </ul>
         </div>
-        <SectionTitle className="mt-8">Tools, Toys, Ideas</SectionTitle>
+        {/* <SectionTitle className="mt-8">Tools, Toys, Ideas</SectionTitle>
         <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
           <ul className="list-disc list-outside flex flex-col gap-3 mt-14 pl-5">
             <ListItem>
@@ -151,7 +151,7 @@ export default function Page() {
               house
             </ListItem>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
