@@ -7,6 +7,8 @@ type Location = {
   wikipedia_link: string | null
   latitude: number
   longitude: number
+  isHidden?: boolean
+  snoozedUntil?: number
 }
 export const runtime = 'edge'
 
