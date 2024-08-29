@@ -145,8 +145,8 @@ function LocationCard({
       {showMap && (
         <div className="mt-4">
           <GoogleMapsDirections
-            origin={originAddress || ''}
-            destination={`${location.name}, Chicago`}
+            origin={originAddress}
+            destination={`${location.latitude},${location.longitude}`}
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
           />
         </div>
@@ -179,15 +179,46 @@ export default function Playground() {
   const [showHiddenCards, setShowHiddenCards] = useState(false);
   const [originCoords, setOriginCoords] = useState({ lat: 42.0451, lon: -87.6877 }); // Default Evanston coordinates
   const [originAddress, setOriginAddress] = useState('Evanston, IL');
+  const [address, setAddress] = useState('');
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
+  const [showSuggestions, setShowSuggestions] = useState(true);
 
-  const generateRandomLocation = () => {
-    const randomIndex = Math.floor(Math.random() * filteredLocations.length);
-    setRandomLocation(filteredLocations[randomIndex]);
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (address.length > 2) {
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
+          );
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setSuggestions(data);
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    const timeoutId = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(timeoutId);
+  }, [address]);
+
+  const handleSuggestionSelect = (suggestion: any) => {
+    setAddress(suggestion.display_name);
+    setOriginAddress(suggestion.display_name);
+    setOriginCoords({
+      lat: parseFloat(suggestion.lat),
+      lon: parseFloat(suggestion.lon),
+    });
+    setSuggestions([]);
+    setShowSuggestions(false);
   };
 
-  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMaxDistance(Number(event.target.value));
-  };
   const [locationPreferences, setLocationPreferences] = useLocalStorage(
     'locationPreferences',
     { hidden: [], snoozed: {} }
@@ -220,6 +251,15 @@ export default function Playground() {
       return distanceIsInRange && !isHidden;
     });
   }, [maxDistance, locationPreferences.hidden, isClient, originCoords]);
+
+  const generateRandomLocation = useCallback(() => {
+    if (filteredLocations.length > 0) {
+      const randomIndex = Math.floor(Math.random() * filteredLocations.length);
+      setRandomLocation(filteredLocations[randomIndex]);
+    } else {
+      alert("No locations match your current filters. Try increasing the max distance or showing hidden locations.");
+    }
+  }, [filteredLocations]);
 
   const hiddenLocations = useMemo(() => {
     if (!isClient) return [];
@@ -322,6 +362,10 @@ export default function Playground() {
     }
   };
 
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxDistance(Number(event.target.value));
+  };
+
   return (
     <div className="p-6 w-full">
       <div className="mb-6 w-full">
@@ -371,30 +415,42 @@ export default function Playground() {
         />
       </div>
       
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <label htmlFor="origin-address" className="block text-sm font-medium text-gray-700 mb-2">
           Starting Address:
         </label>
-        <div className="flex items-center">
+        <div className="relative">
           <input
             id="origin-address"
             type="text"
-            value={originAddress}
+            value={address}
             onChange={(e) => {
-              setOriginAddress(e.target.value);
-              // You may want to add logic here to convert address to coordinates
-              // This could involve using a geocoding service
+              setAddress(e.target.value);
+              setShowSuggestions(true);
             }}
-            className="flex-grow p-2 border rounded-l"
+            className="w-full p-2 border rounded"
           />
-          <button
-            onClick={handleLocateMe}
-            className="p-2 bg-primary text-white rounded-r"
-          >
-            Locate Me
-          </button>
+          {showSuggestions && suggestions.length > 0 && (
+            <ul className="absolute z-10 w-full bg-white border rounded mt-1">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSuggestionSelect(suggestion)}
+                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  {suggestion.display_name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-      </div>
+        <button
+          onClick={handleLocateMe}
+          className="mt-2 p-2 bg-primary text-white rounded"
+        >
+          Locate Me
+        </button>
+      </div> */}
 
       {showCards && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
@@ -405,7 +461,7 @@ export default function Playground() {
               onHide={handleHideLocation}
               onSnooze={handleSnoozeLocation}
               isHidden={locationPreferences.hidden.includes(location.name)}
-              originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+              originAddress={originAddress}
               snoozedUntil={locationPreferences.snoozed[location.name]}
             />
           ))}
@@ -421,7 +477,7 @@ export default function Playground() {
             onSnooze={handleSnoozeLocation}
             isHidden={false}
             showMapByDefault={true}
-            originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+            originAddress={originAddress}
             snoozedUntil={locationPreferences.snoozed[randomLocation.name]}
           />
         </div>
@@ -449,7 +505,7 @@ export default function Playground() {
                   onHide={handleHideLocation}
                   onSnooze={handleSnoozeLocation}
                   isHidden={locationPreferences.hidden.includes(location.name)}
-                  originAddress={`${originCoords.lat}, ${originCoords.lon}`}
+                  originAddress={originAddress}
                   snoozedUntil={locationPreferences.snoozed[location.name]}
                 />
               ))}
