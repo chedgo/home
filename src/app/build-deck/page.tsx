@@ -6,23 +6,9 @@ import { Tab, Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import Link from 'next/link';
+import { Deck, Location } from '../../types';
 
-type Location = {
-  name: string;
-  description: string;
-  wikipedia_link: string | null;
-  latitude: number;
-  longitude: number;
-  isHidden?: boolean;
-  snoozedUntil?: number;
-};
 
-type Deck = {
-  name: string;
-  locations: Location[];
-  address: string;
-  coords: { lat: number; lon: number };
-};
 
 export default function BuildDeck() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -86,6 +72,7 @@ export default function BuildDeck() {
         const newDecks = [
           ...prevDecks, 
           { 
+            id: Date.now().toString(), // Add a unique id
             name: newDeckName, 
             locations: [],
             address: newDeckAddress,
@@ -164,6 +151,7 @@ export default function BuildDeck() {
   const handleUseDefaultDeck = useCallback(() => {
     const defaultDeck: Deck = {
       name: "Chicago Neighborhoods",
+      id: "chicago-neighborhoods",
       locations: chicagoNeighborhoods.map(location => ({
         ...location,
         isHidden: false,

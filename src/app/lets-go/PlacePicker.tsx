@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { LocationCard } from '../components/LocationCard';
 import { Deck, Location } from '../../types';
 import { calculateDistance, parseDuration } from '../../utils/locationUtils';
@@ -20,9 +20,33 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10);
   const [showHiddenCards, setShowHiddenCards] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [generationCount, setGenerationCount] = useState(0);
+  const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    onConfirm: () => {},
+  });
 
   const currentDeck = decks[currentDeckIndex];
+
+  useEffect(() => {
+    const storedData = localStorage.getItem(`deck_${currentDeck?.id}`);
+    if (storedData) {
+      const { count, time } = JSON.parse(storedData);
+      setGenerationCount(count);
+      setLastGenerationTime(time);
+    } else {
+      setGenerationCount(0);
+      setLastGenerationTime(null);
+    }
+  }, [currentDeck]);
 
   const filteredLocations = useMemo(() => {
     if (!currentDeck) return [];
@@ -102,13 +126,68 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
   };
 
   const handleGenerateRandomLocation = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
+    const currentTime = Date.now();
+    if (lastGenerationTime && currentTime - lastGenerationTime < 12 * 60 * 60 * 1000) {
+      if (generationCount === 0) {
+        setModalState({
+          isOpen: true,
+          title: "Commit to Your Adventure",
+          message: "Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!",
+          onConfirm: () => {
+            setGenerationCount(1);
+            generateRandomLocation();
+            setLastGenerationTime(currentTime);
+            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 1, time: currentTime }));
+          },
+        });
+      } else if (generationCount === 1) {
+        setModalState({
+          isOpen: true,
+          title: "Warning: Multiple Generations Attempted",
+          message: "Generating a second location kind of defeats the purpose. Are you sure you want to continue?",
+          onConfirm: () => {
+            setGenerationCount(2);
+            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 2, time: currentTime }));
+          },
+        });
+      } else if (generationCount === 2) {
+        setModalState({
+          isOpen: true,
+          title: "Warning: Multiple Generations Attempted",
+          message: "Okay but don't say I didn't warn you. It will all seem meaningless.",
+          onConfirm: () => {
+            setGenerationCount(3);
+            generateRandomLocation();
+            setLastGenerationTime(currentTime);
+            setModalState(prev => ({ ...prev, isOpen: false }));
+            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 3, time: currentTime }));
+          },
+        });
+      } else {
+        setModalState({
+          isOpen: true,
+          title: "No More Generations",
+          message: "You've reached the maximum number of generations. Get going!",
+          onConfirm: () => setModalState(prev => ({ ...prev, isOpen: false })),
+        });
+      }
+    } else {
+      setGenerationCount(1);
+      setLastGenerationTime(currentTime);
+      localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 1, time: currentTime }));
+      generateRandomLocation();
+    }
+  }, [generationCount, lastGenerationTime, currentDeck, generateRandomLocation]);
 
-  const handleConfirmGeneration = useCallback(() => {
-    setIsModalOpen(false);
-    generateRandomLocation();
-  }, [generateRandomLocation]);
+  const buttonText = useMemo(() => {
+    if (generationCount === 0) {
+      return "Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.";
+    } else if (generationCount === 3) {
+      return "That's it! (for real this time)";
+    } else {
+      return "That's it!";
+    }
+  }, [generationCount]);
 
   return (
     <>
@@ -141,7 +220,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
               className="w-full rounded-lg p-4 bg-primary text-white"
               onClick={handleGenerateRandomLocation}
             >
-              Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.
+              {buttonText}
             </button>
           </div>
           
@@ -230,11 +309,11 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
       )}
       
       <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleConfirmGeneration}
-        title="Commit to Your Adventure"
-        message="Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!"
+        isOpen={modalState.isOpen}
+        onClose={() => setModalState(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={modalState.onConfirm}
+        title={modalState.title}
+        message={modalState.message}
       />
     </>
   );

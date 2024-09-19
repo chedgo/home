@@ -9,6 +9,7 @@ export type Location = {
 };
 
 export type Deck = {
+  id: string;
   name: string;
   locations: Location[];
   address: string;

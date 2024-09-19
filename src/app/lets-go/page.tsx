@@ -11,6 +11,7 @@ export default function LetsGo() {
   const handleUseDefaultDeck = () => {
     const defaultDeck: Deck = {
       name: 'Chicago Neighborhoods',
+      id: 'chicago-neighborhoods',
       locations: chicagoNeighborhoods.map((location) => ({
         ...location,
         isHidden: false,
