@@ -1,27 +1,12 @@
 'use client';
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { LocationCard } from '../components/LocationCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
+import { Deck, Location } from '../../types';
 import { calculateDistance, parseDuration } from '../../utils/locationUtils';
-
-type Location = {
-  name: string;
-  description: string;
-  wikipedia_link: string | null;
-  latitude: number;
-  longitude: number;
-  isHidden?: boolean;
-  snoozedUntil?: number;
-};
-
-type Deck = {
-  name: string;
-  locations: Location[];
-  address: string;
-  coords: { lat: number; lon: number };
-};
+import { DeckSelector } from '../../components/DeckSelector';
 
 export default function LetsGo() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -153,21 +138,11 @@ export default function LetsGo() {
       
       {decks.length > 0 ? (
         <>
-          <div className="mb-4">
-            <label htmlFor="deck-select" className="block text-sm font-medium text-gray-700 mb-2">
-              Select a Deck:
-            </label>
-            <select
-              id="deck-select"
-              value={currentDeckIndex}
-              onChange={(e) => setCurrentDeckIndex(Number(e.target.value))}
-              className="w-full p-2 border rounded"
-            >
-              {decks.map((deck, index) => (
-                <option key={index} value={index}>{deck.name}</option>
-              ))}
-            </select>
-          </div>
+          <DeckSelector
+            decks={decks}
+            currentDeckIndex={currentDeckIndex}
+            onDeckChange={setCurrentDeckIndex}
+          />
           
           <div className="flex justify-between mb-4 w-full">
             <button
