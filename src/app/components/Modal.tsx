@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;  // Make onConfirm optional
   title: string;
   children: ReactNode;
 }
@@ -23,12 +23,14 @@ export function Modal({ isOpen, onClose, onConfirm, title, children }: ModalProp
           >
             Cancel
           </button>
-          <button
-            className="px-4 py-2 bg-primary text-white rounded-lg"
-            onClick={onConfirm}
-          >
-            Confirm
-          </button>
+          {onConfirm && (
+            <button
+              className="px-4 py-2 bg-primary text-white rounded-lg"
+              onClick={onConfirm}
+            >
+              Confirm
+            </button>
+          )}
         </div>
       </div>
     </div>

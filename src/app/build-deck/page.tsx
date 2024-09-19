@@ -7,8 +7,7 @@ import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import Link from 'next/link';
 import { Deck, Location } from '../../types';
 import { Modal } from '../components/Modal';
-
-
+import { CreateDeckForm } from '../components/CreateDeckForm'; // New import
 
 export default function BuildDeck() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -66,12 +65,11 @@ export default function BuildDeck() {
     setSuggestions([]);
   };
 
-  const handleCreateDeck = () => {
-    if (newDeckName && newDeckAddress) {
-      addDeck();
-      setIsCreateDeckModalOpen(false);
-    }
-  };
+  const handleCreateDeck = useCallback((newDeck: Deck) => {
+    setDecks(prevDecks => [...prevDecks, newDeck]);
+    setCurrentDeckIndex(prevDecks => prevDecks + 1);
+    setIsCreateDeckModalOpen(false);
+  }, [setDecks]);
 
   const addDeck = () => {
     if (newDeckName && newDeckAddress) {
@@ -278,51 +276,9 @@ export default function BuildDeck() {
       <Modal
         isOpen={isCreateDeckModalOpen}
         onClose={() => setIsCreateDeckModalOpen(false)}
-        onConfirm={handleCreateDeck}
         title="Create New Deck"
       >
-        <div>
-          <input
-            type="text"
-            value={newDeckName}
-            onChange={(e) => setNewDeckName(e.target.value)}
-            placeholder="Deck Name"
-            className="w-full p-2 border rounded mb-2"
-          />
-          <div className="relative">
-            <input
-              type="text"
-              value={newDeckAddress}
-              onChange={(e) => {
-                setNewDeckAddress(e.target.value);
-                // Fetch suggestions for the new deck address
-                if (e.target.value.length > 2) {
-                  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
-                    .then(response => response.json())
-                    .then(data => setSuggestions(data))
-                    .catch(error => console.error('Error fetching suggestions:', error));
-                } else {
-                  setSuggestions([]);
-                }
-              }}
-              placeholder="Deck Location"
-              className="w-full p-2 border rounded"
-            />
-            {suggestions.length > 0 && (
-              <ul className="absolute z-50 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
-                {suggestions.map((suggestion, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleNewDeckSuggestionSelect(suggestion)}
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
-                  >
-                    {suggestion.display_name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
+        <CreateDeckForm onCreateDeck={handleCreateDeck} />
       </Modal>
     </div>
   );
