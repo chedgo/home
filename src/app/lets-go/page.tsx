@@ -19,7 +19,7 @@ export default function LetsGo() {
         wikipedia_link: location.wikipedia_link || null,
       })),
       address: 'Chicago, IL',
-      coords: { lat: 41.8781, lon: -87.6298 }, // Chicago's coordinates
+      coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
     };
     setDecks([defaultDeck]);
   };
@@ -32,9 +32,9 @@ export default function LetsGo() {
       
       <section className="mb-8 space-y-4 text-primary">
         <p>
-          Sometimes you just want to go somewhere and don't know where to go.
+          Sometimes you just want to go somewhere and don&apos;t know where to go.
           Sometimes we get caught wandering around the blockbuster longer than a
-          movie's runtime. Sometimes being able to do everything makes it hard
+          movie&apos;s runtime. Sometimes being able to do everything makes it hard
           to do anything.
         </p>
         <p>
