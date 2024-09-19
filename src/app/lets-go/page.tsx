@@ -10,36 +10,60 @@ export default function LetsGo() {
 
   const handleUseDefaultDeck = () => {
     const defaultDeck: Deck = {
-      name: "Chicago Neighborhoods",
-      locations: chicagoNeighborhoods.map(location => ({
+      name: 'Chicago Neighborhoods',
+      locations: chicagoNeighborhoods.map((location) => ({
         ...location,
         isHidden: false,
         snoozedUntil: undefined,
-        wikipedia_link: location.wikipedia_link || null
+        wikipedia_link: location.wikipedia_link || null,
       })),
-      address: "Chicago, IL",
+      address: 'Chicago, IL',
       coords: { lat: 41.8781, lon: -87.6298 }, // Chicago's coordinates
     };
     setDecks([defaultDeck]);
   };
 
   return (
-    <div className="p-6 w-full">
-      <div className="mb-6 w-full">
-        <h1 className="text-2xl font-bold mb-2 w-full flex justify-center text-primary">
-          Let&apos;s Go
-        </h1>
-        <p className="text-primary">
-          This tool was made to help decide where to go take photos when we
-          can&apos;t decide. The vision is that the list of locations is
-          generated taking into account user preferences and provides some
-          customization options. It allows the user to react to cards as they
-          go, and stores changes. This tool is not complete, but is already
-          useful for me so I thought I&apos;d share as I build it out.
-        </p>
-      </div>
+    <div className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center text-primary">
+        Let&apos;s Go
+      </h1>
       
-      <PlacePicker decks={decks} setDecks={setDecks} handleUseDefaultDeck={handleUseDefaultDeck} />
+      <section className="mb-8 space-y-4 text-primary">
+        <p>
+          Sometimes you just want to go somewhere and don't know where to go.
+          Sometimes we get caught wandering around the blockbuster longer than a
+          movie's runtime. Sometimes being able to do everything makes it hard
+          to do anything.
+        </p>
+        <p>
+          This tool was made to help make a choice and{' '}
+          <span className="text-accent font-bold font-tenon-bold">
+            move on with your life
+          </span>.
+        </p>
+        <p>
+          A user can generate a deck of locations based on their preferences and
+          then use the picker to randomly select a{' '}
+          <span className="text-accent font-bold font-tenon-bold">
+            single location
+          </span>{' '}
+          from the deck.
+        </p>
+        <p className="italic">
+          This tool is not complete, but is already{' '}
+          <span className="text-accent font-bold font-tenon-bold">
+            useful for me
+          </span>{' '}
+          so I thought I&apos;d share as I build it out.
+        </p>
+      </section>
+
+      <PlacePicker
+        decks={decks}
+        setDecks={setDecks}
+        handleUseDefaultDeck={handleUseDefaultDeck}
+      />
     </div>
   );
 }
