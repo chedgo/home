@@ -6,7 +6,8 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import { Deck, Location } from '../../types';
 import { calculateDistance, parseDuration } from '../../utils/locationUtils';
-import { DeckSelector } from '../../components/DeckSelector';
+import { DeckSelector } from './DeckSelector';
+import { DistanceSlider } from './DistanceSlider';
 
 export default function LetsGo() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -165,23 +166,7 @@ export default function LetsGo() {
             </button>
           </div>
           
-          <div className="mt-4">
-            <label
-              htmlFor="distance-slider"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Max Distance: {maxDistance} miles
-            </label>
-            <input
-              id="distance-slider"
-              type="range"
-              min="0"
-              max="35"
-              value={maxDistance}
-              onChange={handleSliderChange}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+          <DistanceSlider maxDistance={maxDistance} onSliderChange={handleSliderChange} />
 
           {randomLocation && (
             <div className="mt-4">
