@@ -103,31 +103,35 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
     <>
       {decks.length > 0 ? (
         <>
-          <DeckSelector
-            decks={decks}
-            currentDeckIndex={currentDeckIndex}
-            onDeckChange={setCurrentDeckIndex}
-          />
+          <div className="flex justify-between items-center mb-4 w-full">
+            <DeckSelector
+              decks={decks}
+              currentDeckIndex={currentDeckIndex}
+              onDeckChange={setCurrentDeckIndex}
+            />
+            <div className="flex space-x-2">
+              <button
+                className="rounded-lg px-3 py-2 text-primary font-semibold"
+                onClick={() => setShowCards(!showCards)}
+              >
+                {showCards ? 'Hide All' : 'Show All'}
+              </button>
+              <Link
+                href="/build-deck"
+                className="rounded-lg px-3 py-2 bg-secondary text-white"
+              >
+                Build Deck
+              </Link>
+            </div>
+          </div>
           
-          <div className="flex justify-between mb-4 w-full">
+          <div className="mb-4 w-full">
             <button
-              className="rounded-lg p-4 text-primary font-semibold"
-              onClick={() => setShowCards(!showCards)}
-            >
-              {showCards ? 'Hide All' : 'Show All'}
-            </button>
-            <button
-              className="rounded-lg p-4 bg-primary text-white"
+              className="w-full rounded-lg p-4 bg-primary text-white"
               onClick={generateRandomLocation}
             >
-              Generate Random Location
+              Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.
             </button>
-            <Link
-              href="/build-deck"
-              className="rounded-lg p-4 bg-secondary text-white"
-            >
-              Build Deck
-            </Link>
           </div>
           
           <DistanceSlider maxDistance={maxDistance} onSliderChange={handleSliderChange} />
