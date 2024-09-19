@@ -3,12 +3,18 @@ import React, { ReactNode } from 'react';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm?: () => void;  // Make onConfirm optional
+  onConfirm?: () => void;
   title: string;
   children: ReactNode;
 }
 
-export function Modal({ isOpen, onClose, onConfirm, title, children }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  children,
+}: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -23,14 +29,12 @@ export function Modal({ isOpen, onClose, onConfirm, title, children }: ModalProp
           >
             Cancel
           </button>
-          {onConfirm && (
-            <button
-              className="px-4 py-2 bg-primary text-white rounded-lg"
-              onClick={onConfirm}
-            >
-              Confirm
-            </button>
-          )}
+          <button
+            className="px-4 py-2 bg-primary text-white rounded-lg"
+            onClick={onConfirm}
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </div>

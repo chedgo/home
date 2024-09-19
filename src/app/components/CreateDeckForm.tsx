@@ -38,14 +38,23 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
   const handleAddressChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setNewDeckAddress(e.target.value);
     if (e.target.value.length > 2) {
-      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}&countrycodes=us&limit=10`)
         .then(response => response.json())
-        .then(data => setSuggestions(data))
+        .then(data => {
+          // Prioritize USA results
+          const usResults = data.filter((item: any) => item.address?.country_code === 'us');
+          const otherResults = data.filter((item: any) => item.address?.country_code !== 'us');
+          const combinedResults = [...usResults, ...otherResults];
+          setSuggestions(combinedResults);
+        })
         .catch(error => console.error('Error fetching suggestions:', error));
     } else {
       setSuggestions([]);
     }
   }, []);
+
+  // Add this near the top of your component
+  console.log('Rendering with suggestions:', suggestions);
 
   return (
     <div>
@@ -72,7 +81,7 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
                 onClick={() => handleNewDeckSuggestionSelect(suggestion)}
                 className="p-2 hover:bg-gray-100 cursor-pointer"
               >
-                {suggestion.display_name}
+                {suggestion.display_name || 'Unknown location'}
               </li>
             ))}
           </ul>
