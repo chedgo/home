@@ -6,6 +6,7 @@ import { calculateDistance, parseDuration } from '../../utils/locationUtils';
 import { DeckSelector } from './DeckSelector';
 import { DistanceSlider } from './DistanceSlider';
 import Link from 'next/link';
+import { Modal } from '../components/Modal';
 
 interface PlacePickerProps {
   decks: Deck[];
@@ -19,6 +20,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10);
   const [showHiddenCards, setShowHiddenCards] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentDeck = decks[currentDeckIndex];
 
@@ -99,6 +101,15 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
     setMaxDistance(Number(event.target.value));
   };
 
+  const handleGenerateRandomLocation = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const handleConfirmGeneration = useCallback(() => {
+    setIsModalOpen(false);
+    generateRandomLocation();
+  }, [generateRandomLocation]);
+
   return (
     <>
       {decks.length > 0 ? (
@@ -128,7 +139,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
           <div className="mb-4 w-full">
             <button
               className="w-full rounded-lg p-4 bg-primary text-white"
-              onClick={generateRandomLocation}
+              onClick={handleGenerateRandomLocation}
             >
               Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.
             </button>
@@ -217,6 +228,14 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
           </div>
         </div>
       )}
+      
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmGeneration}
+        title="Commit to Your Adventure"
+        message="Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!"
+      />
     </>
   );
 }
