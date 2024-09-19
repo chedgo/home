@@ -3,6 +3,7 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { LocationCard } from '../components/LocationCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 
 type Location = {
   name: string;
@@ -22,7 +23,7 @@ type Deck = {
 };
 
 export default function LetsGo() {
-  const [decks] = useLocalStorage<Deck[]>('userDecks', []);
+  const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
   const [currentDeckIndex, setCurrentDeckIndex] = useState(0);
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
@@ -116,6 +117,22 @@ export default function LetsGo() {
   const handleBuildDeck = () => {
     router.push('/build-deck');
   };
+
+  const handleUseDefaultDeck = useCallback(() => {
+    const defaultDeck: Deck = {
+      name: "Chicago Neighborhoods",
+      locations: chicagoNeighborhoods.map(location => ({
+        ...location,
+        isHidden: false,
+        snoozedUntil: undefined,
+        wikipedia_link: location.wikipedia_link || null
+      })),
+      address: "Chicago, IL",
+      coords: { lat: 41.8781, lon: -87.6298 }, // Chicago's coordinates
+    };
+    setDecks([defaultDeck]);
+    setCurrentDeckIndex(0);
+  }, [setDecks]);
 
   // Helper functions
   function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -291,13 +308,21 @@ export default function LetsGo() {
         </>
       ) : (
         <div className="text-center mt-8">
-          <p className="mb-4">No decks available. Please create a deck first.</p>
-          <button
-            className="rounded-lg p-4 bg-primary text-white"
-            onClick={handleBuildDeck}
-          >
-            Go to Deck Builder
-          </button>
+          <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
+          <div className="flex justify-center space-x-4">
+            <button
+              className="rounded-lg p-4 bg-primary text-white"
+              onClick={handleBuildDeck}
+            >
+              Go to Deck Builder
+            </button>
+            <button
+              className="rounded-lg p-4 bg-secondary text-white"
+              onClick={handleUseDefaultDeck}
+            >
+              Use Default Deck
+            </button>
+          </div>
         </div>
       )}
     </div>

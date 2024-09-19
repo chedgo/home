@@ -4,6 +4,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { LocationCard } from '../components/LocationCard';
 import { Tab, Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 
 type Location = {
   name: string;
@@ -159,61 +160,97 @@ export default function BuildDeck() {
     }
   };
 
+  const handleUseDefaultDeck = useCallback(() => {
+    const defaultDeck: Deck = {
+      name: "Chicago Neighborhoods",
+      locations: chicagoNeighborhoods.map(location => ({
+        ...location,
+        isHidden: false,
+        snoozedUntil: undefined,
+        wikipedia_link: location.wikipedia_link || null
+      })),
+      address: "Chicago, IL",
+      coords: { lat: 41.8781, lon: -87.6298 }, // Chicago's coordinates
+    };
+    setDecks([defaultDeck]);
+    setCurrentDeckIndex(0);
+  }, [setDecks]);
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Build Your Deck</h1>
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-2">Your Decks</h2>
-        <Tab.Group selectedIndex={currentDeckIndex} onChange={setCurrentDeckIndex}>
-          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-            {decks.map((deck, index) => (
-              <Tab
-                key={index}
-                className={({ selected }) =>
-                  `w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700
-                  ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
-                }
-              >
-                {deck.name}
-              </Tab>
-            ))}
+      {decks.length === 0 ? (
+        <div className="mt-8 text-center">
+          <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
+          <div className="flex justify-center space-x-4">
             <button
               onClick={() => setIsNewDeckModalOpen(true)}
-              className="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
             >
-              + New Deck
+              Create New Deck
             </button>
-          </Tab.List>
-          <Tab.Panels className="mt-2">
-            {decks.map((deck, idx) => (
-              <Tab.Panel key={idx}>
-                <div className="mb-4">
-                  <p>Location: {deck.address}</p>
-                  <button
-                    className="mt-2 p-2 bg-primary text-white rounded"
-                    onClick={handleGenerateIdeas}
-                    disabled={isLoading || decks.length === 0}
-                  >
-                    {isLoading ? 'Generating Ideas...' : 'Generate Ideas'}
-                  </button>
-                </div>
-                {deck.locations.filter(location => !location.isHidden).map((location, index) => (
-                  <div key={index} className="mb-2 p-2 border rounded">
-                    <LocationCard
-                      location={location}
-                      onHide={() => toggleHidden(location)}
-                      onSnooze={(name, duration) => snoozeLocation(name, duration)}
-                      isHidden={false}
-                      originAddress={deck.address}
-                      snoozedUntil={location.snoozedUntil}
-                    />
+            <button
+              onClick={handleUseDefaultDeck}
+              className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
+            >
+              Use Default Deck
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-2">Your Decks</h2>
+          <Tab.Group selectedIndex={currentDeckIndex} onChange={setCurrentDeckIndex}>
+            <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+              {decks.map((deck, index) => (
+                <Tab
+                  key={index}
+                  className={({ selected }) =>
+                    `w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700
+                    ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+                  }
+                >
+                  {deck.name}
+                </Tab>
+              ))}
+              <button
+                onClick={() => setIsNewDeckModalOpen(true)}
+                className="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              >
+                + New Deck
+              </button>
+            </Tab.List>
+            <Tab.Panels className="mt-2">
+              {decks.map((deck, idx) => (
+                <Tab.Panel key={idx}>
+                  <div className="mb-4">
+                    <p>Location: {deck.address}</p>
+                    <button
+                      className="mt-2 p-2 bg-primary text-white rounded"
+                      onClick={handleGenerateIdeas}
+                      disabled={isLoading || decks.length === 0}
+                    >
+                      {isLoading ? 'Generating Ideas...' : 'Generate Ideas'}
+                    </button>
                   </div>
-                ))}
-              </Tab.Panel>
-            ))}
-          </Tab.Panels>
-        </Tab.Group>
-      </div>
+                  {deck.locations.filter(location => !location.isHidden).map((location, index) => (
+                    <div key={index} className="mb-2 p-2 border rounded">
+                      <LocationCard
+                        location={location}
+                        onHide={() => toggleHidden(location)}
+                        onSnooze={(name, duration) => snoozeLocation(name, duration)}
+                        isHidden={false}
+                        originAddress={deck.address}
+                        snoozedUntil={location.snoozedUntil}
+                      />
+                    </div>
+                  ))}
+                </Tab.Panel>
+              ))}
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      )}
 
       {isLoading ? (
         <div className="mt-4 text-center">Loading locations...</div>
