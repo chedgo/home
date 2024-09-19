@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { LocationCard } from '../components/LocationCard';
-import { Tab, Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Tab } from '@headlessui/react'
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import Link from 'next/link';
 import { Deck, Location } from '../../types';
+import { Modal } from '../components/Modal';
 
 
 
@@ -15,7 +15,7 @@ export default function BuildDeck() {
   const [currentDeckIndex, setCurrentDeckIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [locations, setLocations] = useState<Location[]>([]);
-  const [isNewDeckModalOpen, setIsNewDeckModalOpen] = useState(false);
+  const [isCreateDeckModalOpen, setIsCreateDeckModalOpen] = useState(false);
   const [newDeckName, setNewDeckName] = useState('');
   const [newDeckAddress, setNewDeckAddress] = useState('');
   const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
@@ -66,6 +66,13 @@ export default function BuildDeck() {
     setSuggestions([]);
   };
 
+  const handleCreateDeck = () => {
+    if (newDeckName && newDeckAddress) {
+      addDeck();
+      setIsCreateDeckModalOpen(false);
+    }
+  };
+
   const addDeck = () => {
     if (newDeckName && newDeckAddress) {
       setDecks(prevDecks => {
@@ -82,7 +89,6 @@ export default function BuildDeck() {
         setCurrentDeckIndex(newDecks.length - 1);
         return newDecks;
       });
-      setIsNewDeckModalOpen(false);
       setNewDeckName('');
       setNewDeckAddress('');
       setNewDeckCoords({ lat: 0, lon: 0 });
@@ -176,7 +182,7 @@ export default function BuildDeck() {
           <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => setIsNewDeckModalOpen(true)}
+              onClick={() => setIsCreateDeckModalOpen(true)}
               className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
             >
               Create New Deck
@@ -206,7 +212,7 @@ export default function BuildDeck() {
                 </Tab>
               ))}
               <button
-                onClick={() => setIsNewDeckModalOpen(true)}
+                onClick={() => setIsCreateDeckModalOpen(true)}
                 className="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
               >
                 + New Deck
@@ -269,96 +275,55 @@ export default function BuildDeck() {
         </div>
       )}
 
-      <Transition appear show={isNewDeckModalOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => setIsNewDeckModalOpen(false)}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-visible rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+      <Modal
+        isOpen={isCreateDeckModalOpen}
+        onClose={() => setIsCreateDeckModalOpen(false)}
+        onConfirm={handleCreateDeck}
+        title="Create New Deck"
+      >
+        <div>
+          <input
+            type="text"
+            value={newDeckName}
+            onChange={(e) => setNewDeckName(e.target.value)}
+            placeholder="Deck Name"
+            className="w-full p-2 border rounded mb-2"
+          />
+          <div className="relative">
+            <input
+              type="text"
+              value={newDeckAddress}
+              onChange={(e) => {
+                setNewDeckAddress(e.target.value);
+                // Fetch suggestions for the new deck address
+                if (e.target.value.length > 2) {
+                  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
+                    .then(response => response.json())
+                    .then(data => setSuggestions(data))
+                    .catch(error => console.error('Error fetching suggestions:', error));
+                } else {
+                  setSuggestions([]);
+                }
+              }}
+              placeholder="Deck Location"
+              className="w-full p-2 border rounded"
+            />
+            {suggestions.length > 0 && (
+              <ul className="absolute z-50 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
+                {suggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleNewDeckSuggestionSelect(suggestion)}
+                    className="p-2 hover:bg-gray-100 cursor-pointer"
                   >
-                    Create New Deck
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      value={newDeckName}
-                      onChange={(e) => setNewDeckName(e.target.value)}
-                      placeholder="Deck Name"
-                      className="w-full p-2 border rounded mb-2"
-                    />
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={newDeckAddress}
-                        onChange={(e) => {
-                          setNewDeckAddress(e.target.value);
-                          // Fetch suggestions for the new deck address
-                          if (e.target.value.length > 2) {
-                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}`)
-                              .then(response => response.json())
-                              .then(data => setSuggestions(data))
-                              .catch(error => console.error('Error fetching suggestions:', error));
-                          } else {
-                            setSuggestions([]);
-                          }
-                        }}
-                        placeholder="Deck Location"
-                        className="w-full p-2 border rounded"
-                      />
-                      {suggestions.length > 0 && (
-                        <ul className="absolute z-50 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
-                          {suggestions.map((suggestion, index) => (
-                            <li
-                              key={index}
-                              onClick={() => handleNewDeckSuggestionSelect(suggestion)}
-                              className="p-2 hover:bg-gray-100 cursor-pointer"
-                            >
-                              {suggestion.display_name}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={addDeck}
-                    >
-                      Create Deck
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+                    {suggestion.display_name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-        </Dialog>
-      </Transition>
+        </div>
+      </Modal>
     </div>
   );
 }

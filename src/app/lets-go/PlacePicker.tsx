@@ -25,12 +25,12 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     title: string;
-    message: string;
+    content: React.ReactNode;
     onConfirm: () => void;
   }>({
     isOpen: false,
     title: '',
-    message: '',
+    content: null,
     onConfirm: () => {},
   });
 
@@ -132,7 +132,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         setModalState({
           isOpen: true,
           title: "Commit to Your Adventure",
-          message: "Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!",
+          content: "Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!",
           onConfirm: () => {
             setGenerationCount(1);
             generateRandomLocation();
@@ -144,7 +144,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         setModalState({
           isOpen: true,
           title: "Warning: Multiple Generations Attempted",
-          message: "Generating a second location kind of defeats the purpose. Are you sure you want to continue?",
+          content: "Generating a second location kind of defeats the purpose. Are you sure you want to continue?",
           onConfirm: () => {
             setGenerationCount(2);
             localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 2, time: currentTime }));
@@ -154,7 +154,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         setModalState({
           isOpen: true,
           title: "Warning: Multiple Generations Attempted",
-          message: "Okay but don't say I didn't warn you. It will all seem meaningless.",
+          content: "Okay but don't say I didn't warn you. It will all seem meaningless.",
           onConfirm: () => {
             setGenerationCount(3);
             generateRandomLocation();
@@ -167,7 +167,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         setModalState({
           isOpen: true,
           title: "No More Generations",
-          message: "You've reached the maximum number of generations. Get going!",
+          content: "You've reached the maximum number of generations. Get going!",
           onConfirm: () => setModalState(prev => ({ ...prev, isOpen: false })),
         });
       }
@@ -313,8 +313,9 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         onClose={() => setModalState(prev => ({ ...prev, isOpen: false }))}
         onConfirm={modalState.onConfirm}
         title={modalState.title}
-        message={modalState.message}
-      />
+      >
+        <p>{modalState.content}</p>
+      </Modal>
     </>
   );
 }
