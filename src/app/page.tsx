@@ -36,13 +36,14 @@ export default function Page() {
           Diego <br />
           Glusberg
         </h1>
-        <div className="w-full">
+        <div className="w-full h-auto aspect-w-1 aspect-h-1">
           <Image
             src={'/diego.jpg'}
             width={500}
             height={500}
             alt="Diego Glusberg"
             className="object-cover"
+            priority
           />
         </div>
       </div>
@@ -137,7 +138,7 @@ export default function Page() {
             </ListItem>
           </ul>
         </div>
-        {/* <SectionTitle className="mt-8">Tools, Toys, Ideas</SectionTitle>
+        <SectionTitle className="mt-8">Tools, Toys, Ideas</SectionTitle>
         <div className="mt-2 text-accent pl-4 lg:pl-10 pr-8">
           <ul className="list-disc list-outside flex flex-col gap-3 mt-14 pl-5">
             <ListItem>
@@ -151,7 +152,7 @@ export default function Page() {
               house
             </ListItem>
           </ul>
-        </div> */}
+        </div>
       </div>
     </div>
   );
