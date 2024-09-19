@@ -5,6 +5,7 @@ import { LocationCard } from '../components/LocationCard';
 import { Tab, Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
+import Link from 'next/link';
 
 type Location = {
   name: string;
@@ -179,6 +180,9 @@ export default function BuildDeck() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Build Your Deck</h1>
+      <Link href="/lets-go" className="inline-block mb-4 text-blue-600 hover:text-blue-800">
+        ← Back to Picker
+      </Link>
       {decks.length === 0 ? (
         <div className="mt-8 text-center">
           <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
