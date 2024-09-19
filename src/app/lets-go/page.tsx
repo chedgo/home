@@ -8,6 +8,7 @@ import { Deck, Location } from '../../types';
 import { calculateDistance, parseDuration } from '../../utils/locationUtils';
 import { DeckSelector } from './DeckSelector';
 import { DistanceSlider } from './DistanceSlider';
+import Link from 'next/link';
 
 export default function LetsGo() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -101,9 +102,6 @@ export default function LetsGo() {
 
   const router = useRouter();
 
-  const handleBuildDeck = () => {
-    router.push('/build-deck');
-  };
 
   const handleUseDefaultDeck = useCallback(() => {
     const defaultDeck: Deck = {
@@ -158,12 +156,12 @@ export default function LetsGo() {
             >
               Generate Random Location
             </button>
-            <button
+            <Link
+              href="/build-deck"
               className="rounded-lg p-4 bg-secondary text-white"
-              onClick={handleBuildDeck}
             >
               Build Deck
-            </button>
+            </Link>
           </div>
           
           <DistanceSlider maxDistance={maxDistance} onSliderChange={handleSliderChange} />
@@ -234,12 +232,12 @@ export default function LetsGo() {
         <div className="text-center mt-8">
           <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
           <div className="flex justify-center space-x-4">
-            <button
+            <Link
+              href="/build-deck"
               className="rounded-lg p-4 bg-primary text-white"
-              onClick={handleBuildDeck}
             >
               Go to Deck Builder
-            </button>
+            </Link>
             <button
               className="rounded-lg p-4 bg-secondary text-white"
               onClick={handleUseDefaultDeck}
