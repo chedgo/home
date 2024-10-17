@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Deck } from '../types';
-import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
+import LocationAutocomplete from './LocationAutocomplete';
 
 interface CreateDeckFormProps {
   onCreateDeck: (deck: Deck) => void;
@@ -8,13 +8,16 @@ interface CreateDeckFormProps {
 
 export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
   const [newDeckName, setNewDeckName] = useState('');
-  const {
-    address: newDeckAddress,
-    coords: newDeckCoords,
-    suggestions,
-    handleAddressChange,
-    handleSuggestionSelect,
-  } = useLocationAutocomplete();
+  const [newDeckAddress, setNewDeckAddress] = useState('');
+  const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
+
+  const handleLocationSelect = useCallback(
+    (address: string, coords: { lat: number; lon: number }) => {
+      setNewDeckAddress(address);
+      setNewDeckCoords(coords);
+    },
+    []
+  );
 
   const handleCreateDeck = useCallback(() => {
     if (newDeckName && newDeckAddress) {
@@ -26,15 +29,10 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         coords: newDeckCoords,
       });
       setNewDeckName('');
-      handleAddressChange('');
+      setNewDeckAddress('');
+      setNewDeckCoords({ lat: 0, lon: 0 });
     }
-  }, [
-    newDeckName,
-    newDeckAddress,
-    newDeckCoords,
-    onCreateDeck,
-    handleAddressChange,
-  ]);
+  }, [newDeckName, newDeckAddress, newDeckCoords, onCreateDeck]);
 
   return (
     <div>
@@ -45,28 +43,7 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         placeholder="Deck Name"
         className="w-full p-2 border rounded mb-2"
       />
-      <div className="relative">
-        <input
-          type="text"
-          value={newDeckAddress}
-          onChange={(e) => handleAddressChange(e.target.value)}
-          placeholder="Deck Location"
-          className="w-full p-2 border rounded"
-        />
-        {suggestions.length > 0 && (
-          <ul className="absolute z-50 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto">
-            {suggestions.map((suggestion, index) => (
-              <li
-                key={index}
-                onClick={() => handleSuggestionSelect(suggestion)}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
-              >
-                {suggestion.display_name || 'Unknown location'}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <LocationAutocomplete onLocationSelect={handleLocationSelect} />
       <button
         onClick={handleCreateDeck}
         className="mt-4 p-2 bg-blue-600 text-white rounded w-full"
