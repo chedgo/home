@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Deck } from '../../types';
+import { useLocationAutocomplete } from '../../hooks/useLocationAutocomplete';
 
 interface CreateDeckFormProps {
   onCreateDeck: (deck: Deck) => void;
@@ -7,18 +8,13 @@ interface CreateDeckFormProps {
 
 export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
   const [newDeckName, setNewDeckName] = useState('');
-  const [newDeckAddress, setNewDeckAddress] = useState('');
-  const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
-  const [suggestions, setSuggestions] = useState<any[]>([]);
-
-  const handleNewDeckSuggestionSelect = useCallback((suggestion: any) => {
-    setNewDeckAddress(suggestion.display_name);
-    setNewDeckCoords({
-      lat: parseFloat(suggestion.lat),
-      lon: parseFloat(suggestion.lon),
-    });
-    setSuggestions([]);
-  }, []);
+  const {
+    address: newDeckAddress,
+    coords: newDeckCoords,
+    suggestions,
+    handleAddressChange,
+    handleSuggestionSelect,
+  } = useLocationAutocomplete();
 
   const handleCreateDeck = useCallback(() => {
     if (newDeckName && newDeckAddress) {
@@ -30,31 +26,9 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         coords: newDeckCoords
       });
       setNewDeckName('');
-      setNewDeckAddress('');
-      setNewDeckCoords({ lat: 0, lon: 0 });
+      handleAddressChange('');
     }
-  }, [newDeckName, newDeckAddress, newDeckCoords, onCreateDeck]);
-
-  const handleAddressChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewDeckAddress(e.target.value);
-    if (e.target.value.length > 2) {
-      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(e.target.value)}&countrycodes=us&limit=10`)
-        .then(response => response.json())
-        .then(data => {
-          // Prioritize USA results
-          const usResults = data.filter((item: any) => item.address?.country_code === 'us');
-          const otherResults = data.filter((item: any) => item.address?.country_code !== 'us');
-          const combinedResults = [...usResults, ...otherResults];
-          setSuggestions(combinedResults);
-        })
-        .catch(error => console.error('Error fetching suggestions:', error));
-    } else {
-      setSuggestions([]);
-    }
-  }, []);
-
-  // Add this near the top of your component
-  console.log('Rendering with suggestions:', suggestions);
+  }, [newDeckName, newDeckAddress, newDeckCoords, onCreateDeck, handleAddressChange]);
 
   return (
     <div>
@@ -69,7 +43,7 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         <input
           type="text"
           value={newDeckAddress}
-          onChange={handleAddressChange}
+          onChange={(e) => handleAddressChange(e.target.value)}
           placeholder="Deck Location"
           className="w-full p-2 border rounded"
         />
@@ -78,7 +52,7 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}
-                onClick={() => handleNewDeckSuggestionSelect(suggestion)}
+                onClick={() => handleSuggestionSelect(suggestion)}
                 className="p-2 hover:bg-gray-100 cursor-pointer"
               >
                 {suggestion.display_name || 'Unknown location'}
