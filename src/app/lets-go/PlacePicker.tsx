@@ -1,12 +1,12 @@
 'use client';
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { LocationCard } from '../components/LocationCard';
+import { LocationCard } from '../../components/LocationCard';
 import { Deck, Location } from '../../types';
 import { calculateDistance, parseDuration } from '../../utils/locationUtils';
 import { DeckSelector } from './DeckSelector';
 import { DistanceSlider } from './DistanceSlider';
 import Link from 'next/link';
-import { Modal } from '../components/Modal';
+import { Modal } from '../../components/Modal';
 
 interface PlacePickerProps {
   decks: Deck[];
@@ -14,14 +14,20 @@ interface PlacePickerProps {
   handleUseDefaultDeck: () => void;
 }
 
-export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: PlacePickerProps) {
+export default function PlacePicker({
+  decks,
+  setDecks,
+  handleUseDefaultDeck,
+}: PlacePickerProps) {
   const [currentDeckIndex, setCurrentDeckIndex] = useState(0);
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10);
   const [showHiddenCards, setShowHiddenCards] = useState(false);
   const [generationCount, setGenerationCount] = useState(0);
-  const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
+  const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(
+    null
+  );
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     title: string;
@@ -59,7 +65,8 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
       );
       const distanceIsInRange = distance <= maxDistance;
       const isHidden = location.isHidden;
-      const isSnoozed = location.snoozedUntil && location.snoozedUntil > Date.now();
+      const isSnoozed =
+        location.snoozedUntil && location.snoozedUntil > Date.now();
       return distanceIsInRange && !isHidden && !isSnoozed;
     });
   }, [currentDeck, maxDistance]);
@@ -79,9 +86,9 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         if (index === currentDeckIndex) {
           return {
             ...deck,
-            locations: deck.locations.map(loc => 
+            locations: deck.locations.map((loc) =>
               loc.name === name ? { ...loc, isHidden: !loc.isHidden } : loc
-            )
+            ),
           };
         }
         return deck;
@@ -94,15 +101,16 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
   const handleSnoozeLocation = useCallback(
     (name: string, duration: string) => {
       const durationInMs = parseDuration(duration);
-      const snoozedUntil = durationInMs > 0 ? Date.now() + durationInMs : undefined;
-      
+      const snoozedUntil =
+        durationInMs > 0 ? Date.now() + durationInMs : undefined;
+
       const updatedDecks = decks.map((deck, index) => {
         if (index === currentDeckIndex) {
           return {
             ...deck,
-            locations: deck.locations.map(loc => 
+            locations: deck.locations.map((loc) =>
               loc.name === name ? { ...loc, snoozedUntil } : loc
-            )
+            ),
           };
         }
         return deck;
@@ -117,7 +125,9 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
       const randomIndex = Math.floor(Math.random() * filteredLocations.length);
       setRandomLocation(filteredLocations[randomIndex]);
     } else {
-      alert("No locations match your current filters. Try increasing the max distance or showing hidden locations.");
+      alert(
+        'No locations match your current filters. Try increasing the max distance or showing hidden locations.'
+      );
     }
   }, [filteredLocations]);
 
@@ -127,61 +137,86 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
 
   const handleGenerateRandomLocation = useCallback(() => {
     const currentTime = Date.now();
-    if (lastGenerationTime && currentTime - lastGenerationTime < 12 * 60 * 60 * 1000) {
+    if (
+      lastGenerationTime &&
+      currentTime - lastGenerationTime < 12 * 60 * 60 * 1000
+    ) {
       if (generationCount === 0) {
         setModalState({
           isOpen: true,
-          title: "Commit to Your Adventure",
-          content: "Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!",
+          title: 'Commit to Your Adventure',
+          content:
+            'Are you sure you want to generate a random location? Remember, the goal is to commit to the first place picked!',
           onConfirm: () => {
             setGenerationCount(1);
             generateRandomLocation();
             setLastGenerationTime(currentTime);
-            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 1, time: currentTime }));
+            localStorage.setItem(
+              `deck_${currentDeck.id}`,
+              JSON.stringify({ count: 1, time: currentTime })
+            );
           },
         });
       } else if (generationCount === 1) {
         setModalState({
           isOpen: true,
-          title: "Warning: Multiple Generations Attempted",
-          content: "Generating a second location kind of defeats the purpose. Are you sure you want to continue?",
+          title: 'Warning: Multiple Generations Attempted',
+          content:
+            'Generating a second location kind of defeats the purpose. Are you sure you want to continue?',
           onConfirm: () => {
             setGenerationCount(2);
-            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 2, time: currentTime }));
+            localStorage.setItem(
+              `deck_${currentDeck.id}`,
+              JSON.stringify({ count: 2, time: currentTime })
+            );
           },
         });
       } else if (generationCount === 2) {
         setModalState({
           isOpen: true,
-          title: "Warning: Multiple Generations Attempted",
-          content: "Okay but don't say I didn't warn you. It will all seem meaningless.",
+          title: 'Warning: Multiple Generations Attempted',
+          content:
+            "Okay but don't say I didn't warn you. It will all seem meaningless.",
           onConfirm: () => {
             setGenerationCount(3);
             generateRandomLocation();
             setLastGenerationTime(currentTime);
-            setModalState(prev => ({ ...prev, isOpen: false }));
-            localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 3, time: currentTime }));
+            setModalState((prev) => ({ ...prev, isOpen: false }));
+            localStorage.setItem(
+              `deck_${currentDeck.id}`,
+              JSON.stringify({ count: 3, time: currentTime })
+            );
           },
         });
       } else {
         setModalState({
           isOpen: true,
-          title: "No More Generations",
-          content: "You've reached the maximum number of generations. Get going!",
-          onConfirm: () => setModalState(prev => ({ ...prev, isOpen: false })),
+          title: 'No More Generations',
+          content:
+            "You've reached the maximum number of generations. Get going!",
+          onConfirm: () =>
+            setModalState((prev) => ({ ...prev, isOpen: false })),
         });
       }
     } else {
       setGenerationCount(1);
       setLastGenerationTime(currentTime);
-      localStorage.setItem(`deck_${currentDeck.id}`, JSON.stringify({ count: 1, time: currentTime }));
+      localStorage.setItem(
+        `deck_${currentDeck.id}`,
+        JSON.stringify({ count: 1, time: currentTime })
+      );
       generateRandomLocation();
     }
-  }, [generationCount, lastGenerationTime, currentDeck, generateRandomLocation]);
+  }, [
+    generationCount,
+    lastGenerationTime,
+    currentDeck,
+    generateRandomLocation,
+  ]);
 
   const buttonText = useMemo(() => {
     if (generationCount === 0) {
-      return "Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.";
+      return 'Woe is me, the paradox of choice has me paralyzed. I wish someone would just pick one for me.';
     } else if (generationCount === 3) {
       return "That's it! (for real this time)";
     } else {
@@ -214,7 +249,7 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
               </Link>
             </div>
           </div>
-          
+
           <div className="mb-4 w-full">
             <button
               className="w-full rounded-lg p-4 bg-primary text-white"
@@ -223,8 +258,11 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
               {buttonText}
             </button>
           </div>
-          
-          <DistanceSlider maxDistance={maxDistance} onSliderChange={handleSliderChange} />
+
+          <DistanceSlider
+            maxDistance={maxDistance}
+            onSliderChange={handleSliderChange}
+          />
 
           {randomLocation && (
             <div className="mt-4">
@@ -290,7 +328,9 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
         </>
       ) : (
         <div className="text-center mt-8">
-          <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
+          <p className="mb-4">
+            No decks available. Please create a deck or use the default deck.
+          </p>
           <div className="flex justify-center space-x-4">
             <Link
               href="/build-deck"
@@ -307,10 +347,10 @@ export default function PlacePicker({ decks, setDecks, handleUseDefaultDeck }: P
           </div>
         </div>
       )}
-      
+
       <Modal
         isOpen={modalState.isOpen}
-        onClose={() => setModalState(prev => ({ ...prev, isOpen: false }))}
+        onClose={() => setModalState((prev) => ({ ...prev, isOpen: false }))}
         onConfirm={modalState.onConfirm}
         title={modalState.title}
       >

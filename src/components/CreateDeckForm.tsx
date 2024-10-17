@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { Deck } from '../../types';
-import { useLocationAutocomplete } from '../../hooks/useLocationAutocomplete';
+import { Deck } from '../types';
+import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
 
 interface CreateDeckFormProps {
   onCreateDeck: (deck: Deck) => void;
@@ -23,12 +23,18 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         name: newDeckName,
         locations: [],
         address: newDeckAddress,
-        coords: newDeckCoords
+        coords: newDeckCoords,
       });
       setNewDeckName('');
       handleAddressChange('');
     }
-  }, [newDeckName, newDeckAddress, newDeckCoords, onCreateDeck, handleAddressChange]);
+  }, [
+    newDeckName,
+    newDeckAddress,
+    newDeckCoords,
+    onCreateDeck,
+    handleAddressChange,
+  ]);
 
   return (
     <div>

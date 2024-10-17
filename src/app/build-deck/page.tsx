@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { LocationCard } from '../components/LocationCard';
-import { Tab } from '@headlessui/react'
+import { LocationCard } from '../../components/LocationCard';
+import { Tab } from '@headlessui/react';
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import Link from 'next/link';
 import { Deck, Location } from '../../types';
-import { Modal } from '../components/Modal';
-import { CreateDeckForm } from '../components/CreateDeckForm'; // New import
+import { Modal } from '../../components/Modal';
+import { CreateDeckForm } from '../../components/CreateDeckForm'; // New import
 
 export default function BuildDeck() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -22,19 +22,21 @@ export default function BuildDeck() {
 
   const fetchLocations = useCallback(async () => {
     if (decks.length === 0 || currentDeckIndex >= decks.length) {
-      console.log("No decks available or invalid deck index");
+      console.log('No decks available or invalid deck index');
       return;
     }
 
     const currentDeck = decks[currentDeckIndex];
     if (!currentDeck || !currentDeck.coords) {
-      console.error("Current deck or its coordinates are undefined");
+      console.error('Current deck or its coordinates are undefined');
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/locations?latitude=${currentDeck.coords.lat}&longitude=${currentDeck.coords.lon}`);
+      const response = await fetch(
+        `/api/locations?latitude=${currentDeck.coords.lat}&longitude=${currentDeck.coords.lon}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch locations');
       }
@@ -51,7 +53,7 @@ export default function BuildDeck() {
     if (decks.length > 0) {
       fetchLocations();
     } else {
-      console.log("No decks available. Please create a deck first.");
+      console.log('No decks available. Please create a deck first.');
       // Optionally, you can show a message to the user here
     }
   }, [fetchLocations, decks]);
@@ -65,24 +67,27 @@ export default function BuildDeck() {
     setSuggestions([]);
   };
 
-  const handleCreateDeck = useCallback((newDeck: Deck) => {
-    setDecks(prevDecks => [...prevDecks, newDeck]);
-    setCurrentDeckIndex(prevDecks => prevDecks + 1);
-    setIsCreateDeckModalOpen(false);
-  }, [setDecks]);
+  const handleCreateDeck = useCallback(
+    (newDeck: Deck) => {
+      setDecks((prevDecks) => [...prevDecks, newDeck]);
+      setCurrentDeckIndex((prevDecks) => prevDecks + 1);
+      setIsCreateDeckModalOpen(false);
+    },
+    [setDecks]
+  );
 
   const addDeck = () => {
     if (newDeckName && newDeckAddress) {
-      setDecks(prevDecks => {
+      setDecks((prevDecks) => {
         const newDecks = [
-          ...prevDecks, 
-          { 
+          ...prevDecks,
+          {
             id: Date.now().toString(), // Add a unique id
-            name: newDeckName, 
+            name: newDeckName,
             locations: [],
             address: newDeckAddress,
-            coords: newDeckCoords
-          }
+            coords: newDeckCoords,
+          },
         ];
         setCurrentDeckIndex(newDecks.length - 1);
         return newDecks;
@@ -94,21 +99,29 @@ export default function BuildDeck() {
   };
 
   const addToDeck = (location: Location) => {
-    setDecks(prevDecks => {
+    setDecks((prevDecks) => {
       const updatedDecks = [...prevDecks];
-      updatedDecks[currentDeckIndex].locations.push({ ...location, isHidden: false, snoozedUntil: undefined });
+      updatedDecks[currentDeckIndex].locations.push({
+        ...location,
+        isHidden: false,
+        snoozedUntil: undefined,
+      });
       return updatedDecks;
     });
-    setLocations(prevLocations => prevLocations.filter(loc => loc.name !== location.name));
+    setLocations((prevLocations) =>
+      prevLocations.filter((loc) => loc.name !== location.name)
+    );
   };
 
   const toggleHidden = (location: Location) => {
-    setDecks(prevDecks => {
+    setDecks((prevDecks) => {
       const updatedDecks = [...prevDecks];
       const currentDeck = updatedDecks[currentDeckIndex];
-      const existingLocation = currentDeck.locations.find(loc => loc.name === location.name);
+      const existingLocation = currentDeck.locations.find(
+        (loc) => loc.name === location.name
+      );
       if (existingLocation) {
-        currentDeck.locations = currentDeck.locations.map(loc => 
+        currentDeck.locations = currentDeck.locations.map((loc) =>
           loc.name === location.name ? { ...loc, isHidden: !loc.isHidden } : loc
         );
       } else {
@@ -117,24 +130,31 @@ export default function BuildDeck() {
       return updatedDecks;
     });
 
-    setLocations(prevLocations => prevLocations.filter(loc => loc.name !== location.name));
+    setLocations((prevLocations) =>
+      prevLocations.filter((loc) => loc.name !== location.name)
+    );
   };
 
   const snoozeLocation = (locationName: string, snoozeDuration: string) => {
     const durationInMs = parseDuration(snoozeDuration);
-    const snoozedUntil = durationInMs > 0 ? Date.now() + durationInMs : undefined;
-    
-    setDecks(prevDecks => {
+    const snoozedUntil =
+      durationInMs > 0 ? Date.now() + durationInMs : undefined;
+
+    setDecks((prevDecks) => {
       const updatedDecks = [...prevDecks];
-      updatedDecks[currentDeckIndex].locations = updatedDecks[currentDeckIndex].locations.map(loc => 
+      updatedDecks[currentDeckIndex].locations = updatedDecks[
+        currentDeckIndex
+      ].locations.map((loc) =>
         loc.name === locationName ? { ...loc, snoozedUntil } : loc
       );
       return updatedDecks;
     });
-    
-    setLocations(prevLocations => prevLocations.map(loc => 
-      loc.name === locationName ? { ...loc, snoozedUntil } : loc
-    ));
+
+    setLocations((prevLocations) =>
+      prevLocations.map((loc) =>
+        loc.name === locationName ? { ...loc, snoozedUntil } : loc
+      )
+    );
   };
 
   const parseDuration = (duration: string): number => {
@@ -154,15 +174,15 @@ export default function BuildDeck() {
 
   const handleUseDefaultDeck = useCallback(() => {
     const defaultDeck: Deck = {
-      name: "Chicago Neighborhoods",
-      id: "chicago-neighborhoods",
-      locations: chicagoNeighborhoods.map(location => ({
+      name: 'Chicago Neighborhoods',
+      id: 'chicago-neighborhoods',
+      locations: chicagoNeighborhoods.map((location) => ({
         ...location,
         isHidden: false,
         snoozedUntil: undefined,
-        wikipedia_link: location.wikipedia_link || null
+        wikipedia_link: location.wikipedia_link || null,
       })),
-      address: "Chicago, IL",
+      address: 'Chicago, IL',
       coords: { lat: 41.8781, lon: -87.6298 }, // Chicago's coordinates
     };
     setDecks([defaultDeck]);
@@ -172,12 +192,17 @@ export default function BuildDeck() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Build Your Deck</h1>
-      <Link href="/lets-go" className="inline-block mb-4 text-blue-600 hover:text-blue-800">
+      <Link
+        href="/lets-go"
+        className="inline-block mb-4 text-blue-600 hover:text-blue-800"
+      >
         ← Back to Picker
       </Link>
       {decks.length === 0 ? (
         <div className="mt-8 text-center">
-          <p className="mb-4">No decks available. Please create a deck or use the default deck.</p>
+          <p className="mb-4">
+            No decks available. Please create a deck or use the default deck.
+          </p>
           <div className="flex justify-center space-x-4">
             <button
               onClick={() => setIsCreateDeckModalOpen(true)}
@@ -196,14 +221,21 @@ export default function BuildDeck() {
       ) : (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-2">Your Decks</h2>
-          <Tab.Group selectedIndex={currentDeckIndex} onChange={setCurrentDeckIndex}>
+          <Tab.Group
+            selectedIndex={currentDeckIndex}
+            onChange={setCurrentDeckIndex}
+          >
             <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
               {decks.map((deck, index) => (
                 <Tab
                   key={index}
                   className={({ selected }) =>
                     `w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700
-                    ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+                    ${
+                      selected
+                        ? 'bg-white shadow'
+                        : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                    }`
                   }
                 >
                   {deck.name}
@@ -229,18 +261,22 @@ export default function BuildDeck() {
                       {isLoading ? 'Generating Ideas...' : 'Generate Ideas'}
                     </button>
                   </div>
-                  {deck.locations.filter(location => !location.isHidden).map((location, index) => (
-                    <div key={index} className="mb-2 p-2 border rounded">
-                      <LocationCard
-                        location={location}
-                        onHide={() => toggleHidden(location)}
-                        onSnooze={(name, duration) => snoozeLocation(name, duration)}
-                        isHidden={false}
-                        originAddress={deck.address}
-                        snoozedUntil={location.snoozedUntil}
-                      />
-                    </div>
-                  ))}
+                  {deck.locations
+                    .filter((location) => !location.isHidden)
+                    .map((location, index) => (
+                      <div key={index} className="mb-2 p-2 border rounded">
+                        <LocationCard
+                          location={location}
+                          onHide={() => toggleHidden(location)}
+                          onSnooze={(name, duration) =>
+                            snoozeLocation(name, duration)
+                          }
+                          isHidden={false}
+                          originAddress={deck.address}
+                          snoozedUntil={location.snoozedUntil}
+                        />
+                      </div>
+                    ))}
                 </Tab.Panel>
               ))}
             </Tab.Panels>
@@ -262,8 +298,8 @@ export default function BuildDeck() {
                 originAddress={decks[currentDeckIndex]?.address || ''}
                 snoozedUntil={location.snoozedUntil}
               />
-              <button 
-                onClick={() => addToDeck(location)} 
+              <button
+                onClick={() => addToDeck(location)}
                 className="mt-2 p-2 bg-secondary text-white rounded w-full"
               >
                 Add to Deck
