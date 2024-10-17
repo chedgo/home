@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
-import { DEFAULT_LOCATION } from '../constants/locations';
+import { useLocationAutocomplete } from '../../hooks/useLocationAutocomplete';
+import { DEFAULT_LOCATION } from '@/constants/locations';
 
 interface LocationAutocompleteProps {
   onLocationSelect: (
@@ -9,13 +9,11 @@ interface LocationAutocompleteProps {
   ) => void;
 }
 
-const LocationAutocomplete = ({
+export function LocationAutocomplete({
   onLocationSelect,
-}: LocationAutocompleteProps) => {
+}: LocationAutocompleteProps) {
   const { inputValue, setInputValue, suggestions, handleSuggestionSelect } =
-    useLocationAutocomplete({
-      defaultLocation: DEFAULT_LOCATION,
-    });
+    useLocationAutocomplete({ defaultLocation: DEFAULT_LOCATION });
 
   const handleSelect = (suggestion: any) => {
     handleSuggestionSelect(suggestion);
@@ -49,6 +47,4 @@ const LocationAutocomplete = ({
       )}
     </div>
   );
-};
-
-export default LocationAutocomplete;
+}

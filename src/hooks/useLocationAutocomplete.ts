@@ -1,3 +1,4 @@
+import { Location } from '@/types';
 import { useState, useCallback } from 'react';
 
 interface Suggestion {
@@ -9,18 +10,18 @@ interface Suggestion {
   };
 }
 
-interface Coordinates {
-  lat: number;
-  lon: number;
+interface LocationAutocompleteProps {
+  defaultLocation: Location;
 }
 
-export function useLocationAutocomplete() {
-  const [address, setAddress] = useState('');
-  const [coords, setCoords] = useState<Coordinates>({ lat: 0, lon: 0 });
+
+export function useLocationAutocomplete({ defaultLocation }: LocationAutocompleteProps) {
+  const [inputValue, setInputValue] = useState<string>(defaultLocation.name);
+  const [location, setLocation] = useState<Location | null>(defaultLocation);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
   const handleAddressChange = useCallback((value: string) => {
-    setAddress(value);
+    setInputValue(value);
     if (value.length > 2) {
       fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}&countrycodes=us&limit=10`)
         .then(response => response.json())
@@ -38,19 +39,23 @@ export function useLocationAutocomplete() {
   }, []);
 
   const handleSuggestionSelect = useCallback((suggestion: Suggestion) => {
-    setAddress(suggestion.display_name);
-    setCoords({
-      lat: parseFloat(suggestion.lat),
-      lon: parseFloat(suggestion.lon),
+    setLocation({
+      name: suggestion.display_name,
+      coords: {
+        lat: parseFloat(suggestion.lat),
+        lon: parseFloat(suggestion.lon),
+      },
+      description: '',
+      wikipedia_link: '',
     });
     setSuggestions([]);
   }, []);
 
   return {
-    address,
-    coords,
+    inputValue,
+    setInputValue: handleAddressChange,
+    location,
     suggestions,
-    handleAddressChange,
     handleSuggestionSelect,
   };
 }

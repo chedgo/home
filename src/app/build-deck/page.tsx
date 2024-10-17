@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { LocationCard } from '../../components/LocationCard';
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 import Link from 'next/link';
 import { Deck, Location } from '../../types';
@@ -15,10 +15,10 @@ export default function BuildDeck() {
   const [isLoading, setIsLoading] = useState(false);
   const [locations, setLocations] = useState<Location[]>([]);
   const [isCreateDeckModalOpen, setIsCreateDeckModalOpen] = useState(false);
-  const [newDeckName, setNewDeckName] = useState('');
-  const [newDeckAddress, setNewDeckAddress] = useState('');
-  const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  // const [newDeckName, setNewDeckName] = useState('');
+  // const [newDeckAddress, setNewDeckAddress] = useState('');
+  // const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
+  // const [suggestions, setSuggestions] = useState<any[]>([]);
 
   const fetchLocations = useCallback(async () => {
     if (decks.length === 0 || currentDeckIndex >= decks.length) {
@@ -58,14 +58,14 @@ export default function BuildDeck() {
     }
   }, [fetchLocations, decks]);
 
-  const handleNewDeckSuggestionSelect = (suggestion: any) => {
-    setNewDeckAddress(suggestion.display_name);
-    setNewDeckCoords({
-      lat: parseFloat(suggestion.lat),
-      lon: parseFloat(suggestion.lon),
-    });
-    setSuggestions([]);
-  };
+  // const handleNewDeckSuggestionSelect = (suggestion: any) => {
+  //   setNewDeckAddress(suggestion.display_name);
+  //   setNewDeckCoords({
+  //     lat: parseFloat(suggestion.lat),
+  //     lon: parseFloat(suggestion.lon),
+  //   });
+  //   // setSuggestions([]);
+  // };
 
   const handleCreateDeck = useCallback(
     (newDeck: Deck) => {
@@ -76,27 +76,27 @@ export default function BuildDeck() {
     [setDecks]
   );
 
-  const addDeck = () => {
-    if (newDeckName && newDeckAddress) {
-      setDecks((prevDecks) => {
-        const newDecks = [
-          ...prevDecks,
-          {
-            id: Date.now().toString(), // Add a unique id
-            name: newDeckName,
-            locations: [],
-            address: newDeckAddress,
-            coords: newDeckCoords,
-          },
-        ];
-        setCurrentDeckIndex(newDecks.length - 1);
-        return newDecks;
-      });
-      setNewDeckName('');
-      setNewDeckAddress('');
-      setNewDeckCoords({ lat: 0, lon: 0 });
-    }
-  };
+  // const addDeck = () => {
+  //   if (newDeckName && newDeckAddress) {
+  //     setDecks((prevDecks) => {
+  //       const newDecks = [
+  //         ...prevDecks,
+  //         {
+  //           id: Date.now().toString(), // Add a unique id
+  //           name: newDeckName,
+  //           locations: [],
+  //           address: newDeckAddress,
+  //           coords: newDeckCoords,
+  //         },
+  //       ];
+  //       setCurrentDeckIndex(newDecks.length - 1);
+  //       return newDecks;
+  //     });
+  //     setNewDeckName('');
+  //     setNewDeckAddress('');
+  //     setNewDeckCoords({ lat: 0, lon: 0 });
+  //   }
+  // };
 
   const addToDeck = (location: Location) => {
     setDecks((prevDecks) => {
@@ -225,11 +225,11 @@ export default function BuildDeck() {
       ) : (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-2">Your Decks</h2>
-          <Tab.Group
+          <TabGroup
             selectedIndex={currentDeckIndex}
             onChange={setCurrentDeckIndex}
           >
-            <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+            <TabList className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
               {decks.map((deck, index) => (
                 <Tab
                   key={index}
@@ -251,10 +251,10 @@ export default function BuildDeck() {
               >
                 + New Deck
               </button>
-            </Tab.List>
-            <Tab.Panels className="mt-2">
+            </TabList>
+            <TabPanels className="mt-2">
               {decks.map((deck, idx) => (
-                <Tab.Panel key={idx}>
+                <TabPanel key={idx}>
                   <div className="mb-4">
                     <p>Location: {deck.address}</p>
                     <button
@@ -281,10 +281,10 @@ export default function BuildDeck() {
                         />
                       </div>
                     ))}
-                </Tab.Panel>
+                </TabPanel>
               ))}
-            </Tab.Panels>
-          </Tab.Group>
+            </TabPanels>
+          </TabGroup>
         </div>
       )}
 

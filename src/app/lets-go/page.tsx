@@ -1,27 +1,34 @@
 'use client';
 import React from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import chicagoNeighborhoods from '../chicago_neighborhoods.json';
-import { Deck } from '../../types';
-import PlacePicker from './PlacePicker';
+// import useLocalStorage from '../../hooks/useLocalStorage';
+// import chicagoNeighborhoods from '../chicago_neighborhoods.json';
+// import { Deck } from '../../types';
+// import PlacePicker from './PlacePicker';
+import LocationAutocomplete from '@/components/LocationAutocomplete';
 
 export default function LetsGo() {
-  const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
+  // const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
+  // const [location, setLocation] = useState<Location | null>(null);
 
-  const handleUseDefaultDeck = () => {
-    const defaultDeck: Deck = {
-      name: 'Chicago Neighborhoods',
-      id: 'chicago-neighborhoods',
-      locations: chicagoNeighborhoods.map((location) => ({
-        ...location,
-        isHidden: false,
-        snoozedUntil: undefined,
-        wikipedia_link: location.wikipedia_link || null,
-      })),
-      address: 'Chicago, IL',
-      coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
-    };
-    setDecks([defaultDeck]);
+  // const handleUseDefaultDeck = () => {
+  //   const defaultDeck: Deck = {
+  //     name: 'Chicago Neighborhoods',
+  //     id: 'chicago-neighborhoods',
+  //     locations: chicagoNeighborhoods.map((location) => ({
+  //       ...location,
+  //       coords: { lat: location.latitude, lon: location.longitude },
+  //       isHidden: false,
+  //       snoozedUntil: undefined,
+  //       wikipedia_link: location.wikipedia_link || null,
+  //     })),
+  //     address: 'Chicago, IL',
+  //     coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
+  //   };
+  //   setDecks([defaultDeck]);
+  // };
+
+  const handleLocationSelect = () => {
+    // setLocation(address);
   };
 
   return (
@@ -59,12 +66,16 @@ export default function LetsGo() {
           so I thought I&apos;d share as I build it out.
         </p>
       </section>
+      <p>
+        I am in <LocationAutocomplete onLocationSelect={handleLocationSelect} />
+      </p>
+      
 
-      <PlacePicker
+      {/* <PlacePicker
         decks={decks}
         setDecks={setDecks}
         handleUseDefaultDeck={handleUseDefaultDeck}
-      />
+      /> */}
     </div>
   );
 }
