@@ -178,6 +178,10 @@ export default function BuildDeck() {
       id: 'chicago-neighborhoods',
       locations: chicagoNeighborhoods.map((location) => ({
         ...location,
+        coords: {
+          lat: location.latitude,
+          lon: location.longitude,
+        },
         isHidden: false,
         snoozedUntil: undefined,
         wikipedia_link: location.wikipedia_link || null,

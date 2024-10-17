@@ -60,8 +60,8 @@ export default function PlacePicker({
       const distance = calculateDistance(
         currentDeck.coords.lat,
         currentDeck.coords.lon,
-        location.latitude,
-        location.longitude
+        location.coords.lat,
+        location.coords.lon
       );
       const distanceIsInRange = distance <= maxDistance;
       const isHidden = location.isHidden;

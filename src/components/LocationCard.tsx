@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import { Location } from '@/types';
 
-type Location = {
-  name: string;
-  description: string;
-  wikipedia_link: string | null;
-  latitude: number;
-  longitude: number;
-};
 
 type GoogleMapsProps = {
   origin: string;
@@ -156,7 +150,7 @@ export function LocationCard({
         <div className="mt-4">
           <GoogleMapsDirections
             origin={originAddress}
-            destination={`${location.latitude},${location.longitude}`}
+            destination={`${location.coords.lat},${location.coords.lon}`}
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
           />
         </div>

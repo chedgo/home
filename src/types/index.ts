@@ -2,8 +2,7 @@ export type Location = {
   name: string;
   description: string;
   wikipedia_link: string | null;
-  latitude: number;
-  longitude: number;
+  coords: Coordinates;
   isHidden?: boolean;
   snoozedUntil?: number;
 };
@@ -13,5 +12,10 @@ export type Deck = {
   name: string;
   locations: Location[];
   address: string;
-  coords: { lat: number; lon: number };
+  coords: Coordinates;
+};
+
+export type Coordinates = {
+  lat: number;
+  lon: number;
 };
