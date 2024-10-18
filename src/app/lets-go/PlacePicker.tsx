@@ -2,10 +2,9 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { LocationCard } from '../../components/LocationCard';
 import { Deck, Location } from '../../types';
-import { calculateDistance} from '../../utils/locationUtils';
+import { calculateDistance } from '../../utils/locationUtils';
 // import { DeckSelector } from './DeckSelector';
 import { DistanceSlider } from './DistanceSlider';
-import Link from 'next/link';
 import { Modal } from '../../components/Modal';
 
 interface PlacePickerProps {
@@ -13,7 +12,7 @@ interface PlacePickerProps {
   setDecks: React.Dispatch<React.SetStateAction<Deck[]>>;
 }
 
-export default function PlacePicker({ deck }: PlacePickerProps) {
+export default function DeckBuilder({ deck }: PlacePickerProps) {
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10);
@@ -214,11 +213,15 @@ export default function PlacePicker({ deck }: PlacePickerProps) {
       {
         <>
           <div className="flex justify-between items-center mb-4 w-full">
+            <DistanceSlider
+              maxDistance={maxDistance}
+              onChange={handleSliderChange}
+            />
             {/* <DeckSelector
               decks={decks}
               currentDeckIndex={currentDeckIndex}
               onDeckChange={setCurrentDeckIndex}
-            /> */}
+              /> */}
             <div className="flex space-x-2">
               <button
                 className="rounded-lg px-3 py-2 text-primary font-semibold"
@@ -226,12 +229,9 @@ export default function PlacePicker({ deck }: PlacePickerProps) {
               >
                 {showCards ? 'Hide All' : 'Show All'}
               </button>
-              <Link
-                href="/build-deck"
-                className="rounded-lg px-3 py-2 bg-secondary text-white"
-              >
+              <div className="rounded-lg px-3 py-2 bg-secondary text-white">
                 Build Deck
-              </Link>
+              </div>
             </div>
           </div>
 
@@ -244,18 +244,13 @@ export default function PlacePicker({ deck }: PlacePickerProps) {
             </button>
           </div>
 
-          <DistanceSlider
-            maxDistance={maxDistance}
-            onSliderChange={handleSliderChange}
-          />
-
           {randomLocation && (
             <div className="mt-4">
               <LocationCard
                 key={randomLocation.name}
                 location={randomLocation}
-                onHide={()=>{}}
-                onSnooze={()=>{}}
+                onHide={() => {}}
+                onSnooze={() => {}}
                 isHidden={false}
                 showMapByDefault={true}
                 originAddress={deck.address}
@@ -270,8 +265,8 @@ export default function PlacePicker({ deck }: PlacePickerProps) {
                 <LocationCard
                   key={index}
                   location={location}
-                  onHide={()=>{}}
-                  onSnooze={()=>{}}
+                  onHide={() => {}}
+                  onSnooze={() => {}}
                   isHidden={location.isHidden || false}
                   originAddress={deck.address}
                   snoozedUntil={location.snoozedUntil}
@@ -299,8 +294,8 @@ export default function PlacePicker({ deck }: PlacePickerProps) {
                     <LocationCard
                       key={index}
                       location={location}
-                      onHide={()=>{}}
-                      onSnooze={()=>{}}
+                      onHide={() => {}}
+                      onSnooze={() => {}}
                       isHidden={location.isHidden || false}
                       originAddress={deck.address}
                       snoozedUntil={location.snoozedUntil}

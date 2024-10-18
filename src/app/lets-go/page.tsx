@@ -1,30 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import chicagoNeighborhoods from '../chicago_neighborhoods.json';
-// import { Deck } from '../../types';
-import PlacePicker from './PlacePicker';
-import LocationAutocomplete from '@/components/LocationAutocomplete';
 import { DEFAULT_LOCATION } from '@/constants/locations';
-import { Deck, Location } from '@/types';
-
-const defaultDeck = {
-  name: 'Chicago Neighborhoods',
-  id: 'chicago-neighborhoods',
-  locations: chicagoNeighborhoods.map((location) => ({
-    ...location,
-    coords: { lat: location.latitude, lon: location.longitude },
-    isHidden: false,
-    snoozedUntil: undefined,
-    wikipedia_link: location.wikipedia_link || null,
-  })),
-  address: 'Chicago, IL',
-  coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
-};
+import { Location } from '@/types';
+import LocationAutocomplete from '@/components/LocationAutocomplete';
+import { useFetchLocations } from '@/hooks/useFetchLocations';
+import { DistanceSlider } from './DistanceSlider';
 
 export default function LetsGo() {
-  const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', [defaultDeck]);
-
   const toggleActivity = (activity: string) => {
     setSelectedActivities((prevActivities) => {
       if (prevActivities.includes(activity)) {
@@ -45,7 +27,11 @@ export default function LetsGo() {
   ];
   const [selectedLocation, setSelectedLocation] =
     useState<Location>(DEFAULT_LOCATION);
-  const [selectedActivities, setSelectedActivities] = useState<string[]>([activities[0]]);
+  const [maxDistance, setMaxDistance] = useState(10);
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([
+    activities[0],
+  ]);
+  const { fetchLocations, isLoading, locations } = useFetchLocations();
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
@@ -107,16 +93,28 @@ export default function LetsGo() {
           </div>
         ))}
       </div>
-
-      <div>
-        {decks.length > 1 &&
-          decks.map((deck) => (
-            <div key={deck.id}>{deck.name}</div> //todo: hoist up deck selector
+      <DistanceSlider
+        maxDistance={maxDistance}
+        onChange={(e) => setMaxDistance(Number(e.target.value))}
+      />
+      <button
+        className="border-2 border-primary text-primary mt-8 p-2"
+        onClick={() =>
+          fetchLocations(selectedLocation.coords, selectedActivities, maxDistance)
+        }
+      >
+        Generate Ideas
+      </button>
+      {isLoading && <div>Loading...</div>}
+      {locations.length > 0 && (
+        <div>
+          {locations.map((location) => (
+            <div key={`${location.coords.lat}-${location.coords.lon}`}>
+              {location.name}
+            </div>
           ))}
-        {decks.map((deck) => (
-          <PlacePicker key={deck.id} deck={deck} setDecks={setDecks} />
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

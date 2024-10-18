@@ -12,17 +12,25 @@ interface LocationAutocompleteProps {
 }
 
 const LocationAutocomplete = ({ setLocation }: LocationAutocompleteProps) => {
-  const { inputValue, setInputValue, suggestions, handleSuggestionSelect, clearSuggestions } =
-    useLocationAutocomplete({
-      defaultLocation: DEFAULT_LOCATION,
-    });
+  const {
+    inputValue,
+    setInputValue,
+    suggestions,
+    handleSuggestionSelect,
+    clearSuggestions,
+  } = useLocationAutocomplete({
+    defaultLocation: DEFAULT_LOCATION,
+  });
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         clearSuggestions();
       }
     }

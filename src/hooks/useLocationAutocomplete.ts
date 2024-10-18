@@ -26,7 +26,7 @@ export function useLocationAutocomplete({
   const [debouncedInputValue] = useDebounce(inputValue, 300); // Debounce for 300ms
   const [location, setLocation] = useState<Location | null>(defaultLocation);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [isSelecting, setIsSelecting] = useState<boolean>(false);
+  const [isSelecting, setIsSelecting] = useState<boolean>(true);
 
   const handleInputValueChange = useCallback(
     (value: string) => {

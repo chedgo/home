@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Deck, Location } from '../../types';
 import { Modal } from '../../components/Modal';
 import { CreateDeckForm } from '../../components/CreateDeckForm'; // New import
+import { useFetchLocations } from '@/hooks/useFetchLocations';
 
 export default function BuildDeck() {
   const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
@@ -20,43 +21,7 @@ export default function BuildDeck() {
   // const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
   // const [suggestions, setSuggestions] = useState<any[]>([]);
 
-  const fetchLocations = useCallback(async () => {
-    if (decks.length === 0 || currentDeckIndex >= decks.length) {
-      console.log('No decks available or invalid deck index');
-      return;
-    }
-
-    const currentDeck = decks[currentDeckIndex];
-    if (!currentDeck || !currentDeck.coords) {
-      console.error('Current deck or its coordinates are undefined');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        `/api/locations?latitude=${currentDeck.coords.lat}&longitude=${currentDeck.coords.lon}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch locations');
-      }
-      const data = await response.json();
-      setLocations(data.locations);
-    } catch (error) {
-      console.error('Error fetching locations:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [decks, currentDeckIndex]);
-
-  const handleGenerateIdeas = useCallback(() => {
-    if (decks.length > 0) {
-      fetchLocations();
-    } else {
-      console.log('No decks available. Please create a deck first.');
-      // Optionally, you can show a message to the user here
-    }
-  }, [fetchLocations, decks]);
+  const { fetchLocations } = useFetchLocations();
 
   // const handleNewDeckSuggestionSelect = (suggestion: any) => {
   //   setNewDeckAddress(suggestion.display_name);
@@ -202,27 +167,7 @@ export default function BuildDeck() {
       >
         ← Back to Picker
       </Link>
-      {decks.length === 0 ? (
-        <div className="mt-8 text-center">
-          <p className="mb-4">
-            No decks available. Please create a deck or use the default deck.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => setIsCreateDeckModalOpen(true)}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-            >
-              Create New Deck
-            </button>
-            <button
-              onClick={handleUseDefaultDeck}
-              className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
-            >
-              Use Default Deck
-            </button>
-          </div>
-        </div>
-      ) : (
+      {/* { (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-2">Your Decks</h2>
           <TabGroup
@@ -259,7 +204,9 @@ export default function BuildDeck() {
                     <p>Location: {deck.address}</p>
                     <button
                       className="mt-2 p-2 bg-primary text-white rounded"
-                      onClick={handleGenerateIdeas}
+                      onClick={() =>
+                        fetchLocations(deck.coords, deck.activities)
+                      }
                       disabled={isLoading || decks.length === 0}
                     >
                       {isLoading ? 'Generating Ideas...' : 'Generate Ideas'}
@@ -286,7 +233,7 @@ export default function BuildDeck() {
             </TabPanels>
           </TabGroup>
         </div>
-      )}
+      )} */}
 
       {isLoading ? (
         <div className="mt-4 text-center">Loading locations...</div>

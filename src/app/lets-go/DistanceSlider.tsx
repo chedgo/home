@@ -2,10 +2,10 @@ import React from 'react';
 
 type DistanceSliderProps = {
   maxDistance: number;
-  onSliderChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export function DistanceSlider({ maxDistance, onSliderChange }: DistanceSliderProps) {
+export function DistanceSlider({ maxDistance, onChange }: DistanceSliderProps) {
   return (
     <div className="mt-4">
       <label
@@ -20,7 +20,7 @@ export function DistanceSlider({ maxDistance, onSliderChange }: DistanceSliderPr
         min="0"
         max="35"
         value={maxDistance}
-        onChange={onSliderChange}
+        onChange={onChange}
         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
       />
     </div>
