@@ -1,5 +1,6 @@
 import { Location } from '@/types';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { useDebounce } from 'use-debounce';
 
 export interface Suggestion {
   display_name: string;
@@ -20,6 +21,7 @@ interface LocationAutocompleteProps {
 
 export function useLocationAutocomplete({ defaultLocation }: LocationAutocompleteProps) {
   const [inputValue, setInputValue] = useState<string>(defaultLocation.name);
+  const [debouncedInputValue] = useDebounce(inputValue, 300); // Debounce for 300ms
   const [location, setLocation] = useState<Location | null>(defaultLocation);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
@@ -28,14 +30,16 @@ export function useLocationAutocomplete({ defaultLocation }: LocationAutocomplet
     setInputValue(value);
     if (isSelecting) {
       setIsSelecting(false);
-      return;
     }
-    if (value.length > 2) {
+  }, [isSelecting]);
+
+  useEffect(() => {
+    if (debouncedInputValue.length > 2 && !isSelecting) {
       const params = new URLSearchParams({
         format: 'json',
         countrycodes: 'us',
         limit: '10',
-        q: value,
+        q: debouncedInputValue,
       });
 
       fetch(`https://nominatim.openstreetmap.org/search?${params}`)
@@ -50,7 +54,7 @@ export function useLocationAutocomplete({ defaultLocation }: LocationAutocomplet
     } else {
       setSuggestions([]);
     }
-  }, [isSelecting]);
+  }, [debouncedInputValue, isSelecting]);
 
   const handleSuggestionSelect = useCallback((suggestion: Suggestion) => {
     setIsSelecting(true);
