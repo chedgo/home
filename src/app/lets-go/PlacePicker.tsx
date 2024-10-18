@@ -2,24 +2,18 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { LocationCard } from '../../components/LocationCard';
 import { Deck, Location } from '../../types';
-import { calculateDistance, parseDuration } from '../../utils/locationUtils';
-import { DeckSelector } from './DeckSelector';
+import { calculateDistance} from '../../utils/locationUtils';
+// import { DeckSelector } from './DeckSelector';
 import { DistanceSlider } from './DistanceSlider';
 import Link from 'next/link';
 import { Modal } from '../../components/Modal';
 
 interface PlacePickerProps {
-  decks: Deck[];
+  deck: Deck;
   setDecks: React.Dispatch<React.SetStateAction<Deck[]>>;
-  handleUseDefaultDeck: () => void;
 }
 
-export default function PlacePicker({
-  decks,
-  setDecks,
-  handleUseDefaultDeck,
-}: PlacePickerProps) {
-  const [currentDeckIndex, setCurrentDeckIndex] = useState(0);
+export default function PlacePicker({ deck }: PlacePickerProps) {
   const [showCards, setShowCards] = useState(false);
   const [randomLocation, setRandomLocation] = useState<Location | null>(null);
   const [maxDistance, setMaxDistance] = useState(10);
@@ -40,10 +34,8 @@ export default function PlacePicker({
     onConfirm: () => {},
   });
 
-  const currentDeck = decks[currentDeckIndex];
-
   useEffect(() => {
-    const storedData = localStorage.getItem(`deck_${currentDeck?.id}`);
+    const storedData = localStorage.getItem(`deck_${deck?.id}`);
     if (storedData) {
       const { count, time } = JSON.parse(storedData);
       setGenerationCount(count);
@@ -52,14 +44,13 @@ export default function PlacePicker({
       setGenerationCount(0);
       setLastGenerationTime(null);
     }
-  }, [currentDeck]);
+  }, [deck]);
 
   const filteredLocations = useMemo(() => {
-    if (!currentDeck) return [];
-    return currentDeck.locations.filter((location: Location) => {
+    return deck.locations.filter((location: Location) => {
       const distance = calculateDistance(
-        currentDeck.coords.lat,
-        currentDeck.coords.lon,
+        deck.coords.lat,
+        deck.coords.lon,
         location.coords.lat,
         location.coords.lon
       );
@@ -69,56 +60,55 @@ export default function PlacePicker({
         location.snoozedUntil && location.snoozedUntil > Date.now();
       return distanceIsInRange && !isHidden && !isSnoozed;
     });
-  }, [currentDeck, maxDistance]);
+  }, [deck, maxDistance]);
 
   const hiddenLocations = useMemo(() => {
-    if (!currentDeck) return [];
-    return currentDeck.locations.filter(
+    return deck.locations.filter(
       (location: Location) =>
         location.isHidden ||
         (location.snoozedUntil && location.snoozedUntil > Date.now())
     );
-  }, [currentDeck]);
+  }, [deck]);
 
-  const handleHideLocation = useCallback(
-    (name: string) => {
-      const updatedDecks = decks.map((deck, index) => {
-        if (index === currentDeckIndex) {
-          return {
-            ...deck,
-            locations: deck.locations.map((loc) =>
-              loc.name === name ? { ...loc, isHidden: !loc.isHidden } : loc
-            ),
-          };
-        }
-        return deck;
-      });
-      setDecks(updatedDecks);
-    },
-    [decks, currentDeckIndex, setDecks]
-  );
+  // const handleHideLocation = useCallback(
+  //   (name: string) => {
+  //     const updatedDecks = decks.map((deck, index) => {
+  //       if (index === currentDeckIndex) {
+  //         return {
+  //           ...deck,
+  //           locations: deck.locations.map((loc) =>
+  //             loc.name === name ? { ...loc, isHidden: !loc.isHidden } : loc
+  //           ),
+  //         };
+  //       }
+  //       return deck;
+  //     });
+  //     setDecks(updatedDecks);
+  //   },
+  //   [decks, currentDeckIndex, setDecks]
+  // );
 
-  const handleSnoozeLocation = useCallback(
-    (name: string, duration: string) => {
-      const durationInMs = parseDuration(duration);
-      const snoozedUntil =
-        durationInMs > 0 ? Date.now() + durationInMs : undefined;
+  // const handleSnoozeLocation = useCallback(
+  //   (name: string, duration: string) => {
+  //     const durationInMs = parseDuration(duration);
+  //     const snoozedUntil =
+  //       durationInMs > 0 ? Date.now() + durationInMs : undefined;
 
-      const updatedDecks = decks.map((deck, index) => {
-        if (index === currentDeckIndex) {
-          return {
-            ...deck,
-            locations: deck.locations.map((loc) =>
-              loc.name === name ? { ...loc, snoozedUntil } : loc
-            ),
-          };
-        }
-        return deck;
-      });
-      setDecks(updatedDecks);
-    },
-    [decks, currentDeckIndex, setDecks]
-  );
+  //     const updatedDecks = decks.map((deck, index) => {
+  //       if (index === currentDeckIndex) {
+  //         return {
+  //           ...deck,
+  //           locations: deck.locations.map((loc) =>
+  //             loc.name === name ? { ...loc, snoozedUntil } : loc
+  //           ),
+  //         };
+  //       }
+  //       return deck;
+  //     });
+  //     setDecks(updatedDecks);
+  //   },
+  //   [decks, currentDeckIndex, setDecks]
+  // );
 
   const generateRandomLocation = useCallback(() => {
     if (filteredLocations.length > 0) {
@@ -152,7 +142,7 @@ export default function PlacePicker({
             generateRandomLocation();
             setLastGenerationTime(currentTime);
             localStorage.setItem(
-              `deck_${currentDeck.id}`,
+              `deck_${deck.id}`,
               JSON.stringify({ count: 1, time: currentTime })
             );
           },
@@ -166,7 +156,7 @@ export default function PlacePicker({
           onConfirm: () => {
             setGenerationCount(2);
             localStorage.setItem(
-              `deck_${currentDeck.id}`,
+              `deck_${deck.id}`,
               JSON.stringify({ count: 2, time: currentTime })
             );
           },
@@ -183,7 +173,7 @@ export default function PlacePicker({
             setLastGenerationTime(currentTime);
             setModalState((prev) => ({ ...prev, isOpen: false }));
             localStorage.setItem(
-              `deck_${currentDeck.id}`,
+              `deck_${deck.id}`,
               JSON.stringify({ count: 3, time: currentTime })
             );
           },
@@ -202,17 +192,12 @@ export default function PlacePicker({
       setGenerationCount(1);
       setLastGenerationTime(currentTime);
       localStorage.setItem(
-        `deck_${currentDeck.id}`,
+        `deck_${deck.id}`,
         JSON.stringify({ count: 1, time: currentTime })
       );
       generateRandomLocation();
     }
-  }, [
-    generationCount,
-    lastGenerationTime,
-    currentDeck,
-    generateRandomLocation,
-  ]);
+  }, [generationCount, lastGenerationTime, deck, generateRandomLocation]);
 
   const buttonText = useMemo(() => {
     if (generationCount === 0) {
@@ -226,14 +211,14 @@ export default function PlacePicker({
 
   return (
     <>
-      {decks.length > 0 ? (
+      {
         <>
           <div className="flex justify-between items-center mb-4 w-full">
-            <DeckSelector
+            {/* <DeckSelector
               decks={decks}
               currentDeckIndex={currentDeckIndex}
               onDeckChange={setCurrentDeckIndex}
-            />
+            /> */}
             <div className="flex space-x-2">
               <button
                 className="rounded-lg px-3 py-2 text-primary font-semibold"
@@ -269,11 +254,11 @@ export default function PlacePicker({
               <LocationCard
                 key={randomLocation.name}
                 location={randomLocation}
-                onHide={handleHideLocation}
-                onSnooze={handleSnoozeLocation}
+                onHide={()=>{}}
+                onSnooze={()=>{}}
                 isHidden={false}
                 showMapByDefault={true}
-                originAddress={currentDeck.address}
+                originAddress={deck.address}
                 snoozedUntil={randomLocation.snoozedUntil}
               />
             </div>
@@ -285,10 +270,10 @@ export default function PlacePicker({
                 <LocationCard
                   key={index}
                   location={location}
-                  onHide={handleHideLocation}
-                  onSnooze={handleSnoozeLocation}
+                  onHide={()=>{}}
+                  onSnooze={()=>{}}
                   isHidden={location.isHidden || false}
-                  originAddress={currentDeck.address}
+                  originAddress={deck.address}
                   snoozedUntil={location.snoozedUntil}
                 />
               ))}
@@ -314,10 +299,10 @@ export default function PlacePicker({
                     <LocationCard
                       key={index}
                       location={location}
-                      onHide={handleHideLocation}
-                      onSnooze={handleSnoozeLocation}
+                      onHide={()=>{}}
+                      onSnooze={()=>{}}
                       isHidden={location.isHidden || false}
-                      originAddress={currentDeck.address}
+                      originAddress={deck.address}
                       snoozedUntil={location.snoozedUntil}
                     />
                   ))}
@@ -326,27 +311,7 @@ export default function PlacePicker({
             )}
           </div>
         </>
-      ) : (
-        <div className="text-center mt-8">
-          <p className="mb-4">
-            No decks available. Please create a deck or use the default deck.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <Link
-              href="/build-deck"
-              className="rounded-lg p-4 bg-primary text-white"
-            >
-              Go to Deck Builder
-            </Link>
-            <button
-              className="rounded-lg p-4 bg-secondary text-white"
-              onClick={handleUseDefaultDeck}
-            >
-              Use Default Deck
-            </button>
-          </div>
-        </div>
-      )}
+      }
 
       <Modal
         isOpen={modalState.isOpen}

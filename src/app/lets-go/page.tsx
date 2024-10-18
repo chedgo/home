@@ -1,32 +1,30 @@
 'use client';
 import React, { useState } from 'react';
-// import useLocalStorage from '../../hooks/useLocalStorage';
-// import chicagoNeighborhoods from '../chicago_neighborhoods.json';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 // import { Deck } from '../../types';
-// import PlacePicker from './PlacePicker';
+import PlacePicker from './PlacePicker';
 import LocationAutocomplete from '@/components/LocationAutocomplete';
 import { DEFAULT_LOCATION } from '@/constants/locations';
-import { Location } from '@/types';
-export default function LetsGo() {
-  // const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
-  // const [location, setLocation] = useState<Location | null>(null);
+import { Deck, Location } from '@/types';
 
-  // const handleUseDefaultDeck = () => {
-  //   const defaultDeck: Deck = {
-  //     name: 'Chicago Neighborhoods',
-  //     id: 'chicago-neighborhoods',
-  //     locations: chicagoNeighborhoods.map((location) => ({
-  //       ...location,
-  //       coords: { lat: location.latitude, lon: location.longitude },
-  //       isHidden: false,
-  //       snoozedUntil: undefined,
-  //       wikipedia_link: location.wikipedia_link || null,
-  //     })),
-  //     address: 'Chicago, IL',
-  //     coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
-  //   };
-  //   setDecks([defaultDeck]);
-  // };
+const defaultDeck = {
+  name: 'Chicago Neighborhoods',
+  id: 'chicago-neighborhoods',
+  locations: chicagoNeighborhoods.map((location) => ({
+    ...location,
+    coords: { lat: location.latitude, lon: location.longitude },
+    isHidden: false,
+    snoozedUntil: undefined,
+    wikipedia_link: location.wikipedia_link || null,
+  })),
+  address: 'Chicago, IL',
+  coords: { lat: 41.8781, lon: -87.6298 }, // Chicagos coordinates
+};
+
+export default function LetsGo() {
+  const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', [defaultDeck]);
+
   const toggleActivity = (activity: string) => {
     setSelectedActivities((prevActivities) => {
       if (prevActivities.includes(activity)) {
@@ -47,7 +45,7 @@ export default function LetsGo() {
   ];
   const [selectedLocation, setSelectedLocation] =
     useState<Location>(DEFAULT_LOCATION);
-  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([activities[0]]);
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
@@ -110,11 +108,15 @@ export default function LetsGo() {
         ))}
       </div>
 
-      {/* <PlacePicker
-        decks={decks}
-        setDecks={setDecks}
-        handleUseDefaultDeck={handleUseDefaultDeck}
-      /> */}
+      <div>
+        {decks.length > 1 &&
+          decks.map((deck) => (
+            <div key={deck.id}>{deck.name}</div> //todo: hoist up deck selector
+          ))}
+        {decks.map((deck) => (
+          <PlacePicker key={deck.id} deck={deck} setDecks={setDecks} />
+        ))}
+      </div>
     </div>
   );
 }
