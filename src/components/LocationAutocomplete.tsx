@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent } from 'react';
+import React, { useState, KeyboardEvent, useEffect, useRef } from 'react';
 import {
   Suggestion,
   useLocationAutocomplete,
@@ -11,13 +11,27 @@ interface LocationAutocompleteProps {
   setLocation: (location: Location) => void;
 }
 
-const LocationAutocomplete = ({
-  setLocation,
-}: LocationAutocompleteProps) => {
-  const { inputValue, setInputValue, suggestions, handleSuggestionSelect } = useLocationAutocomplete({
-    defaultLocation: DEFAULT_LOCATION,
-  });
+const LocationAutocomplete = ({ setLocation }: LocationAutocompleteProps) => {
+  const { inputValue, setInputValue, suggestions, handleSuggestionSelect, clearSuggestions } =
+    useLocationAutocomplete({
+      defaultLocation: DEFAULT_LOCATION,
+    });
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        clearSuggestions();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [clearSuggestions]);
 
   const handleSelect = (suggestion: Suggestion) => {
     handleSuggestionSelect(suggestion);
@@ -55,7 +69,7 @@ const LocationAutocomplete = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={wrapperRef}>
       <input
         type="text"
         value={inputValue}

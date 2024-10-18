@@ -19,19 +19,24 @@ interface LocationAutocompleteProps {
   defaultLocation: Location;
 }
 
-export function useLocationAutocomplete({ defaultLocation }: LocationAutocompleteProps) {
+export function useLocationAutocomplete({
+  defaultLocation,
+}: LocationAutocompleteProps) {
   const [inputValue, setInputValue] = useState<string>(defaultLocation.name);
   const [debouncedInputValue] = useDebounce(inputValue, 300); // Debounce for 300ms
   const [location, setLocation] = useState<Location | null>(defaultLocation);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
 
-  const handleInputValueChange = useCallback((value: string) => {
-    setInputValue(value);
-    if (isSelecting) {
-      setIsSelecting(false);
-    }
-  }, [isSelecting]);
+  const handleInputValueChange = useCallback(
+    (value: string) => {
+      setInputValue(value);
+      if (isSelecting) {
+        setIsSelecting(false);
+      }
+    },
+    [isSelecting]
+  );
 
   useEffect(() => {
     if (debouncedInputValue.length > 2 && !isSelecting) {
@@ -43,14 +48,17 @@ export function useLocationAutocomplete({ defaultLocation }: LocationAutocomplet
       });
 
       fetch(`https://nominatim.openstreetmap.org/search?${params}`)
-        .then(response => response.json())
-        .then(data => {
-          const municipalityResults = data.filter((item: Suggestion) => 
-            item.addresstype === 'town' || item.addresstype === 'village' || item.addresstype === 'city'
+        .then((response) => response.json())
+        .then((data) => {
+          const municipalityResults = data.filter(
+            (item: Suggestion) =>
+              item.addresstype === 'town' ||
+              item.addresstype === 'village' ||
+              item.addresstype === 'city'
           );
           setSuggestions(municipalityResults);
         })
-        .catch(error => console.error('Error fetching suggestions:', error));
+        .catch((error) => console.error('Error fetching suggestions:', error));
     } else {
       setSuggestions([]);
     }
