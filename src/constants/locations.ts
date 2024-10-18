@@ -1,4 +1,6 @@
-export const DEFAULT_LOCATION = {
+import { Location } from "@/types";
+
+export const DEFAULT_LOCATION: Location = {
   name: 'Chicago, IL',
   description: 'Chicago is the city of big shoulders',
   wikipedia_link: 'https://en.wikipedia.org/wiki/Chicago',

@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Deck } from '../types';
 import LocationAutocomplete from './LocationAutocomplete';
-
+import { DEFAULT_LOCATION } from '@/constants/locations';
+import { Location } from '@/types';
 interface CreateDeckFormProps {
   onCreateDeck: (deck: Deck) => void;
 }
@@ -10,14 +11,8 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
   const [newDeckName, setNewDeckName] = useState('');
   const [newDeckAddress, setNewDeckAddress] = useState('');
   const [newDeckCoords, setNewDeckCoords] = useState({ lat: 0, lon: 0 });
+  const [selectedLocation, setSelectedLocation] = useState<Location>(DEFAULT_LOCATION);
 
-  const handleLocationSelect = useCallback(
-    (address: string, coords: { lat: number; lon: number }) => {
-      setNewDeckAddress(address);
-      setNewDeckCoords(coords);
-    },
-    []
-  );
 
   const handleCreateDeck = useCallback(() => {
     if (newDeckName && newDeckAddress) {
@@ -43,7 +38,7 @@ export function CreateDeckForm({ onCreateDeck }: CreateDeckFormProps) {
         placeholder="Deck Name"
         className="w-full p-2 border rounded mb-2"
       />
-      <LocationAutocomplete onLocationSelect={handleLocationSelect} />
+      <LocationAutocomplete location={selectedLocation} setLocation={setSelectedLocation} />
       <button
         onClick={handleCreateDeck}
         className="mt-4 p-2 bg-blue-600 text-white rounded w-full"

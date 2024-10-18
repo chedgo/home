@@ -1,11 +1,12 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 // import useLocalStorage from '../../hooks/useLocalStorage';
 // import chicagoNeighborhoods from '../chicago_neighborhoods.json';
 // import { Deck } from '../../types';
 // import PlacePicker from './PlacePicker';
 import LocationAutocomplete from '@/components/LocationAutocomplete';
-
+import { DEFAULT_LOCATION } from '@/constants/locations';
+import { Location } from '@/types';
 export default function LetsGo() {
   // const [decks, setDecks] = useLocalStorage<Deck[]>('userDecks', []);
   // const [location, setLocation] = useState<Location | null>(null);
@@ -27,10 +28,8 @@ export default function LetsGo() {
   //   setDecks([defaultDeck]);
   // };
 
-  const handleLocationSelect = () => {
-    // setLocation(address);
-  };
 
+const [selectedLocation, setSelectedLocation] = useState<Location>(DEFAULT_LOCATION);
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
@@ -66,9 +65,9 @@ export default function LetsGo() {
           so I thought I&apos;d share as I build it out.
         </p>
       </section>
-      <p>
-        I am in <LocationAutocomplete onLocationSelect={handleLocationSelect} />
-      </p>
+      <div>
+        I am in <LocationAutocomplete location={selectedLocation} setLocation={setSelectedLocation} />
+      </div>
       
 
       {/* <PlacePicker

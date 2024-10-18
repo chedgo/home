@@ -1,27 +1,32 @@
 import React from 'react';
-import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
+import {
+  Suggestion,
+  useLocationAutocomplete,
+} from '../hooks/useLocationAutocomplete';
 import { DEFAULT_LOCATION } from '../constants/locations';
+import { Location } from '../types';
 
 interface LocationAutocompleteProps {
-  onLocationSelect: (
-    address: string,
-    coords: { lat: number; lon: number }
-  ) => void;
+  location: Location;
+  setLocation: (location: Location) => void;
 }
 
 const LocationAutocomplete = ({
-  onLocationSelect,
+  setLocation,
 }: LocationAutocompleteProps) => {
-  const { inputValue, setInputValue, suggestions, handleSuggestionSelect } =
-    useLocationAutocomplete({
-      defaultLocation: DEFAULT_LOCATION,
-    });
+  const { inputValue, setInputValue, suggestions, handleSuggestionSelect } = useLocationAutocomplete({
+    defaultLocation: DEFAULT_LOCATION,
+  });
+  console.log('🚀 ~ suggestions:', suggestions);
 
-  const handleSelect = (suggestion: any) => {
+  const handleSelect = (suggestion: Suggestion) => {
     handleSuggestionSelect(suggestion);
-    onLocationSelect(suggestion.display_name, {
-      lat: parseFloat(suggestion.lat),
-      lon: parseFloat(suggestion.lon),
+    setLocation({
+      name: suggestion.display_name,
+      coords: {
+        lat: parseFloat(suggestion.lat),
+        lon: parseFloat(suggestion.lon),
+      },
     });
   };
 

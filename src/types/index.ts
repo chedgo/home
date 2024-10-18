@@ -1,7 +1,7 @@
 export type Location = {
   name: string;
-  description: string;
-  wikipedia_link: string | null;
+  description?: string;
+  wikipedia_link?: string | null;
   coords: Coordinates;
   isHidden?: boolean;
   snoozedUntil?: number;
