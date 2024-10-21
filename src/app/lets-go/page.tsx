@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { DEFAULT_USER_PLACE } from '@/constants/locations';
 import LocationAutocomplete from '@/components/LocationAutocomplete';
 import { useFetchDestinations } from '@/hooks/useFetchLocations';
-import { DistanceSlider } from './DistanceSlider';
+import { DistanceSlider } from '../../components/DistanceSlider';
 import { DestinationCard } from '@/components/DestinationCard';
 import { Place } from '@/types';
 import { Destination } from '../api/locations/schema';
@@ -55,7 +55,7 @@ export default function LetsGo() {
           .
         </p>
         <p>
-          A user can generate a deck of locations based on their preferences and
+          A user can generate a list of locations based on their preferences and
           then use the picker to randomly select a{' '}
           <span className="text-accent font-bold font-tenon-bold">
             single location
@@ -119,7 +119,10 @@ export default function LetsGo() {
 
             return (
               <div key={`${destination.coords.lat}-${destination.coords.lon}`}>
-                <DestinationCard destination={destination as Destination} originAddress={selectedLocation.display_name} />
+                <DestinationCard
+                  destination={destination as Destination}
+                  originAddress={selectedLocation.display_name}
+                />
               </div>
             );
           })}

@@ -84,12 +84,6 @@ export function DestinationCard({
         </button>
       </div>
 
-      {/* {isSnoozed && snoozedUntilDate && (
-        <p className="mt-2 text-sm text-gray-500">
-          Snoozed until: {snoozedUntilDate}
-        </p>
-      )} */}
-
       {showMap && (
         <div className="mt-4">
           <GoogleMapsDirections
