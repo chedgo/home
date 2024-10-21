@@ -1,10 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { DEFAULT_LOCATION } from '@/constants/locations';
-import { Location } from '@/types';
+import { DEFAULT_USER_PLACE } from '@/constants/locations';
 import LocationAutocomplete from '@/components/LocationAutocomplete';
-import { useFetchLocations } from '@/hooks/useFetchLocations';
+import { useFetchDestinations } from '@/hooks/useFetchLocations';
 import { DistanceSlider } from './DistanceSlider';
+import { DestinationCard } from '@/components/DestinationCard';
+import { Place } from '@/types';
+import { Destination } from '../api/locations/schema';
 
 export default function LetsGo() {
   const toggleActivity = (activity: string) => {
@@ -26,12 +28,12 @@ export default function LetsGo() {
     'shop',
   ];
   const [selectedLocation, setSelectedLocation] =
-    useState<Location>(DEFAULT_LOCATION);
+    useState<Place>(DEFAULT_USER_PLACE);
   const [maxDistance, setMaxDistance] = useState(10);
   const [selectedActivities, setSelectedActivities] = useState<string[]>([
     activities[0],
   ]);
-  const { fetchLocations, isLoading, locations } = useFetchLocations();
+  const { fetchDestinations, isLoading, destinations } = useFetchDestinations();
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
@@ -70,10 +72,7 @@ export default function LetsGo() {
       </section>
       <div>
         I am in{' '}
-        <LocationAutocomplete
-          location={selectedLocation}
-          setLocation={setSelectedLocation}
-        />
+        <LocationAutocomplete setSelectedLocation={setSelectedLocation} />
       </div>
       <div>I want to</div>
       <div className="flex flex-wrap gap-2">
@@ -100,8 +99,11 @@ export default function LetsGo() {
       <button
         className="border-2 border-primary text-primary mt-8 p-2"
         onClick={() =>
-          fetchLocations(
-            selectedLocation.coords,
+          fetchDestinations(
+            {
+              lat: parseFloat(selectedLocation.lat),
+              lon: parseFloat(selectedLocation.lon),
+            },
             selectedActivities,
             maxDistance
           )
@@ -110,14 +112,14 @@ export default function LetsGo() {
         Generate Ideas
       </button>
       {isLoading && <div>Loading...</div>}
-      {locations && locations.length > 0 && (
+      {destinations && destinations.length > 0 && (
         <div>
-          {locations.map((location) => {
-            if (!location || !location.coords) return null;
+          {destinations.map((destination) => {
+            if (!destination || !destination.coords) return null;
 
             return (
-              <div key={`${location.coords.lat}-${location.coords.lon}`}>
-                {location.name}
+              <div key={`${destination.coords.lat}-${destination.coords.lon}`}>
+                <DestinationCard destination={destination as Destination} originAddress={selectedLocation.display_name} />
               </div>
             );
           })}

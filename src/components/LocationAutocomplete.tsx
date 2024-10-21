@@ -1,17 +1,15 @@
 import React, { useState, KeyboardEvent, useEffect, useRef } from 'react';
-import {
-  Suggestion,
-  useLocationAutocomplete,
-} from '../hooks/useLocationAutocomplete';
-import { DEFAULT_LOCATION } from '../constants/locations';
-import { Location } from '../types';
+import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
+import { DEFAULT_USER_PLACE } from '../constants/locations';
+import { Place } from '@/types';
 
 interface LocationAutocompleteProps {
-  location: Location;
-  setLocation: (location: Location) => void;
+  setSelectedLocation: (location: Place) => void;
 }
 
-const LocationAutocomplete = ({ setLocation }: LocationAutocompleteProps) => {
+const LocationAutocomplete = ({
+  setSelectedLocation,
+}: LocationAutocompleteProps) => {
   const {
     inputValue,
     setInputValue,
@@ -19,7 +17,7 @@ const LocationAutocomplete = ({ setLocation }: LocationAutocompleteProps) => {
     handleSuggestionSelect,
     clearSuggestions,
   } = useLocationAutocomplete({
-    defaultLocation: DEFAULT_LOCATION,
+    defaultLocation: DEFAULT_USER_PLACE,
   });
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
@@ -41,14 +39,12 @@ const LocationAutocomplete = ({ setLocation }: LocationAutocompleteProps) => {
     };
   }, [clearSuggestions]);
 
-  const handleSelect = (suggestion: Suggestion) => {
+  const handleSelect = (suggestion: Place) => {
     handleSuggestionSelect(suggestion);
-    setLocation({
-      name: suggestion.display_name,
-      coords: {
-        lat: parseFloat(suggestion.lat),
-        lon: parseFloat(suggestion.lon),
-      },
+    setSelectedLocation({
+      display_name: suggestion.display_name,
+      lat: suggestion.lat,
+      lon: suggestion.lon,
     });
     setSelectedIndex(-1);
   };

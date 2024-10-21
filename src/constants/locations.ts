@@ -1,8 +1,12 @@
-import { Location } from "@/types";
+import { Place } from '@/types';
 
-export const DEFAULT_LOCATION: Location = {
-  name: 'Chicago, IL',
-  description: 'Chicago is the city of big shoulders',
-  wikipedia_link: 'https://en.wikipedia.org/wiki/Chicago',
-  coords: { lat: 41.8781, lon: -87.6298 },
+export const DEFAULT_USER_PLACE: Place = {
+  display_name: 'Chicago, IL',
+  address: {
+    country_code: 'US',
+    city: 'Chicago',
+  },
+  addresstype: 'city',
+  lat: '41.8781',
+  lon: '-87.6298',
 };

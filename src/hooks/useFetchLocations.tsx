@@ -1,23 +1,28 @@
-import { Coordinates, Location } from '@/types';
+import { Coordinates } from '@/types';
+import {
+  destinationSchema,
+  partialDestination,
+} from '@/app/api/locations/schema';
 import { useCallback } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
-import { locationSchema } from '@/app/api/locations/schema';
 
-export function useFetchLocations() {
-  const { submit, isLoading, object } = useObject<{ locations: Location[] }>({
+export function useFetchDestinations() {
+  const { submit, isLoading, object } = useObject<{
+    destinations: partialDestination[];
+  }>({
     api: '/api/locations',
-    schema: locationSchema,
+    schema: destinationSchema,
   });
 
-  const fetchLocations = useCallback(
-    (coordinates: Coordinates, activities: string[], maxDistance: number) => {
-      if (!coordinates || activities.length === 0 || maxDistance === 0) {
+  const fetchDestinations = useCallback(
+    (coords: Coordinates, activities: string[], maxDistance: number) => {
+      if (!coords || activities.length === 0 || maxDistance === 0) {
         return;
       }
 
       submit({
-        latitude: coordinates.lat,
-        longitude: coordinates.lon,
+        latitude: coords.lat,
+        longitude: coords.lon,
         activities: activities.join(','),
         maxDistance,
       });
@@ -25,5 +30,9 @@ export function useFetchLocations() {
     [submit]
   );
 
-  return { fetchLocations, isLoading, locations: object?.locations || [] };
+  return {
+    fetchDestinations,
+    isLoading,
+    destinations: object?.destinations || [],
+  };
 }

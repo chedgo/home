@@ -1,31 +1,22 @@
-import { Location } from '@/types';
+import { Place } from '@/types';
 import { useState, useCallback, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 
-export interface Suggestion {
-  display_name: string;
-  lat: string;
-  lon: string;
-  address?: {
-    country_code: string;
-    city?: string;
-    town?: string;
-    village?: string;
-  };
-  addresstype?: string;
-}
-
 interface LocationAutocompleteProps {
-  defaultLocation: Location;
+  defaultLocation: Place;
 }
 
 export function useLocationAutocomplete({
   defaultLocation,
 }: LocationAutocompleteProps) {
-  const [inputValue, setInputValue] = useState<string>(defaultLocation.name);
+  const [inputValue, setInputValue] = useState<string>(
+    defaultLocation.display_name
+  );
   const [debouncedInputValue] = useDebounce(inputValue, 300); // Debounce for 300ms
-  const [location, setLocation] = useState<Location | null>(defaultLocation);
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<Place | null>(
+    defaultLocation
+  );
+  const [suggestions, setSuggestions] = useState<Place[]>([]);
   const [isSelecting, setIsSelecting] = useState<boolean>(true);
 
   const handleInputValueChange = useCallback(
@@ -51,7 +42,7 @@ export function useLocationAutocomplete({
         .then((response) => response.json())
         .then((data) => {
           const municipalityResults = data.filter(
-            (item: Suggestion) =>
+            (item: Place) =>
               item.addresstype === 'town' ||
               item.addresstype === 'village' ||
               item.addresstype === 'city'
@@ -64,17 +55,14 @@ export function useLocationAutocomplete({
     }
   }, [debouncedInputValue, isSelecting]);
 
-  const handleSuggestionSelect = useCallback((suggestion: Suggestion) => {
+  const handleSuggestionSelect = useCallback((suggestion: Place) => {
     setIsSelecting(true);
     setInputValue(suggestion.display_name);
-    setLocation({
-      name: suggestion.display_name,
-      coords: {
-        lat: parseFloat(suggestion.lat),
-        lon: parseFloat(suggestion.lon),
-      },
-      description: '',
-      wikipedia_link: '',
+    setSelectedLocation({
+      display_name: suggestion.display_name,
+
+      lat: suggestion.lat,
+      lon: suggestion.lon,
     });
     setSuggestions([]);
   }, []);
@@ -82,7 +70,7 @@ export function useLocationAutocomplete({
   return {
     inputValue,
     setInputValue: handleInputValueChange,
-    location,
+    location: selectedLocation,
     suggestions,
     clearSuggestions: () => setSuggestions([]),
     handleSuggestionSelect,
