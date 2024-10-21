@@ -3,6 +3,7 @@ export type Location = {
   description?: string;
   wikipedia_link?: string | null;
   coords: Coordinates;
+  explanation?: string;
   isHidden?: boolean;
   snoozedUntil?: number;
 };

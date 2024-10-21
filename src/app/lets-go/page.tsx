@@ -100,19 +100,27 @@ export default function LetsGo() {
       <button
         className="border-2 border-primary text-primary mt-8 p-2"
         onClick={() =>
-          fetchLocations(selectedLocation.coords, selectedActivities, maxDistance)
+          fetchLocations(
+            selectedLocation.coords,
+            selectedActivities,
+            maxDistance
+          )
         }
       >
         Generate Ideas
       </button>
       {isLoading && <div>Loading...</div>}
-      {locations.length > 0 && (
+      {locations && locations.length > 0 && (
         <div>
-          {locations.map((location) => (
-            <div key={`${location.coords.lat}-${location.coords.lon}`}>
-              {location.name}
-            </div>
-          ))}
+          {locations.map((location) => {
+            if (!location || !location.coords) return null;
+
+            return (
+              <div key={`${location.coords.lat}-${location.coords.lon}`}>
+                {location.name}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

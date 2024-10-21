@@ -1,39 +1,29 @@
 import { Coordinates, Location } from '@/types';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { experimental_useObject as useObject } from 'ai/react';
+import { locationSchema } from '@/app/api/locations/schema';
 
 export function useFetchLocations() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [locations, setLocations] = useState<Location[]>([]);
+  const { submit, isLoading, object } = useObject<{ locations: Location[] }>({
+    api: '/api/locations',
+    schema: locationSchema,
+  });
+
   const fetchLocations = useCallback(
-    async (
-      coordinates: Coordinates,
-      activities: string[],
-      maxDistance: number
-    ) => {
+    (coordinates: Coordinates, activities: string[], maxDistance: number) => {
       if (!coordinates || activities.length === 0 || maxDistance === 0) {
         return;
       }
 
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `/api/locations?latitude=${coordinates.lat}&longitude=${
-            coordinates.lon
-          }&activities=${activities.join(',')}&maxDistance=${maxDistance}`
-        );
-        if (!response.ok) {
-          throw new Error('Failed to fetch locations');
-        }
-        const data = await response.json();
-        setLocations(data.locations);
-      } catch (error) {
-        console.error('Error fetching locations:', error);
-      } finally {
-        setIsLoading(false);
-      }
+      submit({
+        latitude: coordinates.lat,
+        longitude: coordinates.lon,
+        activities: activities.join(','),
+        maxDistance,
+      });
     },
-    []
+    [submit]
   );
 
-  return { fetchLocations, isLoading, locations };
+  return { fetchLocations, isLoading, locations: object?.locations || [] };
 }
