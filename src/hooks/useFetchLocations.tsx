@@ -3,7 +3,7 @@ import {
   destinationSchema,
   partialDestination,
 } from '@/app/api/locations/schema';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 
 export function useFetchDestinations() {
@@ -13,12 +13,14 @@ export function useFetchDestinations() {
     api: '/api/locations',
     schema: destinationSchema,
   });
+  const [isDoneLoading, setIsDoneLoading] = useState(false);
 
   const fetchDestinations = useCallback(
     (coords: Coordinates, activities: string[], maxDistance: number) => {
       if (!coords || activities.length === 0 || maxDistance === 0) {
         return;
       }
+      setIsDoneLoading(false);
 
       submit({
         latitude: coords.lat,
@@ -26,6 +28,7 @@ export function useFetchDestinations() {
         activities: activities.join(','),
         maxDistance,
       });
+      setIsDoneLoading(true);
     },
     [submit]
   );
@@ -34,5 +37,6 @@ export function useFetchDestinations() {
     fetchDestinations,
     isLoading,
     destinations: object?.destinations || [],
+    isDoneLoading,
   };
 }

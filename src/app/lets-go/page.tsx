@@ -29,11 +29,15 @@ export default function LetsGo() {
   ];
   const [selectedLocation, setSelectedLocation] =
     useState<Place>(DEFAULT_USER_PLACE);
+  const [selectedDestinations, setSelectedDestinations] = useState<
+    Destination[]
+  >([]);
   const [maxDistance, setMaxDistance] = useState(10);
   const [selectedActivities, setSelectedActivities] = useState<string[]>([
     activities[0],
   ]);
-  const { fetchDestinations, isLoading, destinations } = useFetchDestinations();
+  const { fetchDestinations, isLoading, destinations, isDoneLoading } =
+    useFetchDestinations();
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
@@ -111,22 +115,51 @@ export default function LetsGo() {
       >
         Generate Ideas
       </button>
+      {isDoneLoading && <div>Select the ones that sound interesting</div>}
       {isLoading && <div>Loading...</div>}
       {destinations && destinations.length > 0 && (
-        <div>
-          {destinations.map((destination) => {
-            if (!destination || !destination.coords) return null;
+        <>
+          <div>
+            {destinations.map((destination) => {
+              if (!destination || !destination.coords) return null;
+              const isSelected = selectedDestinations.some(
+                (d) => d.name === destination.name
+              );
 
-            return (
-              <div key={`${destination.coords.lat}-${destination.coords.lon}`}>
-                <DestinationCard
-                  destination={destination as Destination}
-                  originAddress={selectedLocation.display_name}
-                />
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div
+                  key={`${destination.coords.lat}-${destination.coords.lon}`}
+                >
+                  <DestinationCard
+                    destination={destination as Destination}
+                    originAddress={selectedLocation.display_name}
+                    onSelect={() => {
+                      if (isSelected) {
+                        setSelectedDestinations(
+                          selectedDestinations.filter(
+                            (d) => d.name !== destination.name
+                          )
+                        );
+                      } else {
+                        setSelectedDestinations([
+                          ...selectedDestinations,
+                          destination as Destination,
+                        ]);
+                      }
+                    }}
+                    isSelected={isSelected}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <button
+            className="border-2 border-primary text-primary mt-8 p-2"
+            onClick={() => {}}
+          >
+            Okay I&apos;m ready!
+          </button>
+        </>
       )}
     </div>
   );

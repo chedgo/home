@@ -33,15 +33,24 @@ export function DestinationCard({
   destination,
   showMapByDefault = false,
   originAddress,
+  onSelect,
+  isSelected,
 }: {
-  destination: Destination
+  destination: Destination;
   showMapByDefault?: boolean;
   originAddress: string;
+  onSelect: () => void;
+  isSelected: boolean;
 }) {
   const [showMap, setShowMap] = useState(showMapByDefault);
 
   return (
-    <div className="border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300">
+    <div
+      className={`border-2 border-primary p-4 m-2 rounded-lg transition-shadow duration-300 ${
+        isSelected ? 'bg-primary text-white' : ''
+      }`}
+      onClick={onSelect}
+    >
       <div className="flex justify-between items-start mb-2">
         <h2 className="text-xl font-bold">{destination.name}</h2>
       </div>
