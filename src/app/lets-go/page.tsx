@@ -9,10 +9,8 @@ import { Place } from '@/types';
 import { Destination } from '../api/locations/schema';
 import { Modal } from '@/components/Modal';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { useRouter } from 'next/navigation'
 
 export default function LetsGo() {
-  const router = useRouter();
   const toggleActivity = (activity: string) => {
     setSelectedActivities((prevActivities) => {
       if (prevActivities.includes(activity)) {
@@ -56,7 +54,7 @@ export default function LetsGo() {
     const randomIndex = Math.floor(Math.random() * destinations.length);
     const randomDestination = destinations[randomIndex];
     setRandomlySelectedDestination({
-      destination: randomDestination,
+      destination: randomDestination as Destination,
       timestamp: Date.now(),
     });
   };
