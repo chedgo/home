@@ -7,8 +7,12 @@ import { DistanceSlider } from '../../components/DistanceSlider';
 import { DestinationCard } from '@/components/DestinationCard';
 import { Place } from '@/types';
 import { Destination } from '../api/locations/schema';
+import { Modal } from '@/components/Modal';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import { useRouter } from 'next/navigation'
 
 export default function LetsGo() {
+  const router = useRouter();
   const toggleActivity = (activity: string) => {
     setSelectedActivities((prevActivities) => {
       if (prevActivities.includes(activity)) {
@@ -38,7 +42,37 @@ export default function LetsGo() {
   ]);
   const { fetchDestinations, isLoading, destinations, isDoneLoading } =
     useFetchDestinations();
-  return (
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [randomlySelectedDestination, setRandomlySelectedDestination] =
+    useLocalStorage<{ destination: Destination; timestamp: number } | null>(
+      'randomlySelectedDestination',
+      null
+    );
+  const timeStampIsFromToday =
+    randomlySelectedDestination?.timestamp &&
+    Date.now() - randomlySelectedDestination.timestamp < 1000 * 60 * 60 * 24;
+
+  const generateRandomDestination = () => {
+    const randomIndex = Math.floor(Math.random() * destinations.length);
+    const randomDestination = destinations[randomIndex];
+    setRandomlySelectedDestination({
+      destination: randomDestination,
+      timestamp: Date.now(),
+    });
+  };
+
+  return timeStampIsFromToday ? (
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-5xl font-bold m-4">You are going to</div>
+      <DestinationCard
+        destination={randomlySelectedDestination?.destination}
+        originAddress={selectedLocation.display_name}
+        onSelect={() => {}}
+        isSelected={false}
+        showMapByDefault={true}
+      />
+    </div>
+  ) : (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
         Let&apos;s Go
@@ -155,12 +189,28 @@ export default function LetsGo() {
           </div>
           <button
             className="border-2 border-primary text-primary mt-8 p-2"
-            onClick={() => {}}
+            onClick={() => setIsModalOpen(true)}
           >
             Okay I&apos;m ready!
           </button>
         </>
       )}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={() => {
+          generateRandomDestination();
+          setIsModalOpen(false);
+        }}
+        title="Are you ready?"
+      >
+        <p>
+          So- this whole thing kind of only works if you actually want to just
+          go. <br />
+          If you aren&apos;t ready to go, it all becomes even more meaningless.
+        </p>
+      </Modal>
     </div>
   );
 }
