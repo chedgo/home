@@ -33,3 +33,16 @@ export interface Place {
   };
   addresstype?: string;
 }
+
+export interface ColorName {
+  [key: string]: {
+    name: string;
+    hex: string;
+    red: number;
+    green: number;
+    blue: number;
+    hue: number;
+    saturation: number;
+    value: number;
+  };
+}
