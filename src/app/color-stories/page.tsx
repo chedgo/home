@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
+import { HexColorPicker } from 'react-colorful';
 
 function ColorStories() {
-  const [stories, setStories] = useState<string[]>([]);
+  const [color, setColor] = useState("#aabbcc");
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -28,9 +29,15 @@ function ColorStories() {
           to generate stories of significantly more dubious quality. With a
           speaker.
         </p>
-        <p></p>
-        <p className="italic"></p>
       </section>
+      
+      <div className="flex flex-col items-center mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-primary">Pick a Color</h2>
+        <HexColorPicker color={color} onChange={setColor} />
+        <p className="mt-4 text-lg font-medium text-primary">
+          Selected color: <span style={{ color: color }}>{color}</span>
+        </p>
+      </div>
     </div>
   );
 }
