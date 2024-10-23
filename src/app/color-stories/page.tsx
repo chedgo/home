@@ -21,16 +21,15 @@ function ColorStories() {
           <a href="https://x.com/tinyColorPoems" target="_blank">
             https://x.com/tinyColorPoems
           </a>
-          
         </p>
         <p>
-          Pick a color and generate a story. finished object will be a physical
-          toy using an esp32 with a color sensor and a speaker.
+          Pick a color and generate a story. The finished object will be a
+          physical toy using an esp32 with a color sensor, running a local gpt
+          to generate stories of significantly more dubious quality. With a
+          speaker.
         </p>
         <p></p>
-        <p className="italic">
-        
-        </p>
+        <p className="italic"></p>
       </section>
     </div>
   );
