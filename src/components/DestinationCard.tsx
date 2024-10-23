@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Destination } from '@/app/api/locations/schema';
 
-type GoogleMapsProps = {
-  origin: string;
+type GoogleMapProps = {
   destination: string;
   apiKey: string;
 };
 
-function GoogleMapsDirections({
-  origin,
-  destination,
-  apiKey,
-}: GoogleMapsProps) {
-  const encodedOrigin = encodeURIComponent(origin);
+function GoogleMap({ destination, apiKey }: GoogleMapProps) {
   const encodedDestination = encodeURIComponent(destination);
-  const src = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodedOrigin}&destination=${encodedDestination}`;
+  const src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodedDestination}&zoom=15`;
 
   return (
     <iframe
@@ -32,13 +26,11 @@ function GoogleMapsDirections({
 export function DestinationCard({
   destination,
   showMapByDefault = false,
-  originAddress,
   onSelect,
   isSelected,
 }: {
   destination: Destination;
   showMapByDefault?: boolean;
-  originAddress: string;
   onSelect: () => void;
   isSelected: boolean;
 }) {
@@ -95,9 +87,8 @@ export function DestinationCard({
 
       {showMap && (
         <div className="mt-4">
-          <GoogleMapsDirections
-            origin={originAddress}
-            destination={`${destination.coords?.lat},${destination.coords?.lon}`}
+          <GoogleMap
+            destination={destination.name}
             apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
           />
         </div>

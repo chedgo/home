@@ -64,7 +64,6 @@ export default function LetsGo() {
       <div className="text-5xl font-bold m-4">You are going to</div>
       <DestinationCard
         destination={randomlySelectedDestination?.destination}
-        originAddress={selectedLocation.display_name}
         onSelect={() => {}}
         isSelected={false}
         showMapByDefault={true}
@@ -164,7 +163,6 @@ export default function LetsGo() {
                 >
                   <DestinationCard
                     destination={destination as Destination}
-                    originAddress={selectedLocation.display_name}
                     onSelect={() => {
                       if (isSelected) {
                         setSelectedDestinations(
