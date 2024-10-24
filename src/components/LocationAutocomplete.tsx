@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocationAutocomplete } from '../hooks/useLocationAutocomplete';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
-import { DEFAULT_USER_PLACE } from '../constants/locations';
-import { Place } from '@/types';
+import { DEFAULT_USER_PLACE } from '@/constants/locations';
+import { Place } from '@/types/Place';
 import SuggestionList from '@/components/SuggestionList';
 
 interface LocationAutocompleteProps {

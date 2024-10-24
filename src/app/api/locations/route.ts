@@ -1,6 +1,6 @@
 import { openai } from '@ai-sdk/openai';
 import { streamObject } from 'ai';
-import { destinationSchema } from './schema';
+import { destinationSchema } from '../../../types/Destination';
 
 export const runtime = 'edge';
 export const maxDuration = 30;
@@ -28,9 +28,12 @@ export async function POST(req: Request) {
     });
     return destinations.toTextStreamResponse();
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to get destinations' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Failed to get destinations' }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }

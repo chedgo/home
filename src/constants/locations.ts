@@ -1,4 +1,4 @@
-import { Place } from '@/types';
+import { Place } from '@/types/Place';
 
 export const DEFAULT_USER_PLACE: Place = {
   display_name: 'Chicago, IL',

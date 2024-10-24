@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Destination } from '@/app/api/locations/schema';
+import { Destination } from '@/types/Destination';
 
 type GoogleMapProps = {
   destination: string;

@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { DEFAULT_USER_PLACE } from '@/constants/locations';
 import LocationAutocomplete from '@/components/LocationAutocomplete';
-import { useFetchDestinations } from '@/hooks/useFetchLocations';
+import { useFetchDestinations } from '@/hooks/useFetchDestinations';
 import { DistanceSlider } from '../../components/DistanceSlider';
 import { DestinationCard } from '@/components/DestinationCard';
-import { Place } from '@/types';
-import { Destination } from '../api/locations/schema';
+import { Place } from '@/types/Place';
+import { Destination } from '../../types/Destination';
 import { Modal } from '@/components/Modal';
 import useLocalStorage from '@/hooks/useLocalStorage';
 

@@ -1,4 +1,4 @@
-import { Place } from '@/types';
+import { Place } from '@/types/Place';
 import { useState, useCallback, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 

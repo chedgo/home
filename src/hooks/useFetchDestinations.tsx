@@ -1,8 +1,5 @@
-import { Coordinates } from '@/types';
-import {
-  destinationSchema,
-  partialDestination,
-} from '@/app/api/locations/schema';
+import { Coordinates } from '@/types/Coordinates';
+import { destinationSchema, partialDestination } from '@/types/Destination';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 
