@@ -14,8 +14,8 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  //map temperature from 1-50 to 1.35-2 range
-  const mappedTemperature = 1.35 + (temperature / 50) * 0.65;
+  //map temperature from 1-50 to 1.1-2 range
+  const mappedTemperature = 1.1 + (temperature / 50) * 0.9;
   try {
     const stories = await streamObject({
       model: openai('gpt-4o-mini'),
