@@ -13,7 +13,7 @@ export function useFetchColorStory() {
   const [isDoneLoading, setIsDoneLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fetchStory = useCallback(
-    (color: Color) => {
+    (color: Color, temperature: number) => {
       if (!color) {
         return;
       }
@@ -21,6 +21,7 @@ export function useFetchColorStory() {
       try {
         submit({
           color,
+          temperature,
         });
         setIsDoneLoading(true);
       } catch (error) {

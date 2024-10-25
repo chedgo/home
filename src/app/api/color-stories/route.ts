@@ -6,15 +6,16 @@ export const runtime = 'edge';
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { color } = await req.json();
+  const { color, temperature } = await req.json();
 
-  if (!color) {
+  if (!color || !temperature) {
     return new Response(
       JSON.stringify({ error: 'Missing required parameters' }),
       { status: 400 }
     );
   }
-
+  //map temperature from 1-50 to 1.35-2 range
+  const mappedTemperature = 1.35 + (temperature / 50) * 0.65;
   try {
     const stories = await streamObject({
       model: openai('gpt-4o-mini'),
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
       schema: colorStorySchema,
       prompt: `Write a story about the color ${color.name}, but make it sharp and a little rude. Follow the format, and make the references subtle yet clever. Keep it simple but smart, like you're cutting through the nonsense with a smirk. Make it clear you're not here to pander or play nice.`,
       maxTokens: 200,
-      temperature: 1.4,
+      temperature: mappedTemperature,
       // onFinish({
       //   object
       // }) {

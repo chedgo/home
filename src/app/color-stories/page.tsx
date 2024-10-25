@@ -6,6 +6,7 @@ import { useFetchColorStory } from '@/hooks/useFetchColorStory';
 import { Color } from '@/types/Color';
 import { colorFromHex } from '@/utils/colorUtils';
 function ColorStories() {
+  const [temperature, setTemperature] = useState<number>(0);
   const [color, setColor] = useState<Color>({
     name: 'Red',
     hex: '#ff0000',
@@ -58,10 +59,22 @@ function ColorStories() {
             {getNearestColorName(color.hex)}
           </span>
         </p>
+        <h2 className="text-2xl font-semibold mt-10 mb-4 text-primary">
+          How much nonsense?
+        </h2>
+        <input
+          id="nonsense-slider"
+          type="range"
+          min="0"
+          max="50"
+          value={temperature}
+          onChange={(e) => setTemperature(parseInt(e.target.value))}
+          className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer my-8"
+        />
         <button
           className="bg-primary text-white px-4 py-2 rounded-md"
           onClick={() => {
-            fetchStory(color);
+            fetchStory(color, temperature);
           }}
         >
           Tell me a story
