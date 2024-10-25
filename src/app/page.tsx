@@ -151,6 +151,15 @@ export default function Page() {
               : An LLM powered tool to make quick decisions and get out of the
               house
             </ListItem>
+            <ListItem>
+              <Link
+                className="text-primary font-bold underline hover:text-accent"
+                href={'/color-stories'}
+              >
+                Color Stories
+              </Link>
+              : A tool to generate short nonsense about colors
+            </ListItem>
           </ul>
         </div>
       </div>
