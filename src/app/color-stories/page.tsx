@@ -7,7 +7,7 @@ import { Color } from '@/types/Color';
 import { colorFromHex } from '@/utils/colorUtils';
 
 function ColorStories() {
-  const [temperature, setTemperature] = useState<number>(0);
+  const [temperature, setTemperature] = useState<number>(1);
   const [color, setColor] = useState<Color>({
     name: 'Red',
     hex: '#ff0000',
