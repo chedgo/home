@@ -1,20 +1,20 @@
 import {
-  scriptSchema,
-  // partialScriptSchema
+  questionListSchema,
+  // partialQuestionListSchema
 } from '@/types/Interviews';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 
-export function useGenerateScript() {
+export function useGenerateQuestionList() {
   const { submit, isLoading, object } = useObject<{
-    script: string;
+    questions: string[];
   }>({
-    api: '/api/generate-script',
-    schema: scriptSchema,
+    api: '/api/question-list',
+    schema: questionListSchema,
   });
   const [isDoneLoading, setIsDoneLoading] = useState(false);
 
-  const fetchScript = useCallback(
+  const fetchQuestionList = useCallback(
     (jobPost: string, companyProfile: string, resume: string) => {
       if (!jobPost || !companyProfile || !resume) {
         return;
@@ -32,9 +32,9 @@ export function useGenerateScript() {
   );
 
   return {
-    fetchScript,
+    fetchQuestionList,
     isLoading,
-    script: object?.script || '',
+    questions: object?.questions || [],
     isDoneLoading,
   };
 }

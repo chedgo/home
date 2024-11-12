@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useGenerateScript } from '@/hooks/useGenerateScript';
+import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
@@ -226,7 +226,8 @@ export default function InterviewPractice() {
   );
   const [resume, setResume] = useState(mockData ? mockResume : '');
 
-  const { fetchScript, isLoading, script, isDoneLoading } = useGenerateScript();
+  const { fetchQuestionList, isLoading, questions, isDoneLoading } =
+    useGenerateQuestionList();
   return (
     <div className="text-primary pl-4 lg:pl-10 pr-8">
       {/* instructions at the top*/}
@@ -273,13 +274,13 @@ export default function InterviewPractice() {
         className={`border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer ${
           isLoading ? 'opacity-50' : ''
         }`}
-        onClick={() => fetchScript(jobDescription, companyProfile, resume)}
+        onClick={() => fetchQuestionList(jobDescription, companyProfile, resume)}
       >
         Generate Script
       </div>
       {/* when loaded, the script is displayed */}
       <div>
-        <div>{script}</div>
+        <div>{questions}</div>
       </div>
       {/* button to launch a the interview simulator, or regenerate the script */}
       <div className="flex gap-4">
