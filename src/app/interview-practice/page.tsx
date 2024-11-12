@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
+import { useChat } from 'ai/react';
 
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
@@ -229,6 +230,33 @@ export const mockQuestions = [
 ];
 export const mockData = true;
 
+
+interface InterviewSimulatorProps {
+  questions: string[];
+}
+const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    keepLastMessageOnError: true,
+    api: '/api/chat',
+    body: {
+      questions,
+    },
+  });
+  return <>
+  {messages.map(message => (
+    <div key={message.id}>
+      {message.role === 'user' ? 'User: ' : 'AI: '}
+      {message.content}
+    </div>
+  ))}
+
+  <form onSubmit={handleSubmit}>
+    <input className='border-2 border-primary/50 focus:border-primary focus:outline-none' name="prompt" value={input} onChange={handleInputChange} />
+    <button type="submit">Submit</button>
+  </form>
+</>
+};
+
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
     mockData ? mockJobDescription : ''
@@ -240,7 +268,7 @@ export default function InterviewPractice() {
 
   const { fetchQuestionList, isLoading, questions, isDoneLoading } =
     useGenerateQuestionList();
-  console.log('🚀 ~ questions:', questions);
+  
   return (
     <div className="text-primary pl-4 lg:pl-10 pr-8">
       {/* instructions at the top*/}
@@ -315,7 +343,7 @@ export default function InterviewPractice() {
         </div> */}
       </div>
       {/* interview will display structured data and give feedback as it goes*/}
-      <div>interview will go here</div>
+      <InterviewSimulator questions={questions} />
     </div>
   );
 }

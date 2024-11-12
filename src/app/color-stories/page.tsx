@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { getNearestColorName } from '@/utils/colorUtils';
 import { useFetchColorStory } from '@/hooks/useFetchColorStory';
