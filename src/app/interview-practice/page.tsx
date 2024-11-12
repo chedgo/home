@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { useChat } from 'ai/react';
 import { Question } from '@/types/Interviews';
@@ -281,7 +281,7 @@ interface MessageProps {
 
 const Message = ({ message }: MessageProps) => {
   return (
-    <div className="bg-primary text-white w-fit rounded-md p-4 mb-4 mx-4 flex gap-2">
+    <div className="bg-primary text-white w-fit rounded-md p-4 mx-4 flex gap-2">
       <div> {message.role === 'user' ? 'You: ' : 'AI: '}</div>
       <div className="whitespace-pre-wrap -mt-6 pt-6">{message.content}</div>
     </div>
@@ -292,8 +292,30 @@ interface InterviewSimulatorProps {
   questions: Question[];
 }
 const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  
+  const isNearBottom = () => {
+    const container = messagesContainerRef.current;
+    if (!container) return false;
+    
+    const threshold = 100; // pixels from bottom
+    return container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+  };
+
+  const scrollToBottom = () => {
+    if (isNearBottom()) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const filteredQuestions = questions.filter((q): q is Question => !!q?.text);
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+  } = useChat({
     keepLastMessageOnError: true,
     maxSteps: 1,
     api: '/api/chat',
@@ -306,50 +328,32 @@ const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
       }
     },
   });
-  // const messages = [
-  //   {
-  //     id: '4ZgrKro',
-  //     createdAt: '2024-11-12T19:26:21.139Z',
-  //     role: 'user' as const,
-  //     content: 'hi there',
-  //   },
-  //   {
-  //     id: 'pM7f6BN',
-  //     role: 'assistant' as const,
-  //     content:
-  //       "Hello! I'm Gary, and I'm glad to meet you today. Thank you for taking the time to interview for the software engineer role. \n\nIn this interview, I'll be asking you a series of questions to assess your skills and fit for the position. We'll cover various areas, including your experience with LLM-based tools, programming skills, and your expertise in natural language processing. \n\nFeel free to take your time with your answers, and if you have any questions along the way, don't hesitate to ask. Are you ready to get started?",
-  //     createdAt: '2024-11-12T19:26:24.202Z',
-  //   },
-  //   {
-  //     id: '2ozPxyf',
-  //     createdAt: '2024-11-12T19:26:29.930Z',
-  //     role: 'user' as const,
-  //     content: 'yes i am',
-  //   },
-  //   {
-  //     id: '8WZzbs5',
-  //     role: 'assistant' as const,
-  //     content:
-  //       "Great! Let's dive in. \n\nTo start, can you tell me about your experience with LLM-based tools? Specifically, how have you approached prompt engineering and optimizing LLMs for multi-turn, real-time interactions? What strategies have you found effective in ensuring conversational AI capabilities?",
-  //     createdAt: '2024-11-12T19:26:30.577Z',
-  //   },
-  // ];
-  return (
-    <>
-      {messages.map((message) => (
-        <Message key={message.id} message={message} />
-      ))}
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
-      <form onSubmit={handleSubmit}>
+  return (
+    <div className="flex flex-col h-full">
+      <div 
+        ref={messagesContainerRef}
+        className="flex-1 flex flex-col gap-4 overflow-y-auto pb-4"
+      >
+        {messages.map((message) => (
+          <Message key={message.id} message={message} />
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+
+      <form onSubmit={handleSubmit} className="p-4 border-t">
         <input
-          className="border-2 border-primary/50 focus:border-primary focus:outline-none"
+          className="w-full border-2 border-primary/50 focus:border-primary focus:outline-none p-2 rounded"
           name="prompt"
           value={input}
           onChange={handleInputChange}
         />
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 };
 
@@ -365,9 +369,9 @@ export default function InterviewPractice() {
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
 
   return interviewStarted ? (
-    <>
-      <div className="text-primary pl-4 lg:pl-10 pr-8">
-        <div className="mb-4 font-tenon">
+    <div className="h-[calc(100vh-theme(spacing.16))] flex flex-col">
+      <div className="text-primary px-4 lg:px-10 py-4">
+        <div className="font-tenon">
           <div
             className="cursor-pointer"
             onClick={() => setInterviewStarted(false)}
@@ -376,12 +380,14 @@ export default function InterviewPractice() {
           </div>
         </div>
       </div>
-      <InterviewSimulator
-        questions={questions.filter((q): q is Question => !!q?.text)}
-      />
-    </>
+      <div className="flex-1 overflow-hidden">
+        <InterviewSimulator
+          questions={questions.filter((q): q is Question => !!q?.text)}
+        />
+      </div>
+    </div>
   ) : (
-    <div className="text-primary pl-4 lg:pl-10 pr-8">
+    <div className="min-h-[calc(100vh-theme(spacing.16))] text-primary px-4 lg:px-10 py-8">
       {/* instructions at the top*/}
       <div className="lg:w-2/3 lg:pt-44 text-primary ">
         <div className="mb-4 font-tenon">
