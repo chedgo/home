@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { useChat } from 'ai/react';
 import { Question } from '@/types/Interviews';
-
+import { CoreMessage } from 'ai';
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
 
@@ -219,70 +219,171 @@ Page 4 of 4
 export const mockQuestions = [
   {
     text: "Can you describe your experience with LLM-based tools and how you've applied them in your previous projects?",
-    assessment: 'This question is asking about the candidate\'s experience with LLM-based tools and their ability to apply them in previous projects. It is assessing their knowledge and skills in this area.',
+    assessment:
+      "This question is asking about the candidate's experience with LLM-based tools and their ability to apply them in previous projects. It is assessing their knowledge and skills in this area.",
   },
   {
     text: 'What strategies do you use for prompt engineering, and can you provide an example of a successful implementation?',
-    assessment: 'This question is assessing the candidate\'s knowledge and skills in prompt engineering. It is asking them to explain their strategies and provide an example of a successful implementation.',
+    assessment:
+      "This question is assessing the candidate's knowledge and skills in prompt engineering. It is asking them to explain their strategies and provide an example of a successful implementation.",
   },
   {
     text: 'How do you ensure that the software applications you develop meet user needs and business goals?',
-    assessment: 'This question is assessing the candidate\'s ability to ensure that the software applications they develop meet user needs and business goals. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's ability to ensure that the software applications they develop meet user needs and business goals. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: "Can you explain your experience with conversational AI systems and how you've built them for multi-turn interactions?",
-    assessment: 'This question is assessing the candidate\'s experience with conversational AI systems and their ability to build them for multi-turn interactions. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's experience with conversational AI systems and their ability to build them for multi-turn interactions. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: 'What is your approach to testing and debugging software applications?',
-    assessment: 'This question is assessing the candidate\'s approach to testing and debugging software applications. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's approach to testing and debugging software applications. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: 'How do you stay updated with emerging technologies in AI and software development?',
-    assessment: 'This question is assessing the candidate\'s ability to stay updated with emerging technologies in AI and software development. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's ability to stay updated with emerging technologies in AI and software development. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: 'Can you discuss your experience with vector search and retrieval augmented generation (RAG) techniques?',
-    assessment: 'This question is assessing the candidate\'s experience with vector search and retrieval augmented generation (RAG) techniques. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's experience with vector search and retrieval augmented generation (RAG) techniques. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: 'What programming languages are you most comfortable with, and how have you used them in your past projects?',
-    assessment: 'This question is assessing the candidate\'s comfort level with different programming languages and their ability to use them in past projects. It is asking them to explain their comfort level and provide examples of how they have used them in previous projects.',
+    assessment:
+      "This question is assessing the candidate's comfort level with different programming languages and their ability to use them in past projects. It is asking them to explain their comfort level and provide examples of how they have used them in previous projects.",
   },
   {
     text: 'How do you prioritize tasks and manage your time when working on multiple projects?',
-    assessment: 'This question is assessing the candidate\'s ability to prioritize tasks and manage their time when working on multiple projects. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's ability to prioritize tasks and manage their time when working on multiple projects. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
   {
     text: 'Can you provide an example of a challenging problem you faced in software development and how you solved it?',
-    assessment: 'This question is assessing the candidate\'s ability to solve challenging problems in software development. It is asking them to explain their strategies and provide examples of how they have solved challenging problems in previous projects.',
+    assessment:
+      "This question is assessing the candidate's ability to solve challenging problems in software development. It is asking them to explain their strategies and provide examples of how they have solved challenging problems in previous projects.",
   },
   {
     text: 'How do you collaborate with product teams to ensure alignment on project scope?',
-    assessment: 'This question is assessing the candidate\'s ability to collaborate with product teams to ensure alignment on project scope. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
+    assessment:
+      "This question is assessing the candidate's ability to collaborate with product teams to ensure alignment on project scope. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.",
   },
 ] as Question[];
 export const mockData = true;
+
+interface MessageProps {
+  message: CoreMessage;
+}
+
+const Message = ({ message }: MessageProps) => {
+  const renderContent = (content: CoreMessage['content']) => {
+    if (typeof content === 'string') {
+      return <div className="whitespace-pre-wrap -mt-6 pt-6">{content}</div>;
+    }
+
+    if (Array.isArray(content)) {
+      return content.map((part, index) => {
+        switch (part.type) {
+          case 'text':
+            return (
+              <div
+                key={index}
+                className="whitespace-pre-wrap indent-8 -mt-6 pt-6"
+              >
+                {part.text}
+              </div>
+            );
+          case 'image':
+            return (
+              <img
+                key={index}
+                src={
+                  part.image instanceof URL
+                    ? part.image.toString()
+                    : (part.image as string)
+                }
+                alt="Message attachment"
+                className="max-w-xs rounded-md my-2"
+              />
+            );
+          case 'tool-call':
+            return <span key={index}>Tool Call: {part.toolName}</span>;
+          case 'tool-result':
+            return (
+              <span key={index}>
+                Tool Result: {JSON.stringify(part.result)}
+              </span>
+            );
+          default:
+            return null;
+        }
+      });
+    }
+
+    return JSON.stringify(content);
+  };
+
+  return (
+    <div className="bg-primary text-white w-fit rounded-md p-4 mb-4 mx-4 flex gap-2">
+      <div> {message.role === 'user' ? 'You: ' : 'AI: '}</div>
+      <div> {renderContent(message.content)}</div>
+    </div>
+  );
+};
 
 interface InterviewSimulatorProps {
   questions: Question[];
 }
 const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
   const filteredQuestions = questions.filter((q): q is Question => !!q?.text);
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const {
+    // messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+  } = useChat({
     keepLastMessageOnError: true,
     api: '/api/chat',
     body: {
       questions: filteredQuestions,
     },
   });
+  const messages = [
+    {
+      id: '4ZgrKro',
+      createdAt: '2024-11-12T19:26:21.139Z',
+      role: 'user' as const,
+      content: 'hi there',
+    },
+    {
+      id: 'pM7f6BN',
+      role: 'assistant' as const,
+      content:
+        "Hello! I'm Gary, and I'm glad to meet you today. Thank you for taking the time to interview for the software engineer role. \n\nIn this interview, I'll be asking you a series of questions to assess your skills and fit for the position. We'll cover various areas, including your experience with LLM-based tools, programming skills, and your expertise in natural language processing. \n\nFeel free to take your time with your answers, and if you have any questions along the way, don't hesitate to ask. Are you ready to get started?",
+      createdAt: '2024-11-12T19:26:24.202Z',
+    },
+    {
+      id: '2ozPxyf',
+      createdAt: '2024-11-12T19:26:29.930Z',
+      role: 'user' as const,
+      content: 'yes i am',
+    },
+    {
+      id: '8WZzbs5',
+      role: 'assistant' as const,
+      content:
+        "Great! Let's dive in. \n\nTo start, can you tell me about your experience with LLM-based tools? Specifically, how have you approached prompt engineering and optimizing LLMs for multi-turn, real-time interactions? What strategies have you found effective in ensuring conversational AI capabilities?",
+      createdAt: '2024-11-12T19:26:30.577Z',
+    },
+  ];
   return (
     <>
       {messages.map((message) => (
-        <div key={message.id}>
-          {message.role === 'user' ? 'User: ' : 'AI: '}
-          {message.content}
-        </div>
+        <Message key={message.id} message={message} />
       ))}
 
       <form onSubmit={handleSubmit}>
@@ -306,7 +407,7 @@ export default function InterviewPractice() {
     mockData ? mockCompanyProfile : ''
   );
   const [resume, setResume] = useState(mockData ? mockResume : '');
-  const [interviewStarted, setInterviewStarted] = useState(false);
+  const [interviewStarted, setInterviewStarted] = useState(true);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
 
   return interviewStarted ? (
@@ -391,14 +492,16 @@ export default function InterviewPractice() {
         </ol>
       </div>
       {/* button to launch a the interview simulator, or regenerate the script */}
-    {  <div className="flex gap-4">
-        <div
-          className="border-2 border-primary text-primary mt-8 p-2 w-fit"
-          onClick={() => setInterviewStarted(true)}
-        >
-          Launch Interview
+      {
+        <div className="flex gap-4">
+          <div
+            className="border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer"
+            onClick={() => setInterviewStarted(true)}
+          >
+            Launch Interview
+          </div>
         </div>
-      </div>}
+      }
     </div>
   );
 }
