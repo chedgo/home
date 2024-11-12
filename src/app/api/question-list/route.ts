@@ -1,6 +1,6 @@
 import { openai } from '@ai-sdk/openai';
 import { streamObject } from 'ai';
-import { questionListSchema } from '@/types/Interviews';
+import { questionSchema } from '@/types/Interviews';
 
 export const runtime = 'edge';
 export const maxDuration = 30;
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const script = await streamObject({
       model: openai('gpt-4o-mini'),
       system: `You’re a professional job coach working with a client to prepare them for an interview.`,
-      schema: questionListSchema,
+      schema: questionSchema,
       prompt: `Write a list of questions that the interviewer might use to conduct the interview.
        Aim for 15 questions ranging from general cultural questions to technical questions, especially
        focusing on the skills and experience outlined in the resume and job post. here are the job post,

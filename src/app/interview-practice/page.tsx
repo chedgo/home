@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { useChat } from 'ai/react';
+import { Question } from '@/types/Interviews';
 
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
@@ -216,45 +217,74 @@ Bachelor's degree, Philosophy · (2007 - 2011)
 Page 4 of 4
 `;
 export const mockQuestions = [
-  "Can you describe your experience with LLM-based tools and how you've applied them in your previous projects?",
-  "What strategies do you use for prompt engineering, and can you provide an example of a successful implementation?",
-  "How do you ensure that the software applications you develop meet user needs and business goals?",
-  "Can you explain your experience with conversational AI systems and how you've built them for multi-turn interactions?",
-  "What is your approach to testing and debugging software applications?",
-  "How do you stay updated with emerging technologies in AI and software development?",
-  "Can you discuss your experience with vector search and retrieval augmented generation (RAG) techniques?",
-  "What programming languages are you most comfortable with, and how have you used them in your past projects?",
-  "How do you prioritize tasks and manage your time when working on multiple projects?",
-  "Can you provide an example of a challenging problem you faced in software development and how you solved it?",
-  "How do you collaborate with product teams to ensure alignment on project scope?"
-];
+  {
+    text: "Can you describe your experience with LLM-based tools and how you've applied them in your previous projects?",
+  },
+  {
+    text: 'What strategies do you use for prompt engineering, and can you provide an example of a successful implementation?',
+  },
+  {
+    text: 'How do you ensure that the software applications you develop meet user needs and business goals?',
+  },
+  {
+    text: "Can you explain your experience with conversational AI systems and how you've built them for multi-turn interactions?",
+  },
+  {
+    text: 'What is your approach to testing and debugging software applications?',
+  },
+  {
+    text: 'How do you stay updated with emerging technologies in AI and software development?',
+  },
+  {
+    text: 'Can you discuss your experience with vector search and retrieval augmented generation (RAG) techniques?',
+  },
+  {
+    text: 'What programming languages are you most comfortable with, and how have you used them in your past projects?',
+  },
+  {
+    text: 'How do you prioritize tasks and manage your time when working on multiple projects?',
+  },
+  {
+    text: 'Can you provide an example of a challenging problem you faced in software development and how you solved it?',
+  },
+  {
+    text: 'How do you collaborate with product teams to ensure alignment on project scope?',
+  },
+] as Question[];
 export const mockData = true;
 
-
 interface InterviewSimulatorProps {
-  questions: string[];
+  questions: Question[];
 }
 const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
+  const filteredQuestions = questions.filter((q): q is Question => !!q?.text);
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     keepLastMessageOnError: true,
     api: '/api/chat',
     body: {
-      questions,
+      questions: filteredQuestions,
     },
   });
-  return <>
-  {messages.map(message => (
-    <div key={message.id}>
-      {message.role === 'user' ? 'User: ' : 'AI: '}
-      {message.content}
-    </div>
-  ))}
+  return (
+    <>
+      {messages.map((message) => (
+        <div key={message.id}>
+          {message.role === 'user' ? 'User: ' : 'AI: '}
+          {message.content}
+        </div>
+      ))}
 
-  <form onSubmit={handleSubmit}>
-    <input className='border-2 border-primary/50 focus:border-primary focus:outline-none' name="prompt" value={input} onChange={handleInputChange} />
-    <button type="submit">Submit</button>
-  </form>
-</>
+      <form onSubmit={handleSubmit}>
+        <input
+          className="border-2 border-primary/50 focus:border-primary focus:outline-none"
+          name="prompt"
+          value={input}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  );
 };
 
 export default function InterviewPractice() {
@@ -266,9 +296,8 @@ export default function InterviewPractice() {
   );
   const [resume, setResume] = useState(mockData ? mockResume : '');
 
-  const { fetchQuestionList, isLoading, questions, isDoneLoading } =
-    useGenerateQuestionList();
-  
+  const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
+
   return (
     <div className="text-primary pl-4 lg:pl-10 pr-8">
       {/* instructions at the top*/}
@@ -325,9 +354,10 @@ export default function InterviewPractice() {
       <div>
         <ol className="list-decimal pl-4 mt-4">
           {questions.map((question) => {
+            if (!question?.text) return null;
             return (
-              <li key={question} className="mb-2">
-                {question}
+              <li key={question.text} className="mb-2">
+                {question.text}
               </li>
             );
           })}
@@ -343,7 +373,9 @@ export default function InterviewPractice() {
         </div> */}
       </div>
       {/* interview will display structured data and give feedback as it goes*/}
-      <InterviewSimulator questions={questions} />
+      <InterviewSimulator
+        questions={questions.filter((q): q is Question => !!q?.text)}
+      />
     </div>
   );
 }

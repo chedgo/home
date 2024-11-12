@@ -1,9 +1,11 @@
 import { z } from 'zod';
 
-export const questionListSchema = z.object({
-  questions: z.array(z.string()).describe('The list of interview questions'),
+export const questionSchema = z.object({
+  text: z.string().describe('The interview question text'),
+  assessment: z.string().describe('What this question aims to assess'),
 });
 
-export type partialQuestionListSchema = Partial<
-  z.infer<typeof questionListSchema>
->;
+export type Question = z.infer<typeof questionSchema>;
+
+export type PartialQuestion = Partial<Question>;
+

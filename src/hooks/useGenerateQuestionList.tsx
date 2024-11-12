@@ -1,18 +1,13 @@
-import {
-  questionListSchema,
-  // partialQuestionListSchema
-} from '@/types/Interviews';
+import { questionSchema, PartialQuestion } from '@/types/Interviews';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 import { mockData } from '@/app/interview-practice/page';
 import { mockQuestions } from '@/app/interview-practice/page';
 
 export function useGenerateQuestionList() {
-  const { submit, isLoading, object } = useObject<{
-    questions: string[];
-  }>({
+  const { submit, isLoading, object } = useObject<PartialQuestion[]>({
     api: '/api/question-list',
-    schema: questionListSchema,
+    schema: questionSchema.array(),
   });
   const [isDoneLoading, setIsDoneLoading] = useState(false);
 
@@ -36,7 +31,7 @@ export function useGenerateQuestionList() {
   return {
     fetchQuestionList,
     isLoading,
-    questions: mockData ? mockQuestions : object?.questions || [],
+    questions: mockData ? mockQuestions : object || [],
     isDoneLoading,
   };
 }
