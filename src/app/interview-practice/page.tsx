@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
-import pdfToText from 'react-pdftotext';
 import mockData from './mockData.json';
+import { ResumeUpload } from '@/components/ResumeUpload';
 
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
@@ -17,20 +17,6 @@ export default function InterviewPractice() {
   const [resume, setResume] = useState(mockData ? mockData.resume : '');
   const [interviewStarted, setInterviewStarted] = useState(true);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
-
-  function extractText(event: React.ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files;
-    if (!files) return;
-
-    const file = files[0];
-    pdfToText(file)
-      .then((text) => {
-        setResume(text);
-      })
-      .catch((error) =>
-        console.error('Failed to extract text from pdf:', error)
-      );
-  }
 
   return interviewStarted ? (
     <div className="h-[calc(100vh-theme(spacing.16))] flex flex-col">
@@ -81,18 +67,12 @@ export default function InterviewPractice() {
               onChange={(e) => setCompanyProfile(e.target.value)}
             ></textarea>
           </div>
-          <div>please paste in your resume here, or upload a PDF:</div>
-          <input type="file" accept="application/pdf" onChange={extractText} />
-          <div>
-            <textarea
-              className="border-primary/50 border-2 focus:border-primary focus:outline-none"
-              value={resume}
-              onChange={(e) => setResume(e.target.value)}
-            ></textarea>
-          </div>
+          <ResumeUpload 
+            value={resume}
+            onChange={setResume}
+          />
         </div>
       </div>
-      {/* button to generate a scripts */}
       <div
         className={`border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer ${
           isLoading ? 'opacity-50' : ''
