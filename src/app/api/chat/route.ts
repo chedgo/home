@@ -1,15 +1,32 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
+import { z } from 'zod';
+
+const tools = {
+  // server-side tool with execute function:
+  saveEvaluation: {
+    description:
+      'after each question, save an evaluation of the candidate and a score for the question',
+    parameters: z.object({ evaluation: z.string(), score: z.number() }),
+    execute: async ({
+      evaluation,
+      score,
+    }: {
+      evaluation: string;
+      score: number;
+      }) => {
+      //you would save to a database here
+      console.log('server side call- evaluation:', evaluation, 'score:', score);
+    },
+  },
+};
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-export async function POST(req: Request) {
-  const request = await req.json();
-  const { messages, questions } = request;
-  const result = await streamText({
-    model: openai('gpt-4o-mini'),
-    system: `You are an interviewer named Gary. you are tough but fair, and you are trying
+const generateSystemPrompt = (
+  questions: string[]
+) => `You are an interviewer named Gary. you are tough but fair, and you are trying
      to assess the candidate\'s skills and fit for the role. You take great pride in the compassion
      you show to candidates.
      
@@ -41,11 +58,20 @@ ${questions.map((question: string) => `- ${question}`).join('\n')}
 
 Begin by introducing yourself and the interview process.
 With each question, you will ask the candidate to explain their approach to solving the problem, keeping the tone conversational and friendly.
-follow up questions are encouraged, but only ask one at a time.
+follow up questions are encouraged, but only ask one at a time, and don't linger too long an any question.
+Every time a question is asked, save an evaluation of the candidate and a score for the question.
 after all the questions, you will ask the candidate if they have any questions for you.
 then you will say goodbye and wish them the best.
-`,
+`;
+
+export async function POST(req: Request) {
+  const request = await req.json();
+  const { messages, questions } = request;
+  const result = await streamText({
+    model: openai('gpt-4o-mini'),
+    system: generateSystemPrompt(questions),
     messages,
+    tools,
   });
 
   return result.toDataStreamResponse();
