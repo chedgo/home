@@ -6,7 +6,7 @@ const tools = {
   // server-side tool with execute function:
   saveEvaluation: {
     description:
-      'after each question, save an evaluation of the candidate and a score for the question',
+      'after each question, save an evaluation of the candidate and a score for the question to the database',
     parameters: z.object({ evaluation: z.string(), score: z.number() }),
     execute: async ({
       evaluation,
@@ -14,10 +14,14 @@ const tools = {
     }: {
       evaluation: string;
       score: number;
-      }) => {
+    }) => {
       //you would save to a database here
       console.log('server side call- evaluation:', evaluation, 'score:', score);
     },
+  },
+  provideFeedback: {
+    description: 'provide feedback to the candidate after each question',
+    parameters: z.object({ feedback: z.string() }),
   },
 };
 
