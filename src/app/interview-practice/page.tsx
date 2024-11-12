@@ -6,16 +6,16 @@ import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
 import mockData from './mockData.json';
 import { ResumeUpload } from '@/components/ResumeUpload';
-
+export const useMockData = false;
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
-    mockData ? mockData.jobDescription : ''
+    useMockData ? mockData.jobDescription : ''
   );
   const [companyProfile, setCompanyProfile] = useState(
-    mockData ? mockData.companyProfile : ''
+    useMockData ? mockData.companyProfile : ''
   );
-  const [resume, setResume] = useState(mockData ? mockData.resume : '');
-  const [interviewStarted, setInterviewStarted] = useState(true);
+  const [resume, setResume] = useState(useMockData ? mockData.resume : '');
+  const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
 
   return interviewStarted ? (
@@ -74,37 +74,35 @@ export default function InterviewPractice() {
         </div>
       </div>
       <div
-        className={`border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer ${
-          isLoading ? 'opacity-50' : ''
-        }`}
-        onClick={() =>
-          fetchQuestionList(jobDescription, companyProfile, resume)
-        }
+        className={`border-2 border-primary text-primary mt-8 p-2 w-fit 
+          ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-primary hover:text-white transition-colors'}`}
+        onClick={() => !isLoading && fetchQuestionList(jobDescription, companyProfile, resume)}
       >
-        Generate Script
+        {isLoading ? 'Generating Questions...' : 'Generate Script'}
       </div>
-      <div>
-        <ol className="list-decimal pl-4 mt-4">
-          {questions.map((question) => {
-            if (!question?.text) return null;
-            return (
-              <li key={question.text} className="mb-2">
-                {question.text}
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-      {
-        <div className="flex gap-4">
-          <div
-            className="border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer"
-            onClick={() => setInterviewStarted(true)}
-          >
-            Launch Interview
+      {questions.length > 0 && (
+        <div>
+          <ol className="list-decimal pl-4 mt-4">
+            {questions.map((question) => {
+              if (!question?.text) return null;
+              return (
+                <li key={question.text} className="mb-2">
+                  {question.text}
+                </li>
+              );
+            })}
+          </ol>
+
+          <div className="flex gap-4">
+            <div
+              className="border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer hover:bg-primary hover:text-white transition-colors"
+              onClick={() => setInterviewStarted(true)}
+            >
+              Launch Interview
+            </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }
