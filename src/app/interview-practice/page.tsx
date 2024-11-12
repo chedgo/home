@@ -295,10 +295,26 @@ export default function InterviewPractice() {
     mockData ? mockCompanyProfile : ''
   );
   const [resume, setResume] = useState(mockData ? mockResume : '');
-
+  const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
 
-  return (
+  return interviewStarted ? (
+    <>
+      <div className="text-primary pl-4 lg:pl-10 pr-8">
+        <div className="mb-4 font-tenon">
+          <div
+            className="cursor-pointer"
+            onClick={() => setInterviewStarted(false)}
+          >
+            ← back
+          </div>
+        </div>
+      </div>
+      <InterviewSimulator
+        questions={questions.filter((q): q is Question => !!q?.text)}
+      />
+    </>
+  ) : (
     <div className="text-primary pl-4 lg:pl-10 pr-8">
       {/* instructions at the top*/}
       <div className="lg:w-2/3 lg:pt-44 text-primary ">
@@ -365,17 +381,13 @@ export default function InterviewPractice() {
       </div>
       {/* button to launch a the interview simulator, or regenerate the script */}
       <div className="flex gap-4">
-        <div className="border-2 border-primary text-primary mt-8 p-2 w-fit">
+        <div
+          className="border-2 border-primary text-primary mt-8 p-2 w-fit"
+          onClick={() => setInterviewStarted(true)}
+        >
           Launch Interview
         </div>
-        {/* <div className="border-2 border-primary text-primary mt-8 p-2 w-fit">
-          Regenerate Script
-        </div> */}
       </div>
-      {/* interview will display structured data and give feedback as it goes*/}
-      <InterviewSimulator
-        questions={questions.filter((q): q is Question => !!q?.text)}
-      />
     </div>
   );
 }
