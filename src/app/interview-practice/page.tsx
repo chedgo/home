@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
+import pdfToText from "react-pdftotext";
 
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
@@ -286,6 +287,18 @@ export default function InterviewPractice() {
   const [interviewStarted, setInterviewStarted] = useState(true);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
 
+  function extractText(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files;
+    if (!files) return;
+    
+    const file = files[0];
+    pdfToText(file)
+      .then((text) => {
+        setResume(text);
+      })
+      .catch((error) => console.error("Failed to extract text from pdf"));
+  }
+
   return interviewStarted ? (
     <div className="h-[calc(100vh-theme(spacing.16))] flex flex-col">
       <div className="text-primary px-4 lg:px-10 py-4">
@@ -335,8 +348,9 @@ export default function InterviewPractice() {
               onChange={(e) => setCompanyProfile(e.target.value)}
             ></textarea>
           </div>
-          <div>please paste in your resume here:</div>
-          <div>
+          <div>please paste in your resume here, or upload a PDF:</div>
+            <input type="file" accept="application/pdf" onChange={extractText} />
+            <div>
             <textarea
               className="border-primary/50 border-2 focus:border-primary focus:outline-none"
               value={resume}
