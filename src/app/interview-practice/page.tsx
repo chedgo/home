@@ -280,7 +280,11 @@ export default function InterviewPractice() {
       </div>
       {/* when loaded, the script is displayed */}
       <div>
-        <div>{questions}</div>
+        <ol className="list-decimal pl-4 mt-4">
+          {questions.map((question) => {
+            return <li key={question} className="mb-2">{question}</li>;
+          })}
+        </ol>
       </div>
       {/* button to launch a the interview simulator, or regenerate the script */}
       <div className="flex gap-4">
