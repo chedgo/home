@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       system: `You’re a professional job coach working with a client to prepare them for an interview.`,
       schema: questionSchema,
       prompt: `Write a list of questions that the interviewer might use to conduct the interview.
-       Aim for 15 questions ranging from general cultural questions to technical questions, especially
+       Aim for 10 questions ranging from general cultural questions to technical questions, especially
        focusing on the skills and experience outlined in the resume and job post. here are the job post,
        company profile, and resume:
        \`\`\`${jobPost}\`\`\`
@@ -35,6 +35,6 @@ export async function POST(req: Request) {
     });
     return script.toTextStreamResponse();
   } catch (error) {
-    return Response.json({ error: 'Failed to get script' }, { status: 500 });
+    return Response.json({ error: 'Failed to get questions' }, { status: 500 });
   }
 }
