@@ -5,6 +5,8 @@ import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { useChat } from 'ai/react';
 import { Question } from '@/types/Interviews';
 import { Message as MessageType } from 'ai';
+import { useAutoScroll } from '@/hooks/useAutoScroll';
+
 const mockJobDescription = `About the job
 Astoria AI (http://www.astoria.ai) is an early-stage startup focused on building human-centered global talent intelligence platform powered by Artificial Intelligence. At Astoria AI we believe that people have indispensable human need to realize their full potential. Our mission is to help people to unlock their potential and help organizations to attract those people and build sustained practices of retaining motivated and most qualified talent. 
 
@@ -295,20 +297,7 @@ const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   
-  const isNearBottom = () => {
-    const container = messagesContainerRef.current;
-    if (!container) return false;
-    
-    const threshold = 100; // pixels from bottom
-    return container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
-  };
-
-  const scrollToBottom = () => {
-    if (isNearBottom()) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
+  
   const filteredQuestions = questions.filter((q): q is Question => !!q?.text);
   const {
     messages,
@@ -328,10 +317,12 @@ const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
       }
     },
   });
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
+  
+  useAutoScroll({
+    messagesEndRef,
+    messagesContainerRef,
+    dependencies: [messages]
+  });
   return (
     <div className="flex flex-col h-full">
       <div 
