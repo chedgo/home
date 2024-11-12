@@ -1,8 +1,7 @@
 import { questionSchema, PartialQuestion } from '@/types/Interviews';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
-import { mockData } from '@/app/interview-practice/page';
-import { mockQuestions } from '@/app/interview-practice/page';
+import mockData from '@/app/interview-practice/mockData.json';
 
 export function useGenerateQuestionList() {
   const { submit, isLoading, object } = useObject<PartialQuestion[]>({
@@ -31,7 +30,7 @@ export function useGenerateQuestionList() {
   return {
     fetchQuestionList,
     isLoading,
-    questions: mockData ? mockQuestions : object || [],
+    questions: mockData ? mockData.questions : object || [],
     isDoneLoading,
   };
 }
