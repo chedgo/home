@@ -17,6 +17,27 @@ export default function InterviewPractice() {
   const [resume, setResume] = useState(useMockData ? mockData.resume : '');
   const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
+  const [validationError, setValidationError] = useState<string | null>(null);
+
+  const handleGenerateQuestions = () => {
+    //this could be a lot more robust obviously
+    setValidationError(null);
+
+    if (!jobDescription.trim()) {
+      setValidationError('Please enter a job description');
+      return;
+    }
+    if (!companyProfile.trim()) {
+      setValidationError('Please enter company information');
+      return;
+    }
+    if (!resume.trim()) {
+      setValidationError('Please enter your resume');
+      return;
+    }
+
+    fetchQuestionList(jobDescription, companyProfile, resume);
+  };
 
   return interviewStarted ? (
     <div className="h-[calc(100vh-theme(spacing.16))] flex flex-col">
@@ -73,10 +94,13 @@ export default function InterviewPractice() {
           />
         </div>
       </div>
+      {validationError && (
+        <div className="text-red-500 mt-4">{validationError}</div>
+      )}
       <div
-        className={`border-2 border-primary text-primary mt-8 p-2 w-fit 
+        className={`border-2 border-primary text-primary mt-4 p-2 w-fit 
           ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-primary hover:text-white transition-colors'}`}
-        onClick={() => !isLoading && fetchQuestionList(jobDescription, companyProfile, resume)}
+        onClick={handleGenerateQuestions}
       >
         {isLoading ? 'Generating Questions...' : 'Generate Script'}
       </div>
