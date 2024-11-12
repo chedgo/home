@@ -214,8 +214,20 @@ Wesleyan University
 Bachelor's degree, Philosophy · (2007 - 2011)
 Page 4 of 4
 `;
-
-const mockData = true;
+export const mockQuestions = [
+  "Can you describe your experience with LLM-based tools and how you've applied them in your previous projects?",
+  "What strategies do you use for prompt engineering, and can you provide an example of a successful implementation?",
+  "How do you ensure that the software applications you develop meet user needs and business goals?",
+  "Can you explain your experience with conversational AI systems and how you've built them for multi-turn interactions?",
+  "What is your approach to testing and debugging software applications?",
+  "How do you stay updated with emerging technologies in AI and software development?",
+  "Can you discuss your experience with vector search and retrieval augmented generation (RAG) techniques?",
+  "What programming languages are you most comfortable with, and how have you used them in your past projects?",
+  "How do you prioritize tasks and manage your time when working on multiple projects?",
+  "Can you provide an example of a challenging problem you faced in software development and how you solved it?",
+  "How do you collaborate with product teams to ensure alignment on project scope?"
+];
+export const mockData = true;
 
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
@@ -228,6 +240,7 @@ export default function InterviewPractice() {
 
   const { fetchQuestionList, isLoading, questions, isDoneLoading } =
     useGenerateQuestionList();
+  console.log('🚀 ~ questions:', questions);
   return (
     <div className="text-primary pl-4 lg:pl-10 pr-8">
       {/* instructions at the top*/}
@@ -274,7 +287,9 @@ export default function InterviewPractice() {
         className={`border-2 border-primary text-primary mt-8 p-2 w-fit cursor-pointer ${
           isLoading ? 'opacity-50' : ''
         }`}
-        onClick={() => fetchQuestionList(jobDescription, companyProfile, resume)}
+        onClick={() =>
+          fetchQuestionList(jobDescription, companyProfile, resume)
+        }
       >
         Generate Script
       </div>
@@ -282,7 +297,11 @@ export default function InterviewPractice() {
       <div>
         <ol className="list-decimal pl-4 mt-4">
           {questions.map((question) => {
-            return <li key={question} className="mb-2">{question}</li>;
+            return (
+              <li key={question} className="mb-2">
+                {question}
+              </li>
+            );
           })}
         </ol>
       </div>
@@ -291,9 +310,9 @@ export default function InterviewPractice() {
         <div className="border-2 border-primary text-primary mt-8 p-2 w-fit">
           Launch Interview
         </div>
-        <div className="border-2 border-primary text-primary mt-8 p-2 w-fit">
+        {/* <div className="border-2 border-primary text-primary mt-8 p-2 w-fit">
           Regenerate Script
-        </div>
+        </div> */}
       </div>
       {/* interview will display structured data and give feedback as it goes*/}
       <div>interview will go here</div>

@@ -4,6 +4,8 @@ import {
 } from '@/types/Interviews';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
+import { mockData } from '@/app/interview-practice/page';
+import { mockQuestions } from '@/app/interview-practice/page';
 
 export function useGenerateQuestionList() {
   const { submit, isLoading, object } = useObject<{
@@ -34,7 +36,7 @@ export function useGenerateQuestionList() {
   return {
     fetchQuestionList,
     isLoading,
-    questions: object?.questions || [],
+    questions: mockData ? mockQuestions : object?.questions || [],
     isDoneLoading,
   };
 }
