@@ -219,36 +219,47 @@ Page 4 of 4
 export const mockQuestions = [
   {
     text: "Can you describe your experience with LLM-based tools and how you've applied them in your previous projects?",
+    assessment: 'This question is asking about the candidate\'s experience with LLM-based tools and their ability to apply them in previous projects. It is assessing their knowledge and skills in this area.',
   },
   {
     text: 'What strategies do you use for prompt engineering, and can you provide an example of a successful implementation?',
+    assessment: 'This question is assessing the candidate\'s knowledge and skills in prompt engineering. It is asking them to explain their strategies and provide an example of a successful implementation.',
   },
   {
     text: 'How do you ensure that the software applications you develop meet user needs and business goals?',
+    assessment: 'This question is assessing the candidate\'s ability to ensure that the software applications they develop meet user needs and business goals. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: "Can you explain your experience with conversational AI systems and how you've built them for multi-turn interactions?",
+    assessment: 'This question is assessing the candidate\'s experience with conversational AI systems and their ability to build them for multi-turn interactions. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: 'What is your approach to testing and debugging software applications?',
+    assessment: 'This question is assessing the candidate\'s approach to testing and debugging software applications. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: 'How do you stay updated with emerging technologies in AI and software development?',
+    assessment: 'This question is assessing the candidate\'s ability to stay updated with emerging technologies in AI and software development. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: 'Can you discuss your experience with vector search and retrieval augmented generation (RAG) techniques?',
+    assessment: 'This question is assessing the candidate\'s experience with vector search and retrieval augmented generation (RAG) techniques. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: 'What programming languages are you most comfortable with, and how have you used them in your past projects?',
+    assessment: 'This question is assessing the candidate\'s comfort level with different programming languages and their ability to use them in past projects. It is asking them to explain their comfort level and provide examples of how they have used them in previous projects.',
   },
   {
     text: 'How do you prioritize tasks and manage your time when working on multiple projects?',
+    assessment: 'This question is assessing the candidate\'s ability to prioritize tasks and manage their time when working on multiple projects. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
   {
     text: 'Can you provide an example of a challenging problem you faced in software development and how you solved it?',
+    assessment: 'This question is assessing the candidate\'s ability to solve challenging problems in software development. It is asking them to explain their strategies and provide examples of how they have solved challenging problems in previous projects.',
   },
   {
     text: 'How do you collaborate with product teams to ensure alignment on project scope?',
+    assessment: 'This question is assessing the candidate\'s ability to collaborate with product teams to ensure alignment on project scope. It is asking them to explain their strategies and provide examples of how they have achieved this in previous projects.',
   },
 ] as Question[];
 export const mockData = true;
@@ -380,14 +391,14 @@ export default function InterviewPractice() {
         </ol>
       </div>
       {/* button to launch a the interview simulator, or regenerate the script */}
-      <div className="flex gap-4">
+    {  <div className="flex gap-4">
         <div
           className="border-2 border-primary text-primary mt-8 p-2 w-fit"
           onClick={() => setInterviewStarted(true)}
         >
           Launch Interview
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
