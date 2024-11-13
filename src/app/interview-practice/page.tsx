@@ -14,8 +14,7 @@ interface ErrorResponse {
   suggestion?: string;
   flaggedContent?: string[];
 }
-
-export const useMockData = false;
+const useMockData = mockData.useMockData;
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
     useMockData ? mockData.jobDescription : ''
