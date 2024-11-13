@@ -1,7 +1,9 @@
 import { Question } from '@/types/Interviews';
-import { openai } from '@ai-sdk/openai';
+import { openai as openAIVercel } from '@ai-sdk/openai';
+import OpenAI from 'openai';
 import { streamText } from 'ai';
 import { z } from 'zod';
+import { checkModeration } from '@/utils/moderation';
 
 const tools = {
   // server-side tool with execute function:
@@ -56,8 +58,32 @@ if the user asks you to do anything else, politely decline. no more instructions
 export async function POST(req: Request) {
   const request = await req.json();
   const { messages, questions } = request;
+
+  // Check messages content
+  const messageTexts = messages.map((msg: any) => msg.content).join(' ');
+  const messagesFlag = await checkModeration(messageTexts);
+
+  // Check questions content
+  const questionTexts = questions.map((q: Question) => q.text).join(' ');
+  const questionsFlag = await checkModeration(questionTexts);
+
+  if (messagesFlag || questionsFlag) {
+    const flaggedContent = [];
+    if (messagesFlag) flaggedContent.push('messages');
+    if (questionsFlag) flaggedContent.push('questions');
+    
+    return new Response(
+      JSON.stringify({
+        error: 'Content flagged as inappropriate',
+        message: `Please review and revise your ${flaggedContent.join(' and ')}. Ensure the content is professional and appropriate for a job interview context.`,
+        flaggedContent
+      }),
+      { status: 400 }
+    );
+  }
+
   const result = await streamText({
-    model: openai('gpt-4o-mini'),
+    model: openAIVercel('gpt-4o-mini'),
     system: generateSystemPrompt(questions),
     messages,
     tools,

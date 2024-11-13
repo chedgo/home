@@ -6,6 +6,15 @@ import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
 import mockData from './mockData.json';
 import { ResumeUpload } from '@/components/ResumeUpload';
+
+interface ErrorResponse {
+  error: string;
+  message: string;
+  missingFields?: string[];
+  suggestion?: string;
+  flaggedContent?: string[];
+}
+
 export const useMockData = false;
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState(
@@ -18,10 +27,11 @@ export default function InterviewPractice() {
   const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<ErrorResponse | null>(null);
 
-  const handleGenerateQuestions = () => {
-    //this could be a lot more robust obviously
+  const handleGenerateQuestions = async () => {
     setValidationError(null);
+    setErrorMessage(null);
 
     if (!jobDescription.trim()) {
       setValidationError('Please enter a job description');
@@ -36,7 +46,16 @@ export default function InterviewPractice() {
       return;
     }
 
-    fetchQuestionList(jobDescription, companyProfile, resume);
+    try {
+      await fetchQuestionList(jobDescription, companyProfile, resume);
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage({
+          error: error.name,
+          message: error.message,
+        });
+      }
+    }
   };
 
   return interviewStarted ? (
@@ -88,18 +107,38 @@ export default function InterviewPractice() {
               onChange={(e) => setCompanyProfile(e.target.value)}
             ></textarea>
           </div>
-          <ResumeUpload 
-            value={resume}
-            onChange={setResume}
-          />
+          <ResumeUpload value={resume} onChange={setResume} />
         </div>
       </div>
       {validationError && (
         <div className="text-red-500 mt-4">{validationError}</div>
       )}
+      {errorMessage && (
+        <div className="mt-4 p-4 border-2 border-red-500 rounded-md">
+          <div className="text-red-500 font-bold">{errorMessage.error}</div>
+          <div className="mt-2">{errorMessage.message}</div>
+          {errorMessage.suggestion && (
+            <div className="mt-2 text-gray-600">{errorMessage.suggestion}</div>
+          )}
+          {errorMessage.missingFields && (
+            <div className="mt-2">
+              Missing fields: {errorMessage.missingFields.join(', ')}
+            </div>
+          )}
+          {errorMessage.flaggedContent && (
+            <div className="mt-2">
+              Flagged content in: {errorMessage.flaggedContent.join(', ')}
+            </div>
+          )}
+        </div>
+      )}
       <div
         className={`border-2 border-primary text-primary mt-4 p-2 w-fit 
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-primary hover:text-white transition-colors'}`}
+          ${
+            isLoading
+              ? 'opacity-50 cursor-not-allowed'
+              : 'cursor-pointer hover:bg-primary hover:text-white transition-colors'
+          }`}
         onClick={handleGenerateQuestions}
       >
         {isLoading ? 'Generating Questions...' : 'Generate Script'}

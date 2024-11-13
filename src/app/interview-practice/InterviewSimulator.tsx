@@ -51,17 +51,41 @@ interface InterviewSimulatorProps {
   questions: Question[];
 }
 
+interface ErrorResponse {
+  error: string;
+  message: string;
+  suggestion?: string;
+  flaggedContent?: string[];
+}
+
 export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const filteredQuestions = questions.filter((q): q is Question => !!q?.text);
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit: originalHandleSubmit,
+  } = useChat({
     keepLastMessageOnError: true,
     maxSteps: 1,
     api: '/api/chat',
     body: {
       questions: filteredQuestions,
+    },
+    onError: (error) => {
+      try {
+        const errorData = JSON.parse(error.message) as ErrorResponse;
+        setError(errorData);
+      } catch {
+        setError({
+          error: 'Error',
+          message: error.message,
+        });
+      }
     },
     async onToolCall({ toolCall }) {
       if (toolCall.toolName === 'provideFeedback') {
@@ -70,6 +94,11 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
     },
   });
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    await originalHandleSubmit(e);
+  };
 
   useAutoScroll({
     messagesEndRef,
@@ -89,12 +118,30 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
         <div ref={messagesEndRef} />
       </div>
 
+      {error && (
+        <div className="mx-4 p-4 border-2 border-red-500 rounded-md">
+          <div className="text-red-500 font-bold">{error.error}</div>
+          <div className="mt-2">{error.message}</div>
+          {error.suggestion && (
+            <div className="mt-2 text-gray-600">{error.suggestion}</div>
+          )}
+          {error.flaggedContent && (
+            <div className="mt-2">
+              Content flagged in: {error.flaggedContent.join(', ')}
+            </div>
+          )}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="p-4 border-t">
         <input
           className="w-full border-2 border-primary/50 focus:border-primary focus:outline-none p-2 rounded"
           name="prompt"
           value={input}
           onChange={handleInputChange}
+          placeholder={
+            error ? 'Please revise your message...' : 'Type your message...'
+          }
         />
         <button type="submit">Submit</button>
       </form>
