@@ -20,9 +20,7 @@ const tools = {
     }) => {
       //you would save to a database here
       console.log('server side call- evaluation:', evaluation, 'score:', score);
-      return {
-        result: 'Feedback saved successfully!',
-      };
+      return 'Feedback saved successfully!'
     },
   },
   provideFeedback: {
