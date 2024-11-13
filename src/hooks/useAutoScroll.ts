@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useCallback } from 'react';
 
 interface UseAutoScrollProps {
   messagesEndRef: RefObject<HTMLDivElement | null>;
@@ -11,23 +11,23 @@ export const useAutoScroll = ({
   messagesContainerRef, 
   dependencies = [] 
 }: UseAutoScrollProps) => {
-  const isNearBottom = () => {
+  const isNearBottom = useCallback(() => {
     const container = messagesContainerRef.current;
     if (!container) return false;
     
     const threshold = 100; // pixels from bottom
     return container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
-  };
+  }, [messagesContainerRef]);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     if (isNearBottom()) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, [isNearBottom, messagesEndRef]);
 
   useEffect(() => {
     scrollToBottom();
-  }, dependencies);
+  }, [scrollToBottom, ...dependencies]);
 
   return { scrollToBottom, isNearBottom };
 }; 
