@@ -79,7 +79,7 @@ export default function InterviewPractice() {
     </div>
   ) : (
     <div className="min-h-[calc(100vh-theme(spacing.16))] text-primary px-4 lg:px-10 py-8">
-      <div className="lg:w-2/3 lg:pt-44 text-primary ">
+      <div className="lg:w-2/3 text-primary ">
         <div className="mb-4 font-tenon">
           The purpose of this page is to simulate an interview session in order
           to practice for a first round interview for a tech industry job.
