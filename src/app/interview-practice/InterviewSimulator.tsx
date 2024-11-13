@@ -90,6 +90,10 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
     async onToolCall({ toolCall }) {
       if (toolCall.toolName === 'provideFeedback') {
         console.log('client side call- feedback:', toolCall);
+        return {
+          result: 'Feedback saved successfully!',
+          toolCallId: toolCall.toolCallId,
+        };
       }
     },
   });
