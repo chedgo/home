@@ -1,3 +1,4 @@
+import '@/utils/promisePolyfill';
 import { useState } from 'react';
 import pdfToText from 'react-pdftotext';
 
