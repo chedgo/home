@@ -160,6 +160,16 @@ export default function Page() {
               </Link>
               : A tool to generate short nonsense about colors
             </ListItem>
+            <ListItem>
+              <Link
+                className="text-primary font-bold underline hover:text-accent"
+                href={'/interview-practice'}
+              >
+                Interview Practice Tool
+              </Link>
+              : An LLM powered interview practice tool that coaches you through
+              a mock interview
+            </ListItem>
           </ul>
         </div>
       </div>
