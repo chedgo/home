@@ -160,7 +160,9 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
             error ? 'Please revise your message...' : 'Type your message...'
           }
         />
-        <button type="submit">Submit</button>
+        <button className="bg-primary text-white p-2 rounded mt-2" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

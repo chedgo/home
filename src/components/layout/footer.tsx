@@ -19,7 +19,7 @@ function ArrowIcon() {
 export default function Footer() {
   return (
     <footer className=" max-w-screen-2xl font-tenon mr-8">
-      <div className="font-sm mt-8 flex w-full text-primary ml-4 justify-end mr-4 gap-2">
+      <div className="font-sm mt-4 flex w-full text-primary ml-4 justify-end mr-4 gap-2">
         <div>
           <a
             className="flex items-center transition-all opacity-85 hover:opacity-100"
