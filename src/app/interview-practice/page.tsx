@@ -5,6 +5,7 @@ import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
 import { ResumeUpload } from '@/components/ResumeUpload';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface ErrorResponse {
   error: string;
@@ -17,7 +18,7 @@ interface ErrorResponse {
 export default function InterviewPractice() {
   const [jobDescription, setJobDescription] = useState('');
   const [companyProfile, setCompanyProfile] = useState('');
-  const [resume, setResume] = useState('');
+  const [resume, setResume] = useLocalStorage('resume', '');
   const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
   const [validationError, setValidationError] = useState<string | null>(null);
