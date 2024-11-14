@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useChat } from 'ai/react';
 import { Message as MessageType } from 'ai';
 import { Question } from '@/types/Interviews';
@@ -70,6 +70,8 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
     input,
     handleInputChange,
     handleSubmit: originalHandleSubmit,
+    reload,
+    isLoading,
   } = useChat({
     keepLastMessageOnError: true,
     maxSteps: 1,
@@ -98,6 +100,15 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
       }
     },
   });
+
+
+  useEffect(() => {
+    //if the last message is empty, we assume it was a function call, and we send a new call to the server.
+    if (messages[messages.length - 1]?.content === '' && !isLoading) {
+      console.log('reloading');
+      reload();
+    }
+  }, [messages, isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
