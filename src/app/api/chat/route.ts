@@ -1,6 +1,5 @@
 import { Question } from '@/types/Interviews';
 import { openai as openAIVercel } from '@ai-sdk/openai';
-import OpenAI from 'openai';
 import { streamText } from 'ai';
 import { z } from 'zod';
 import { checkModeration } from '@/utils/moderation';

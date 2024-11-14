@@ -113,7 +113,7 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    await originalHandleSubmit(e);
+    originalHandleSubmit(e);
   };
 
   useAutoScroll({

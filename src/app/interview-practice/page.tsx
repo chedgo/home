@@ -46,7 +46,7 @@ export default function InterviewPractice() {
     }
 
     try {
-      await fetchQuestionList(jobDescription, companyProfile, resume);
+      fetchQuestionList(jobDescription, companyProfile, resume);
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage({
