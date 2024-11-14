@@ -140,7 +140,7 @@ export default function InterviewPractice() {
           }`}
         onClick={handleGenerateQuestions}
       >
-        {isLoading ? 'Generating Questions...' : 'Generate Script'}
+        {isLoading ? 'Generating Questions...' : 'Generate Questions'}
       </div>
       {questions.length > 0 && (
         <div>
