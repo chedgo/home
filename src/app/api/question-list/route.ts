@@ -2,6 +2,7 @@ import { openai } from '@ai-sdk/openai';
 import { streamObject } from 'ai';
 import { questionSchema } from '@/types/Interviews';
 import { checkModeration } from '@/utils/moderation';
+import { z } from 'zod';
 
 export const runtime = 'edge';
 export const maxDuration = 30;
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
     const script = await streamObject({
       model: openai('gpt-4o-mini'),
       system: `You’re a professional job coach working with a client to prepare them for an interview.`,
-      schema: questionSchema,
+      schema: z.object({ questions: questionSchema.array() }),
       prompt: `Write a list of questions that the interviewer might use to conduct the interview.
        Aim for 10 questions ranging from general cultural questions to technical questions, especially
        focusing on the skills and experience outlined in the resume and job post. here are the job post,
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
        \`\`\`${jobPost}\`\`\`
        \`\`\`${companyProfile}\`\`\`
        \`\`\`${resume}\`\`\``,
-      maxTokens: 200,
+      maxTokens: 500,
       // onFinish({
       //   object
       // }) {
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
     });
     return script.toTextStreamResponse();
   } catch (error) {
+    console.error('Error generating questions:', error);
     return Response.json({ 
       error: 'Failed to get questions',
       message: 'An error occurred while generating interview questions. Please try again later or contact support if the problem persists.',

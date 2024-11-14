@@ -97,7 +97,7 @@ export default function InterviewPractice() {
           </div>
           <div>
             please paste in a profile of the company here, anything you can find
-            on the web will help:
+            will help:
           </div>
           <div>
             <textarea
