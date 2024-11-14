@@ -151,6 +151,7 @@ export const InterviewSimulator = ({ questions }: InterviewSimulatorProps) => {
 
       <form onSubmit={handleSubmit} className="p-4 border-t">
         <input
+          autoFocus
           className="w-full border-2 border-primary/50 focus:border-primary focus:outline-none p-2 rounded"
           name="prompt"
           value={input}
