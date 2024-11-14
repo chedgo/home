@@ -27,6 +27,14 @@ const FeedbackMessage = ({ feedback }: { feedback: string }) => {
     </div>
   );
 };
+const normalMessage = ({ message }: MessageProps) => {
+  return (
+    <div className="bg-primary text-white w-fit rounded-md p-4 mx-4 flex gap-2">
+      <div> {message.role === 'user' ? 'You: ' : 'AI: '}</div>
+      <div className="whitespace-pre-wrap -mt-6 pt-6">{message.content}</div>
+    </div>
+  );
+};  
 
 const Message = ({ message }: MessageProps) => {
   if (!message.content) return null;
@@ -40,14 +48,9 @@ const Message = ({ message }: MessageProps) => {
       />
     );
   }
-  return (
-    <div className="bg-primary text-white w-fit rounded-md p-4 mx-4 flex gap-2">
-      <div> {message.role === 'user' ? 'You: ' : 'AI: '}</div>
-      <div className="whitespace-pre-wrap -mt-6 pt-6">{message.content}</div>
-    </div>
-  );
+  return normalMessage({ message });
 };
-
+  
 interface InterviewSimulatorProps {
   questions: Question[];
 }

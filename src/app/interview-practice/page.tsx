@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useGenerateQuestionList } from '@/hooks/useGenerateQuestionList';
 import { InterviewSimulator } from './InterviewSimulator';
 import { Question } from '@/types/Interviews';
-import mockData from './mockData.json';
 import { ResumeUpload } from '@/components/ResumeUpload';
 
 interface ErrorResponse {
@@ -14,15 +13,11 @@ interface ErrorResponse {
   suggestion?: string;
   flaggedContent?: string[];
 }
-const useMockData = mockData.useMockData;
+
 export default function InterviewPractice() {
-  const [jobDescription, setJobDescription] = useState(
-    useMockData ? mockData.jobDescription : ''
-  );
-  const [companyProfile, setCompanyProfile] = useState(
-    useMockData ? mockData.companyProfile : ''
-  );
-  const [resume, setResume] = useState(useMockData ? mockData.resume : '');
+  const [jobDescription, setJobDescription] = useState('');
+  const [companyProfile, setCompanyProfile] = useState('');
+  const [resume, setResume] = useState('');
   const [interviewStarted, setInterviewStarted] = useState(false);
   const { fetchQuestionList, isLoading, questions } = useGenerateQuestionList();
   const [validationError, setValidationError] = useState<string | null>(null);

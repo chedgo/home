@@ -1,13 +1,12 @@
 import { questionSchema, PartialQuestion } from '@/types/Interviews';
 import { useCallback, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
-import mockData from '@/app/interview-practice/mockData.json';
 import { z } from 'zod';
 
-const useMockData = mockData.useMockData;
-
 export function useGenerateQuestionList() {
-  const { submit, isLoading, object } = useObject<{ questions: PartialQuestion[] }>({
+  const { submit, isLoading, object } = useObject<{
+    questions: PartialQuestion[];
+  }>({
     api: '/api/question-list',
     schema: z.object({ questions: questionSchema.array() }),
   });
@@ -33,7 +32,7 @@ export function useGenerateQuestionList() {
   return {
     fetchQuestionList,
     isLoading,
-    questions: useMockData ? mockData.questions : object?.questions || [],
+    questions: object?.questions || [],
     isDoneLoading,
   };
 }
