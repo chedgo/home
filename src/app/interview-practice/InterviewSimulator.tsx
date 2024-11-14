@@ -29,6 +29,7 @@ const FeedbackMessage = ({ feedback }: { feedback: string }) => {
 };
 
 const Message = ({ message }: MessageProps) => {
+  if (!message.content) return null;
   if (
     message.content === '' &&
     message.toolInvocations?.[0]?.toolName === 'provideFeedback'
