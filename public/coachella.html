@@ -198,7 +198,11 @@
         <h1>Coachella 2025 Live Schedule</h1>
         <div class="date-display" id="date-display"></div>
         <div class="time-display" id="time-display"></div>
-        <div style="margin-top: 10px; font-size: 1em;">Your time: Central (CDT) | Festival time: Pacific (PDT)</div>
+        <div style="margin-top: 10px; font-size: 1em;">
+            <span style="display: inline-block; background-color: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 4px;">
+                Times shown in your local timezone: <span id="user-timezone"></span>
+            </span>
+        </div>
     </header>
     
     <div class="day-tabs">
@@ -519,11 +523,31 @@
             }
         };
 
-        // Function to convert 24-hour format to 12-hour format
+        // Function to convert Pacific time to user's local time
+        function convertPacificToLocal(pacificTime24) {
+            const [hours, minutes] = pacificTime24.split(':').map(Number);
+            const pacificTimeInMinutes = hours * 60 + minutes;
+            
+            // Add the offset to convert from Pacific to local
+            const offsetMinutes = getOffsetFromPacific();
+            const localTimeInMinutes = pacificTimeInMinutes + offsetMinutes;
+            
+            // Handle day boundaries
+            const localHours = Math.floor(localTimeInMinutes / 60) % 24;
+            const localMinutes = localTimeInMinutes % 60;
+            
+            // Format as 24-hour time
+            return `${localHours < 10 ? '0' + localHours : localHours}:${localMinutes < 10 ? '0' + localMinutes : localMinutes}`;
+        }
+        
+        // Function to format time in 12-hour format
         function formatTime(time24) {
-            const [hours, minutes] = time24.split(':');
-            const period = hours >= 12 ? 'PM' : 'AM';
-            const hours12 = hours % 12 || 12;
+            // Convert Pacific time to local time first
+            const localTime24 = convertPacificToLocal(time24);
+            const [hours, minutes] = localTime24.split(':');
+            const hoursNum = parseInt(hours, 10);
+            const period = hoursNum >= 12 ? 'PM' : 'AM';
+            const hours12 = hoursNum % 12 || 12;
             return `${hours12}:${minutes} ${period}`;
         }
 
@@ -597,9 +621,31 @@
             }
         }
 
-        // Function to adjust time from Central to Pacific (subtract 2 hours)
-        function adjustToPacificTime(centralTimeInMinutes) {
-            return centralTimeInMinutes - 120; // 2 hours = 120 minutes
+        // Get the user's timezone abbreviation
+        function getUserTimezoneAbbr() {
+            const options = { timeZoneName: 'short' };
+            const timezone = new Intl.DateTimeFormat('en-US', options)
+                .formatToParts(new Date())
+                .find(part => part.type === 'timeZoneName').value;
+            return timezone;
+        }
+        
+        // Get the offset in minutes between user's local time and Pacific Time
+        function getOffsetFromPacific() {
+            // For Pacific Daylight Time (PDT), UTC-7
+            const pacificOffset = -420; // -7 hours * 60 minutes
+            
+            // Get the user's local time offset from UTC in minutes
+            const userOffset = new Date().getTimezoneOffset() * -1; // Convert to match our sign convention
+            
+            // Calculate difference (positive if user is ahead of Pacific)
+            return userOffset - pacificOffset;
+        }
+        
+        // Convert local time to Pacific time
+        function adjustToPacificTime(localTimeInMinutes) {
+            const offsetMinutes = getOffsetFromPacific();
+            return localTimeInMinutes - offsetMinutes;
         }
         
         // Function to collect all currently playing acts across all stages
@@ -716,9 +762,12 @@
                 minute: '2-digit'
             });
             document.getElementById('last-updated').textContent = now.toLocaleTimeString('en-US');
+            
+            // Display user's timezone
+            document.getElementById('user-timezone').textContent = getUserTimezoneAbbr();
         }
         
-        // Initialize the page
+        // Function to initialize the page
         function init() {
             // Set up day tabs
             const currentDay = getCurrentDay();
@@ -736,6 +785,9 @@
                     updateTimeBasedDisplay(day);
                 });
             });
+            
+            // Add timezone info to header
+            document.getElementById('user-timezone').textContent = getUserTimezoneAbbr();
             
             // Update displays
             updateDateTimeDisplay();
