@@ -32,10 +32,10 @@ export default function Page() {
   return (
     <div className="relative rounded-lg flex flex-col lg:flex-col max-w-screen-2xl lg:items-end">
       <div className="lg:w-1/3 z-10 lg:fixed left-0">
-        <h1 className="pb-8 pl-12 text-7xl pt-4 sm:pt-0 sm:text-8xl font-bold tracking-tighter text-primary font-tenon-extrabold bg-background">
+        {/* <h1 className="pb-8 pl-12 text-7xl pt-4 sm:pt-0 sm:text-8xl font-bold tracking-tighter text-primary font-tenon-extrabold bg-background">
           Diego <br />
           Glusberg
-        </h1>
+        </h1> */}
         <div className="w-full h-auto aspect-w-1 aspect-h-1">
           <Image
             src={'/diego.jpg'}
@@ -47,7 +47,7 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="lg:w-2/3 lg:pt-44 relative z-10">
+      {/* <div className="lg:w-2/3 lg:pt-44 relative z-10">
         <div className="mb-12 mt-10 lg:mt-10 text-primary font-dashiell-bright font-bold text-3xl pl-4 lg:pl-10 pr-8">
           I’m a Full-Stack Engineer specializing in building AI-powered
           Products.
@@ -170,9 +170,9 @@ export default function Page() {
               : An LLM powered interview practice tool that coaches you through
               a mock interview
             </ListItem>
-          </ul>
-        </div>
-      </div>
+          </ul> */}
+        {/* </div> */}
+      {/* </div> */}
     </div>
   );
 }
