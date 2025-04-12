@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coachella 2025 Live Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #6b3fa0;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .date-display {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .time-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .day-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .day-tab {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .day-tab.active {
+            background-color: #6b3fa0;
+            color: white;
+        }
+        
+        .time-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            background-color: #6b3fa0;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .now-playing .section-header {
+            background-color: #ff9900;
+        }
+        
+        .coming-up .section-header {
+            background-color: #4caf50;
+        }
+        
+        .acts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .act-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 5px solid #6b3fa0;
+            transition: transform 0.2s;
+        }
+        
+        .act-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .now-playing .act-card {
+            border-left-color: #ff9900;
+            background-color: #fff8e6;
+        }
+        
+        .coming-up .act-card {
+            border-left-color: #4caf50;
+            background-color: #f0fff0;
+        }
+        
+        .act-time {
+            font-weight: bold;
+            color: #6b3fa0;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        
+        .now-playing .act-time {
+            color: #ff9900;
+        }
+        
+        .coming-up .act-time {
+            color: #4caf50;
+        }
+        
+        .act-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .act-stage {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .time-label {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+            color: white;
+        }
+        
+        .time-remaining {
+            color: #ff9900;
+        }
+        
+        .start-time {
+            color: #4caf50;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .refresh-info {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .acts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Coachella 2025 Live Schedule</h1>
+        <div class="date-display" id="date-display"></div>
+        <div class="time-display" id="time-display"></div>
+        <div style="margin-top: 10px; font-size: 1em;">Your time: Central (CDT) | Festival time: Pacific (PDT)</div>
+    </header>
+    
+    <div class="day-tabs">
+        <button class="day-tab" data-day="friday">Friday</button>
+        <button class="day-tab" data-day="saturday">Saturday</button>
+        <button class="day-tab" data-day="sunday">Sunday</button>
+    </div>
+    
+    <div class="time-section now-playing">
+        <div class="section-header">NOW PLAYING</div>
+        <div class="acts-container" id="now-playing-container">
+            <!-- Current acts will be populated here -->
+        </div>
+    </div>
+    
+    <div class="time-section coming-up">
+        <div class="section-header">UP NEXT</div>
+        <div class="acts-container" id="coming-up-container">
+            <!-- Upcoming acts will be populated here -->
+        </div>
+    </div>
+    
+    <div class="refresh-info">
+        <p>Schedule updates automatically. Last updated: <span id="last-updated"></span></p>
+    </div>
+    
+    <footer>
+        <p>Coachella Valley Music and Arts Festival 2025</p>
+        <p>Data source: Time Out Los Angeles</p>
+    </footer>
+
+    <script>
+        // Schedule data from the scraped content
+        const schedule = {
+            friday: {
+                "Coachella Stage": [
+                    { name: "Gabe Real", startTime: "15:00", endTime: "16:00" },
+                    { name: "Thee Sacred Souls", startTime: "16:20", endTime: "17:10" },
+                    { name: "MARINA", startTime: "17:40", endTime: "18:30" },
+                    { name: "Benson Boone", startTime: "19:10", endTime: "20:05" },
+                    { name: "Missy Elliott", startTime: "21:00", endTime: "21:55" },
+                    { name: "Lady Gaga", startTime: "23:10", endTime: "00:40" }
+                ],
+                "Outdoor Theatre": [
+                    { name: "Tiffany Tyson", startTime: "14:50", endTime: "15:50" },
+                    { name: "Seun Kuti & Egypt 80", startTime: "16:05", endTime: "16:55" },
+                    { name: "The Go-Go's", startTime: "17:25", endTime: "18:15" },
+                    { name: "Tyla", startTime: "18:45", endTime: "19:30" },
+                    { name: "The Marías", startTime: "20:20", endTime: "21:20" },
+                    { name: "Parcels", startTime: "22:10", endTime: "23:40" }
+                ],
+                "Sonora": [
+                    { name: "Doom Dave", startTime: "13:00", endTime: "14:00" },
+                    { name: "Glixen", startTime: "14:00", endTime: "14:30" },
+                    { name: "vs self", startTime: "15:00", endTime: "15:30" },
+                    { name: "TOPS", startTime: "15:50", endTime: "16:30" },
+                    { name: "julie", startTime: "17:00", endTime: "17:40" },
+                    { name: "KNEECAP", startTime: "18:10", endTime: "19:00" },
+                    { name: "Los Mirlos", startTime: "19:30", endTime: "20:10" },
+                    { name: "SPEED", startTime: "20:40", endTime: "21:20" },
+                    { name: "HiTech", startTime: "22:00", endTime: "23:30" }
+                ],
+                "Gobi": [
+                    { name: "Saison.", startTime: "13:20", endTime: "14:05" },
+                    { name: "PARISI", startTime: "14:15", endTime: "15:05" },
+                    { name: "Maribou State", startTime: "15:30", endTime: "16:20" },
+                    { name: "4batz", startTime: "16:45", endTime: "17:25" },
+                    { name: "d4vd", startTime: "17:55", endTime: "18:35" },
+                    { name: "A. G. Cook", startTime: "19:00", endTime: "19:45" },
+                    { name: "Artemas", startTime: "20:15", endTime: "21:00" },
+                    { name: "CA7RIEL & Paco Amoroso", startTime: "21:30", endTime: "22:15" },
+                    { name: "Indo Warehouse", startTime: "22:40", endTime: "00:10" }
+                ],
+                "Mojave": [
+                    { name: "Sincerely, Manolo", startTime: "13:30", endTime: "14:20" },
+                    { name: "Ravyn Lenae", startTime: "14:35", endTime: "15:15" },
+                    { name: "SAINt JHN", startTime: "15:40", endTime: "16:20" },
+                    { name: "Lola Young", startTime: "16:50", endTime: "17:35" },
+                    { name: "Djo", startTime: "18:05", endTime: "18:50" },
+                    { name: "Eyedress", startTime: "19:20", endTime: "20:05" },
+                    { name: "Miike Snow", startTime: "20:35", endTime: "21:25" },
+                    { name: "The Prodigy", startTime: "22:05", endTime: "23:35" }
+                ],
+                "Sahara": [
+                    { name: "MASSIO", startTime: "13:45", endTime: "14:45" },
+                    { name: "Austin Millz", startTime: "14:55", endTime: "15:45" },
+                    { name: "Chris Lorenzo", startTime: "16:00", endTime: "17:00" },
+                    { name: "Three 6 Mafia", startTime: "17:15", endTime: "17:55" },
+                    { name: "Sara Landry", startTime: "18:10", endTime: "19:05" },
+                    { name: "LISA", startTime: "19:45", endTime: "20:40" },
+                    { name: "Yeat", startTime: "21:10", endTime: "21:55" },
+                    { name: "GoRilla", startTime: "22:25", endTime: "23:10" },
+                    { name: "Mustard", startTime: "23:50", endTime: "01:20" }
+                ],
+                "Yuma": [
+                    { name: "EREZ", startTime: "13:00", endTime: "13:45" },
+                    { name: "Coco & Breezy", startTime: "13:45", endTime: "14:45" },
+                    { name: "Moon Boots", startTime: "14:45", endTime: "15:45" },
+                    { name: "Shermanology", startTime: "15:45", endTime: "16:45" },
+                    { name: "Damian Lazarus", startTime: "16:45", endTime: "17:45" },
+                    { name: "Beltran", startTime: "17:45", endTime: "19:00" },
+                    { name: "Tinlicker", startTime: "19:00", endTime: "20:15" },
+                    { name: "Pete Tong b2b Ahmed Spins", startTime: "20:15", endTime: "21:45" },
+                    { name: "Chris Stussy", startTime: "21:45", endTime: "23:15" },
+                    { name: "Vintage Culture", startTime: "23:15", endTime: "01:15" }
+                ],
+                "Quasar": [
+                    { name: "Coco & Breezy x Kaleena Zanders", startTime: "17:00", endTime: "19:00" },
+                    { name: "The Martinez Brothers x Loco Dice", startTime: "19:00", endTime: "23:00" }
+                ],
+                "Heineken House": [
+                    { name: "Lovra", startTime: "14:00", endTime: "15:00" },
+                    { name: "Mexican Intitute of Sound", startTime: "15:00", endTime: "16:00" },
+                    { name: "Kilimanjaro", startTime: "16:00", endTime: "17:30" },
+                    { name: "Autograf", startTime: "17:30", endTime: "19:00" },
+                    { name: "The Pharcyde", startTime: "19:15", endTime: "20:30" },
+                    { name: "DJ Premier", startTime: "20:30", endTime: "22:00" }
+                ],
+                "Do LaB": [
+                    { name: "RM47", startTime: "13:00", endTime: "14:00" },
+                    { name: "MILUSHKA", startTime: "14:00", endTime: "15:00" },
+                    { name: "AQUTIE", startTime: "15:00", endTime: "16:00" },
+                    { name: "BAMBII", startTime: "16:00", endTime: "17:00" },
+                    { name: "Layla Benitez b2b Henri Bergmann", startTime: "17:00", endTime: "18:05" },
+                    { name: "Surprise", startTime: "18:05", endTime: "19:15" },
+                    { name: "DJ Pee .Wee (Anderson .Paak)", startTime: "19:15", endTime: "20:15" },
+                    { name: "Jyoty b2b Zack Fox", startTime: "20:15", endTime: "21:30" },
+                    { name: "ATRIP", startTime: "21:30", endTime: "22:40" },
+                    { name: "NOTION", startTime: "22:40", endTime: "23:50" },
+                    { name: "Surprise", startTime: "23:50", endTime: "01:00" }
+                ]
+            },
+            saturday: {
+                "Coachella Stage": [
+                    { name: "skrause", startTime: "14:45", endTime: "15:45" },
+                    { name: "Jimmy Eat World", startTime: "16:00", endTime: "16:50" },
+                    { name: "T-Pain", startTime: "17:25", endTime: "18:15" },
+                    { name: "Charli xcx", startTime: "19:15", endTime: "20:10" },
+                    { name: "Green Day", startTime: "21:05", endTime: "22:45" },
+                    { name: "Travis Scott", startTime: "23:40", endTime: "01:10" }
+                ],
+                "Outdoor Theatre": [
+                    { name: "Megatone", startTime: "14:45", endTime: "15:45" },
+                    { name: "Tink", startTime: "16:00", endTime: "16:35" },
+                    { name: "Japanese Breakfast", startTime: "17:05", endTime: "17:50" },
+                    { name: "Gustavo Dudamel & LA Phil", startTime: "18:25", endTime: "19:15" },
+                    { name: "Clairo", startTime: "20:15", endTime: "21:05" },
+                    { name: "Above & Beyond", startTime: "21:45", endTime: "22:45" },
+                    { name: "The Original Misfits", startTime: "23:20", endTime: "00:50" }
+                ],
+                "Sonora": [
+                    { name: "Triste Juventud x Tótem", startTime: "13:00", endTime: "13:50" },
+                    { name: "Prison Affair", startTime: "13:50", endTime: "14:20" },
+                    { name: "Together Pangea", startTime: "14:40", endTime: "15:20" },
+                    { name: "Judeline", startTime: "15:50", endTime: "16:30" },
+                    { name: "underscores", startTime: "17:00", endTime: "17:40" },
+                    { name: "Blonde Redhead", startTime: "18:10", endTime: "19:00" },
+                    { name: "VTSS", startTime: "20:30", endTime: "21:20" },
+                    { name: "El Malilla", startTime: "21:50", endTime: "23:20" }
+                ],
+                "Gobi": [
+                    { name: "Elusive", startTime: "13:30", endTime: "14:00" },
+                    { name: "Medium Build", startTime: "14:10", endTime: "14:50" },
+                    { name: "Glass Beams", startTime: "16:05", endTime: "16:50" },
+                    { name: "Viagra Boys", startTime: "17:15", endTime: "18:00" },
+                    { name: "2hollis", startTime: "18:30", endTime: "19:15" },
+                    { name: "Darkside", startTime: "20:20", endTime: "21:10" },
+                    { name: "Beth Gibbons", startTime: "21:40", endTime: "22:30" },
+                    { name: "Rawayana", startTime: "23:00", endTime: "00:30" }
+                ],
+                "Mojave": [
+                    { name: "Record Safari", startTime: "14:00", endTime: "14:50" },
+                    { name: "Weezer", startTime: "15:10", endTime: "15:55" },
+                    { name: "Yo Gabba Gabba!", startTime: "16:45", endTime: "17:30" },
+                    { name: "Sam Fender", startTime: "17:55", endTime: "18:40" },
+                    { name: "Ivan Cornejo", startTime: "19:15", endTime: "20:00" },
+                    { name: "Hanumankind", startTime: "20:25", endTime: "21:05" },
+                    { name: "horsegiirL", startTime: "21:45", endTime: "22:30" },
+                    { name: "The Dare", startTime: "23:00", endTime: "00:30" }
+                ],
+                "Sahara": [
+                    { name: "Talón", startTime: "13:50", endTime: "14:50" },
+                    { name: "salute", startTime: "15:05", endTime: "15:55" },
+                    { name: "Alok", startTime: "16:10", endTime: "17:05" },
+                    { name: "Disco Lines", startTime: "17:25", endTime: "18:25" },
+                    { name: "Shoreline Malia", startTime: "18:45", endTime: "19:30" },
+                    { name: "ENHYPEN", startTime: "20:35", endTime: "21:20" },
+                    { name: "Mau P", startTime: "21:50", endTime: "22:50" },
+                    { name: "Keinemusik", startTime: "23:30", endTime: "01:00" }
+                ],
+                "Yuma": [
+                    { name: "HAAi", startTime: "13:00", endTime: "14:00" },
+                    { name: "DJ Gigola", startTime: "14:00", endTime: "15:00" },
+                    { name: "Layton Giordani", startTime: "15:00", endTime: "16:15" },
+                    { name: "Klangkuenstler", startTime: "16:15", endTime: "17:30" },
+                    { name: "Indira Paganotto", startTime: "17:30", endTime: "18:45" },
+                    { name: "Infected Mushroom", startTime: "18:45", endTime: "20:00" },
+                    { name: "Mind Against b2b Massano", startTime: "20:00", endTime: "21:30" },
+                    { name: "Amelie Lens", startTime: "21:30", endTime: "23:00" },
+                    { name: "Eli Brown", startTime: "23:00", endTime: "01:00" }
+                ],
+                "Quasar": [
+                    { name: "Fcukers (DJ set) x HAAi", startTime: "18:00", endTime: "20:15" },
+                    { name: "Barry Can't Swim x 2manydjs x salute", startTime: "20:15", endTime: "00:15" }
+                ],
+                "Heineken House": [
+                    { name: "Miramar", startTime: "14:00", endTime: "16:00" },
+                    { name: "Zeemuffin", startTime: "16:00", endTime: "17:30" },
+                    { name: "Murda Beatz", startTime: "17:30", endTime: "18:30" },
+                    { name: "Southside (DJ set)", startTime: "18:30", endTime: "19:30" },
+                    { name: "Pusha T", startTime: "19:45", endTime: "20:45" },
+                    { name: "Qveen Herby", startTime: "21:00", endTime: "22:00" }
+                ],
+                "Do LaB": [
+                    { name: "Ladies of Leisure", startTime: "13:00", endTime: "14:00" },
+                    { name: "Kaleena Zanders", startTime: "14:00", endTime: "15:00" },
+                    { name: "Nooriyah", startTime: "15:00", endTime: "16:00" },
+                    { name: "Blu DeTiger (DJ set)", startTime: "16:00", endTime: "17:00" },
+                    { name: "ZULAN", startTime: "17:00", endTime: "18:00" },
+                    { name: "Trixie Mattel", startTime: "18:00", endTime: "19:00" },
+                    { name: "SOSA", startTime: "19:00", endTime: "20:15" },
+                    { name: "Kaz James", startTime: "20:15", endTime: "21:30" },
+                    { name: "Ship Wrek", startTime: "21:30", endTime: "22:45" },
+                    { name: "Surprise", startTime: "22:45", endTime: "00:00" },
+                    { name: "Surprise", startTime: "00:00", endTime: "01:00" }
+                ]
+            },
+            sunday: {
+                "Coachella Stage": [
+                    { name: "Jaqck Glam", startTime: "15:00", endTime: "15:55" },
+                    { name: "Shaboozey", startTime: "16:05", endTime: "16:50" },
+                    { name: "beabadoobee", startTime: "17:25", endTime: "18:15" },
+                    { name: "Junior H", startTime: "19:00", endTime: "19:50" },
+                    { name: "Megan Thee Stallion", startTime: "20:35", endTime: "21:25" },
+                    { name: "Post Malone", startTime: "22:25", endTime: "00:00" }
+                ],
+                "Outdoor Theatre": [
+                    { name: "MEUTE", startTime: "15:40", endTime: "16:30" },
+                    { name: "Keshi", startTime: "17:00", endTime: "17:45" },
+                    { name: "Still Woozy", startTime: "18:15", endTime: "19:00" },
+                    { name: "JENNIE", startTime: "19:45", endTime: "20:35" },
+                    { name: "Zedd", startTime: "21:10", endTime: "22:10" },
+                    { name: "Polo & Pan", startTime: "22:55", endTime: "00:25" }
+                ],
+                "Sonora": [
+                    { name: "Sin Rastro", startTime: "13:00", endTime: "14:00" },
+                    { name: "Kumo 99", startTime: "14:00", endTime: "14:30" },
+                    { name: "Bob Vylan", startTime: "15:00", endTime: "15:40" },
+                    { name: "Wisp", startTime: "16:10", endTime: "16:50" },
+                    { name: "SOFT PLAY", startTime: "17:20", endTime: "18:00" },
+                    { name: "Circle Jerks", startTime: "18:30", endTime: "19:10" },
+                    { name: "Ginger Root", startTime: "19:40", endTime: "20:35" },
+                    { name: "Snow Strippers", startTime: "21:05", endTime: "22:35" }
+                ],
+                "Gobi": [
+                    { name: "waveGroove", startTime: "13:30", endTime: "14:25" },
+                    { name: "Hope Tala", startTime: "14:40", endTime: "15:20" },
+                    { name: "The Beaches", startTime: "15:45", endTime: "16:30" },
+                    { name: "Amaarae", startTime: "17:00", endTime: "17:45" },
+                    { name: "Mohamed Ramadan", startTime: "18:20", endTime: "19:00" },
+                    { name: "BioXthaPlug", startTime: "19:25", endTime: "20:05" },
+                    { name: "Arca", startTime: "20:35", endTime: "21:25" },
+                    { name: "Amyl and the Sniffers", startTime: "21:55", endTime: "23:25" }
+                ],
+                "Mojave": [
+                    { name: "PENNYWILD", startTime: "13:45", endTime: "14:45" },
+                    { name: "Fcukers", startTime: "15:00", endTime: "15:40" },
+                    { name: "Muni Lona", startTime: "16:10", endTime: "16:55" },
+                    { name: "Jessie Murch", startTime: "17:25", endTime: "18:10" },
+                    { name: "Rema", startTime: "18:40", endTime: "19:25" },
+                    { name: "Basement Jaxx", startTime: "20:00", endTime: "20:50" },
+                    { name: "Kraftwerk", startTime: "21:25", endTime: "22:55" }
+                ],
+                "Sahara": [
+                    { name: "Tom Breu", startTime: "14:00", endTime: "15:30" },
+                    { name: "Interplanetary Criminal", startTime: "15:40", endTime: "16:40" },
+                    { name: "Ben Böhmer", startTime: "17:00", endTime: "17:45" },
+                    { name: "Sammy Virji", startTime: "18:00", endTime: "18:50" },
+                    { name: "Boris Brejcha", startTime: "19:00", endTime: "19:50" },
+                    { name: "Chase & Status", startTime: "20:10", endTime: "21:10" },
+                    { name: "Ty Dolla $ign", startTime: "21:35", endTime: "22:20" },
+                    { name: "XG", startTime: "22:55", endTime: "00:25" }
+                ],
+                "Yuma": [
+                    { name: "Yulia Niko", startTime: "13:00", endTime: "14:00" },
+                    { name: "AMÉMÉ", startTime: "14:00", endTime: "15:00" },
+                    { name: "DESIREE", startTime: "15:00", endTime: "16:30" },
+                    { name: "Tripolism", startTime: "16:30", endTime: "18:00" },
+                    { name: "Sparrow & Barbossa", startTime: "18:00", endTime: "19:30" },
+                    { name: "Dennis Cruz", startTime: "19:30", endTime: "21:00" },
+                    { name: "Francis Mercier", startTime: "21:00", endTime: "22:30" },
+                    { name: "Dixon b2b Jimi Jules", startTime: "22:30", endTime: "01:00" }
+                ],
+                "Quasar": [
+                    { name: "Odd Mob", startTime: "17:00", endTime: "19:00" },
+                    { name: "Tiësto", startTime: "19:00", endTime: "23:00" }
+                ],
+                "Heineken House": [
+                    { name: "Anatta", startTime: "14:00", endTime: "15:00" },
+                    { name: "Mojave Grey", startTime: "15:00", endTime: "16:00" },
+                    { name: "Wuki", startTime: "16:00", endTime: "17:30" },
+                    { name: "Badger", startTime: "17:30", endTime: "19:00" },
+                    { name: "Afrojack", startTime: "19:00", endTime: "20:30" },
+                    { name: "Digitalism", startTime: "20:30", endTime: "22:00" }
+                ],
+                "Do LaB": [
+                    { name: "Techno Tupac", startTime: "13:00", endTime: "14:00" },
+                    { name: "Annicka", startTime: "14:00", endTime: "15:00" },
+                    { name: "Swimming Paul", startTime: "15:00", endTime: "16:00" },
+                    { name: "Marsh", startTime: "16:00", endTime: "17:00" },
+                    { name: "Surprise", startTime: "17:00", endTime: "18:00" },
+                    { name: "Confidence Man (DJ set)", startTime: "18:00", endTime: "19:00" },
+                    { name: "Levity", startTime: "19:00", endTime: "20:15" },
+                    { name: "MK b2b Special Guest", startTime: "20:15", endTime: "21:30" },
+                    { name: "Rudim3ntal b2b Skepsis", startTime: "21:30", endTime: "22:45" },
+                    { name: "Surprise", startTime: "22:45", endTime: "00:00" }
+                ]
+            }
+        };
+
+        // Function to convert 24-hour format to 12-hour format
+        function formatTime(time24) {
+            const [hours, minutes] = time24.split(':');
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const hours12 = hours % 12 || 12;
+            return `${hours12}:${minutes} ${period}`;
+        }
+
+        // Function to parse time in 24-hour format to minutes
+        function parseTime(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        // Function to get the current day (Friday, Saturday, or Sunday)
+        function getCurrentDay() {
+            // Get local date in Central Time, but adjust for Pacific Time for Coachella
+            const today = new Date();
+            const day = today.getDay();
+            
+            // Check if we're at the actual Coachella weekend (April 11-13, 2025)
+            if (today.getFullYear() === 2025 && today.getMonth() === 3) {
+                if (today.getDate() === 11) return "friday";
+                if (today.getDate() === 12) return "saturday";
+                if (today.getDate() === 13) return "sunday";
+            }
+            
+            // For testing or outside the actual dates, use the current day if it's Fri-Sun
+            if (day === 5) return "friday";
+            if (day === 6) return "saturday";
+            if (day === 0) return "sunday";
+            
+            // Default to Friday for demo purposes
+            return "friday";
+        }
+
+        // Function to calculate time remaining for an act
+        function getTimeRemaining(endTime) {
+            const now = new Date();
+            const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+            const pacificTimeInMinutes = adjustToPacificTime(currentTimeInMinutes);
+            const endTimeInMinutes = parseTime(endTime);
+            
+            const remainingMinutes = endTimeInMinutes - pacificTimeInMinutes;
+            
+            if (remainingMinutes <= 0) return "Ending soon";
+            
+            const hours = Math.floor(remainingMinutes / 60);
+            const minutes = remainingMinutes % 60;
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m left`;
+            } else {
+                return `${minutes}m left`;
+            }
+        }
+
+        // Function to calculate time until start for an act
+        function getTimeUntilStart(startTime) {
+            const now = new Date();
+            const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+            const pacificTimeInMinutes = adjustToPacificTime(currentTimeInMinutes);
+            const startTimeInMinutes = parseTime(startTime);
+            
+            const minutesUntilStart = startTimeInMinutes - pacificTimeInMinutes;
+            
+            if (minutesUntilStart <= 0) return "Starting now";
+            
+            const hours = Math.floor(minutesUntilStart / 60);
+            const minutes = minutesUntilStart % 60;
+            
+            if (hours > 0) {
+                return `Starts in ${hours}h ${minutes}m`;
+            } else {
+                return `Starts in ${minutes}m`;
+            }
+        }
+
+        // Function to adjust time from Central to Pacific (subtract 2 hours)
+        function adjustToPacificTime(centralTimeInMinutes) {
+            return centralTimeInMinutes - 120; // 2 hours = 120 minutes
+        }
+        
+        // Function to collect all currently playing acts across all stages
+        function getCurrentlyPlayingActs(daySchedule, currentTimeInMinutes) {
+            // Convert Central Time to Pacific Time for comparison with schedule
+            const pacificTimeInMinutes = adjustToPacificTime(currentTimeInMinutes);
+            const nowPlaying = [];
+            
+            for (const stageName in daySchedule) {
+                for (const act of daySchedule[stageName]) {
+                    const startTime = parseTime(act.startTime);
+                    const endTime = parseTime(act.endTime);
+                    
+                    if (pacificTimeInMinutes >= startTime && pacificTimeInMinutes < endTime) {
+                        nowPlaying.push({
+                            ...act,
+                            stageName,
+                            timeRemaining: getTimeRemaining(act.endTime)
+                        });
+                    }
+                }
+            }
+            
+            return nowPlaying;
+        }
+
+        // Function to collect upcoming acts across all stages
+        function getUpcomingActs(daySchedule, currentTimeInMinutes, limit = 8) {
+            // Convert Central Time to Pacific Time for comparison with schedule
+            const pacificTimeInMinutes = adjustToPacificTime(currentTimeInMinutes);
+            const upcoming = [];
+            
+            for (const stageName in daySchedule) {
+                for (const act of daySchedule[stageName]) {
+                    const startTime = parseTime(act.startTime);
+                    
+                    if (startTime > pacificTimeInMinutes) {
+                        upcoming.push({
+                            ...act,
+                            stageName,
+                            startingSoon: getTimeUntilStart(act.startTime)
+                        });
+                    }
+                }
+            }
+            
+            // Sort by start time and take only the specified limit
+            return upcoming
+                .sort((a, b) => parseTime(a.startTime) - parseTime(b.startTime))
+                .slice(0, limit);
+        }
+
+        // Function to update the time-based displays
+        function updateTimeBasedDisplay(day) {
+            const now = new Date();
+            const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+            
+            const daySchedule = schedule[day];
+            const nowPlayingContainer = document.getElementById('now-playing-container');
+            const comingUpContainer = document.getElementById('coming-up-container');
+            
+            // Clear containers
+            nowPlayingContainer.innerHTML = '';
+            comingUpContainer.innerHTML = '';
+            
+            // Get all currently playing acts
+            const currentlyPlaying = getCurrentlyPlayingActs(daySchedule, currentTimeInMinutes);
+            
+            if (currentlyPlaying.length === 0) {
+                nowPlayingContainer.innerHTML = '<div class="empty-message">No acts currently playing</div>';
+            } else {
+                currentlyPlaying.forEach(act => {
+                    const actCard = document.createElement('div');
+                    actCard.className = 'act-card';
+                    actCard.innerHTML = `
+                        <div class="act-time">${formatTime(act.startTime)} - ${formatTime(act.endTime)} <span class="time-remaining">${act.timeRemaining}</span></div>
+                        <div class="act-name">${act.name}</div>
+                        <div class="act-stage">${act.stageName}</div>
+                    `;
+                    nowPlayingContainer.appendChild(actCard);
+                });
+            }
+            
+            // Get upcoming acts
+            const upcomingActs = getUpcomingActs(daySchedule, currentTimeInMinutes);
+            
+            if (upcomingActs.length === 0) {
+                comingUpContainer.innerHTML = '<div class="empty-message">No more acts scheduled for today</div>';
+            } else {
+                upcomingActs.forEach(act => {
+                    const actCard = document.createElement('div');
+                    actCard.className = 'act-card';
+                    actCard.innerHTML = `
+                        <div class="act-time">${formatTime(act.startTime)} - ${formatTime(act.endTime)} <span class="start-time">${act.startingSoon}</span></div>
+                        <div class="act-name">${act.name}</div>
+                        <div class="act-stage">${act.stageName}</div>
+                    `;
+                    comingUpContainer.appendChild(actCard);
+                });
+            }
+        }
+        
+        // Function to update date and time display
+        function updateDateTimeDisplay() {
+            const now = new Date();
+            document.getElementById('date-display').textContent = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.getElementById('time-display').textContent = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString('en-US');
+        }
+        
+        // Initialize the page
+        function init() {
+            // Set up day tabs
+            const currentDay = getCurrentDay();
+            const dayTabs = document.querySelectorAll('.day-tab');
+            
+            dayTabs.forEach(tab => {
+                const day = tab.getAttribute('data-day');
+                if (day === currentDay) {
+                    tab.classList.add('active');
+                }
+                
+                tab.addEventListener('click', () => {
+                    dayTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    updateTimeBasedDisplay(day);
+                });
+            });
+            
+            // Update displays
+            updateDateTimeDisplay();
+            updateTimeBasedDisplay(currentDay);
+            
+            // Set up automatic updates every minute
+            setInterval(() => {
+                updateDateTimeDisplay();
+                const activeDay = document.querySelector('.day-tab.active').getAttribute('data-day');
+                updateTimeBasedDisplay(activeDay);
+            }, 60000);
+        }
+        
+        // Run initialization when the page loads
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
